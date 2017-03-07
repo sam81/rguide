@@ -1,0 +1,31 @@
+
+#Sound Processing {#soundprocessing}
+
+
+##Libraries for Sound Analysis and Signal Processing
+
+
+####seewave
+
+The package `seewave` provides functions for analysing, manipulating, displaying, editing and synthesising time waves (particularly sound). This package processes time analysis (oscillograms and envelopes), spectral content, resonance quality factor, cross correlation and autocorrelation, zero-crossing, dominant frequency, 2D and 3D spectrograms.
+
+http://cran.r-project.org/src/contrib/Descriptions/seewave.html
+
+####sound
+Basic functions for dealing with wav files and sound samples.
+
+http://cran.r-project.org/src/contrib/Descriptions/sound.html
+
+
+####tuneR
+
+Collection of tools to analyse music, handling wave files, transcription.
+
+http://cran.r-project.org/src/contrib/Descriptions/tuneR.html
+
+####signal
+
+A set of generally Matlab/Octave-compatible signal processing functions. Includes filter generation utilities, filtering functions, re-sampling routines, and visualisation of filter models. It also includes interpolation functions and some Matlab compatibility functions.
+
+http://cran.r-project.org/src/contrib/Descriptions/signal.html
+

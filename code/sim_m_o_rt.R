@@ -1,0 +1,5 @@
+set.seed(733)
+man = rnorm(50, mean=300, 20)
+ocul = man - 100 + rnorm(50, 0, 20)
+dat = data.frame(man=man, ocul=ocul)
+write.table(dat, file="../datasets/m_o_rt.txt", col.names=T, row.names=F)

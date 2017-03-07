@@ -1,0 +1,7 @@
+identifier height weight species
+sa01       3.2    300    A
+sa02       2.6    246    A
+sa03       2.9    317    A
+sb01       2.4    229    B
+sb02       2.5    230    B
+sb03       2.4    245    B

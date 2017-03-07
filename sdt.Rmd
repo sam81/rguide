@@ -1,0 +1,97 @@
+
+#Signal Detection Theory {#sdt}
+
+\begin{figure}[!htbp]
+ \caption{}
+  \centering
+    \includegraphics[scale=.65]{images/sdt1}
+\label{fig:sdt1}
+\end{figure}
+
+The distance between the means of the two distributions, called $d'$, gives a measure of the subject's sensitivity. We'll show that $d'$  can be computed by subtracting the $z$ score of $P(FA)$ from the $z$ score of $P(H)$
+\begin{equation}
+  \label{eq:dprime}
+  d'=z_{P(H)}-z_{P(FA)}
+\end{equation}
+The criterion can be in one of three possible positions relative to the means of the $N$ and $S+N$ distributions:
+\begin{itemize}
+\item[a)] Between the means of the two distributions
+\item[b)] At the right of the $S+N$ distribution (strict criterion)
+\item[c)] At the left of the $N$ distribution (relaxed criterion)
+\end{itemize}
+In the case (a), illustrated in Figure~\ref{fig:sdt_case1},
+\begin{figure}[!htbp]
+ \caption{Calculating $d'$ case (a) criterion between the means of the two distributions}
+  \centering
+    \includegraphics[scale=.65]{images/sdt_case1}
+\label{fig:sdt_case1}
+\end{figure}
+ the points $A$ and $C$ are the $z$ points of the means of the two distributions respectively, and $B$ is the $z$ point of the criterion cut-off. The distance between the two means is equal to the length of the segment $AC$, and can be rewritten as the sum of the segments $AB$ and $BC$.
+ \begin{equation}
+   \label{eq:dprime_case1}
+   d'=AC=AB+BC
+ \end{equation}
+
+our task therefore is to find the length of the two segments $AB$ and $BC$. The value of the point $B$ is given by the $z$ point of the probability of a ``hit'', while for $C$, since it cuts the distributions in two halves, the value is the $z$ of $P(0.5)$. Therefore $BC$ can be obtained by the following subtraction:
+\[BC=z_{P(H)}-z_{P(0.5)}\]
+Following the same logic, but looking this time at the $N$ distribution, the  value of the point $B$ is given by $z$ value of probability of a ``false alarm'', while for $A$, since it cuts the distribution in two halves, it's again $z_{P(0.5)}$. The length of the segment $AB$ thus can be obtained through the following subtraction:
+\[AB=z_{P(0.5)}-z_{P(FA)}\]
+Following Equation~\ref{eq:dprime_case1} we can thus find $d'$ as 
+\[d'=z_{P(H)}-z_{P(0.5)}+z_{P(0.5)}-z_{P(FA)}=z_{P(H)}-z_{P(FA)}\]
+which is the same formula given in Equation~\ref{eq:dprime}.
+
+The case (b), of the criterion set above the mean of the $S+N$ distribution, is illustrated in Figure~\ref{fig:sdt_case1}.
+\begin{figure}[!htbp]
+ \caption{Calculating $d'$ case (b) criterion above the mean of the $S+N$ distribution}
+  \centering
+    \includegraphics[scale=.65]{images/sdt_case2}
+\label{fig:sdt_case2}
+\end{figure}
+In this case we want to find the distance $AB$, which is equal to:
+\[d'=AB=AC-BC\]
+Looking at the $S+N$ distribution, the segment $BC$ is given by:
+\[BC=z_{P(0.5)}-z_{P(H)}\]
+while looking at the $N$ distribution, the segment $AC$ is given by:
+\[AC=z_{P(0.5)}-z_{P(FA)}\]
+therefore
+\[d'=AC-BC=z_{P(0.5)}-z_{P(FA)}- z_{P(0.5)}+ z_{P(H)}= z_{P(H)}- z_{P(FA)}\]
+
+The last case (c), of the criterion set below the mean of the $N$ distribution, is illustrated in Figure~\ref{fig:sdt_case3}.
+\begin{figure}[!htbp]
+ \caption{Calculating $d'$ case (c) criterion below the mean of the $N$ distribution}
+  \centering
+    \includegraphics[scale=.65]{images/sdt_case3}
+\label{fig:sdt_case3}
+\end{figure}
+In this case we want to find the length of the segment $BC$
+\[d'=BC=AC-AB\]
+Looking at the $S+N$ distribution the segment $AC$ can be found as:
+\[AC=z_{P(H)}-z_{P(0.5)}\]
+while looking at the $N$ distribution, the segment $AB$ is given by:
+\[AB=z_{P(FA)}-z_{P(0.5)}\]
+therefore
+\[d'=AC-AB=z_{P(H)}-z_{P(0.5)}-z_{P(FA)}+z_{P(0.5)} = z_{P(H)}- z_{P(FA)}\]
+again as in the formula given by Equation~\ref{eq:dprime}.
+
+
+\subsection{Calculating $c$}
+\label{sec:sdt_c}
+
+The ``optimal'' criterion is achieved when the proportion of ``Hits'' equals the proportion of ``Correct Rejections'', in this case the participant is not increasing the number of ``hits'' at the expenses of the number of ``correct rejections'', and vice versa. This is achieved when the criterion is set at the intersection between the two distributions. Any deviation of the criterion in either side from this point reflects a response bias.
+
+The criterion $c$ therefore can be defined as the distance of the criterion adopted by the subject from the ``optimal criterion'', a value of $0$ for $c$ would indicate that the participant is following the ``optimal criterion'', a positive value would indicate a tendency to say ``Yes'' and a negative value, on the contrary, would reflect a conservative criterion. $c$ can be calculated as
+\begin{equation}
+  \label{eq:sdt_c}
+  c=-\frac{1}{2}(z_{P(H)}+z_{P(FA)})
+\end{equation}
+
+To prove that this formula gives the distance of the adopted criterion from the optimal one consider the Figure. The distance between the mean of the $S+N$ distribution and the optimal criterion is equal to half the value of $d'$, the distance between the adopted criterion and the mean of the $S+N$ distribution can be found as 
+\[z_{P(H)}-z_{P(0.5)}\]
+therefore $c$ can be calculated as
+\[c=\frac{d'}{2}-z_{P(H)}+z_{P(0.5)}\]
+substituting for the value of $d'$ from equation~\ref{eq:dprime}, and remembering that $z_{P(0.5)}$ equals zero, we get:
+\[c=\frac{z_{P(H)}-z_{P(FA)}}{2}-z_{P(H)}\]
+\[c=\frac{z_{P(H)}-z_{P(FA)}-2z_{P(H)}}{2}\]
+simplifying we get back to the formula given in Equation~\ref{eq:sdt_c}
+\[c=-\frac{1}{2}(z_{P(H)}+z_{P(FA)})\]
+

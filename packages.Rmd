@@ -1,0 +1,25 @@
+# (APPENDIX) Appendix {-} 
+
+#Partial List of Packages by Category
+
+
+##Graphics Packages
+
+- lattice http://cran.r-project.org/src/contrib/Descriptions/lattice.html
+- rgl http://cran.r-project.org/src/contrib/Descriptions/rgl.html
+- tkrplot http://cran.r-project.org/src/contrib/Descriptions/tkrplot.html
+- iplots http://cran.r-project.org/src/contrib/Descriptions/iplote.html
+- rpanel provides a set of functions to build simple GUI controls for R functions. These are built on the tcltk package. Uses could include changing a parameter on a graph by animating it with a slider or a "doublebutton", up to more sophisticated control panels. http://cran.r-project.org/src/contrib/Descriptions/rpanel.html
+
+
+
+##GUI Packages
+
+- Rcmdr
+
+http://cran.r-project.org/src/contrib/Descriptions/Rcmdr.html
+
+- JGR http://cran.r-project.org/src/contrib/Descriptions/JGR.html
+
+- pmg Simple GUI for R using gWidgets http://cran.r-project.org/src/contrib/Descriptions/pmg.html http://www.math.csi.cuny.edu/pmg}{http://www.math.csi.cuny.edu/pmg
+

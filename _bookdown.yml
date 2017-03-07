@@ -1,0 +1,31 @@
+new_session: yes
+
+rmd_files: [
+  "index.Rmd",
+  "preface.Rmd",
+  "intro.Rmd",
+  "data_manipulation.Rmd",		
+  "data.Rmd",
+  "descriptives.Rmd",
+  "graphics.Rmd",
+  "graphics_par.Rmd",
+  "trellis.Rmd",
+  "distributions.Rmd",
+  "hypotheses.Rmd",
+  "cor_reg.Rmd",
+  "anova.Rmd",
+  "mcomp.Rmd",
+  "programming.Rmd",
+  "customize.Rmd",
+  "ess.Rmd",
+  "sweave.Rmd",
+  "sound.Rmd",
+  "packages.Rmd",
+  "commands.Rmd",
+  "resources.Rmd",
+  "colors_table.Rmd"
+  
+]
+
+book_filename: rguide
+
