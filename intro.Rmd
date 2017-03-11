@@ -1,6 +1,6 @@
 # Installing R {#intro}
 
-The information provided in this section is quite generic and limited. For detailed information please refer to the "R Installation and Administration Manual" available at the CRAN website <https://cran.r-project.org>. CRAN stands for "Comprehensive R Archive Network", and is the main point of reference for the R software, where you can find R sources, binaries, documentation, and add-on packages.
+The information provided in this section is quite generic and limited. For detailed information please refer to the "R Installation and Administration Manual" available at the CRAN website https://cran.r-project.org. CRAN stands for "Comprehensive R Archive Network", and is the main point of reference for the R software, where you can find R sources, binaries, documentation, and add-on packages.
 
 ## Installing the Base Program
 
@@ -49,6 +49,9 @@ The R's GUI on Windows provides an interface to download and install the package
 
 This chapter will give a simple introduction to R, just to get familiar with it and get a general idea of how it works. This chapter assumes no previous knowledge of programming or anything similar. If you know other computer languages, or have even a basic knowledge of programming, getting started will be easy. If you don't, don't worry, R syntax is very elegant and simple, it might take a little while, but after looking at some examples, and importantly, trying them out yourself, you'll be up and running without problems. This tutorial deals only with learning to use R from the command line, if you'd rather use R with a GUI, that is, with a "point and click" interface, please have a look at Section \@ref(gui) for some information on how to get started.
 
+## Datasets
+
+This guide uses several datasets. If you want to follow the examples given in the guide you can download the datasets from this URL: http://samcarcagno.altervista.org/soft/rguide_datasets.zip
 
 ## Firing up and Quitting R
 
@@ -112,7 +115,7 @@ since the two objects we have created are both numeric we can also do
 foo + another_foo
 ```
 
-Let's look at something more interesting, we can create an object that stores a series of numbers, for example the money we have spent each day of a week, in Euros, we can do this using the `c` function, which concatenates a series of values in a \emph{vector}
+Let's look at something more interesting, we can create an object that stores a series of numbers, for example the money we have spent each day of a week, in Euros, we can do this using the `c` function, which concatenates a series of values in a *vector*
 ```{r}
 expenses = c(7,8,15,20,9,45,3)
 ```
@@ -296,3 +299,4 @@ It is also possible to execute R commands written in a file without starting an 
   $ R CMD BATCH myfile.R
 ```
 where `myfile.R` is the file you've written the R commands in.
+

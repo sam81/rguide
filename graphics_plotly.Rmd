@@ -1,0 +1,41 @@
+#Plotly {#plotly}
+
+```{r plotly1, message=FALSE, warning=FALSE, fig.cap="Plotly example"}
+library(plotly)
+x = rnorm(10); y=rnorm(10)
+plot_ly(x=x, y=y, type="scatter", mode="markers")
+```
+
+```{r plotly2}
+plot_ly(x=x, y=y, type="scatter", mode="markers",
+        marker=list(color="black" , size=15 , opacity=0.8))
+```
+
+##Using plotly with knitr
+
+Plotly figures are rendered directly in the html output with knitr:
+
+````markdown
+`r ''````{r chunk-label, fig.cap = 'A figure caption.'}
+plot_ly(economics, x = ~date, y = ~unemploy / pop)
+```
+````
+
+please note that if the plot is assigned to a variable you need to call that variable in the code chunk for the plot to be rendered:
+
+
+````markdown
+`r ''````{r chunk-label, fig.cap = 'A figure caption.'}
+p = plot_ly(economics, x = ~date, y = ~unemploy / pop)
+p #call the variable storing the plot to render it
+```
+````
+
+Plotly figures can also appear in pdf files generate by knitr if the `webshot` package is installed. Besides this package, you will also need to have PhantomJS (http://phantomjs.org/) installed on your system. You can install both `webshot` and PhantomJS from within R with the following commands:
+
+```{r eval=FALSE}
+install.packages("webshot")
+webshot::install_phantomjs()
+```
+
+

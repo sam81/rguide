@@ -1,7 +1,10 @@
 #Graphics
 
+There are four main graphics libraries that can be used in R. The first is the base graphics system that comes builtin with every R installation and will be described in this chapter. The other three main graphics libraries (`ggplot2`, `lattice`, and `plotly`), can be installed as additional packages. Each of these libraries provide a complete, independent system to generate graphics in R. Choosing one library over the other is mostly a matter of personal preference because pretty much any graphic that can be built with one library can also be built with the others. Some graphics are easier to build with one library than another and vice-versa. In recent years `ggplot2` has gained lots of popularity and `lattice` is less popular than it was some years ago. Despite the increasing popularity of `ggplot2` the base R graphics that are described in this chapter are still widely used. `plotly` is a recent entry and is somehow a special case because it is primarily designed to generate interactive graphics that can be displayed on html pages, while the other graphics libraries have very limited interactive functionality and are primarily designed to generate static high-quality graphics. `plotly` is special also because through the `ggplotly` function it can convert a `ggplot2` graph into an interactive `plotly` graphic.
 
-##Overview of R Graphics
+Because the base R graphics library is still widely used and (in my opinion) is somewhat simpler to use for beginners, I would recommend learning it first. The `ggplot2` library is described in chapter \@ref(ggplot2), the `lattice` graphics library is described in chapter \@ref(lattice), and the `plotly` library is described in chapter \@ref(plotly).
+
+##Overview of R base graphics functions
 
   Function
   --------
