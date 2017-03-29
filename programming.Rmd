@@ -1,5 +1,8 @@
-
 #R Programming {#programming}
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.width=6, fig.height=6)
+```
 
 ##Control Structures {#contrstruct}
 

@@ -1,5 +1,9 @@
 #Probability Distribution Functions
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.width=6, fig.height=6)
+```
+
 ##The Bernoulli distribution {#bernoulli}
 
 A random variable $X$ that takes a value of 0 or 1 depending on the result of an experiment 

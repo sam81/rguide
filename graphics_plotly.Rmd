@@ -1,5 +1,9 @@
 #Plotly {#plotly}
 
+The ["plotly for R"](https://cpsievert.github.io/plotly_book/) book [@Sievert2017] is the best introduction for
+learning plotly.
+
+
 ```{r plotly1, message=FALSE, warning=FALSE, fig.cap="Plotly example"}
 library(plotly)
 x = rnorm(10); y=rnorm(10)

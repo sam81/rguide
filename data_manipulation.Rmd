@@ -1,5 +1,9 @@
 # Data Types and Data Manipulation {#data_manip}
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.width=6, fig.height=6)
+```
+
 ##Vectors
 
 One of the simplest and among the most important data types in R is the vector, which can be numerical or containing strings of characters. A simple way to build a vector is through the `c` function, which concatenates a series of data, for example:

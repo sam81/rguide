@@ -15,4 +15,3 @@ always_allow_html: yes
 description: "A guide for the R programming language."
 ---
 
-

@@ -1,6 +1,10 @@
 
 ##Setting Graphics Parameters {#par}
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.width=6, fig.height=6)
+```
+
 Graphics parameters allow you to tweak many elements of a plot, such as the font for the labels, the symbols or line types to use and so on, see `?par` to get a full list and description of these parameters. Graphics parameters can be set and accessed with the function `par`, called without arguments, as `par`, it will give you a full list of the current defaults, if you want to query only one or a few parameters use:
 ```{r}
 par("lwd")          ## see current line width
@@ -522,7 +526,18 @@ The function `col2rgb` can be used to get the rgb values of a built-in colour fr
 col2rgb("lightslateblue")
 ```
 
+### Colour Opacity
 
+The `adjustcolor` function can be used to set the opacity of a color using the `alpha.f` argument:
+
+```{r coltransp, fig.cap="Colour opacity"}
+mycol = adjustcolor("skyblue", alpha.f=0.5) 
+x = rnorm(1000)
+y = rnorm(1000)
+plot(x,y, pch=21, bg=mycol, cex=2)
+```
+
+the `adjustcolor` function accepts a vector of colors as an argument, so you can change the transparency of several colours at
 
 
 ##Managing Graphic Devices

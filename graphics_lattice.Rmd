@@ -1,4 +1,8 @@
-#Lattice or Trellis Graphics {#lattice}
+#Lattice Graphics {#lattice}
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.width=6, fig.height=6)
+```
 
 The `lattice` package in R provides an alternative to the base graphics system, it is an implementation of the ideas developed and implemented by Rick Becker and Bill Cleveland in the Trellis graphics system for the S language. Trellis displays were developed as a framework to make it easy the display of the relationship between a dependent variable and multiple factors. 
 
@@ -180,17 +184,93 @@ print(bwplot(dats$lat~dats$congr|dats$acc,groups=dats$isi,
 
 ####Strip Labels
 
-The labels of the panels strips are the names of the levels of the conditioning factor variable. To change the labels just change the names for the factor levels:
-```{r eval=FALSE}
-levels(dats$acc)
-  [1] "e" "h"
-levels(dats$acc)[1]
-  [1] "e"
-levels(dats$acc)[1]<-'imprecise'
-levels(dats$acc)[2]<-'corrette'
-levels(dats$acc)
-  [1] "imprecise" "corrette" 
+The labels of the panels strips are the names of the levels of the conditioning factor variable. To change their labels you can pass the `factor.levels` argument to the `strip.custom` function:
+
+```{r strip1, fig.cap="Custom strip labels"}
+x = rnorm(20)
+y = rnorm(20)
+treat = factor(rep(c("A", "B"), each=10))
+xyplot(y~x|treat, strip=strip.custom(factor.levels=c("Group A", "Group B")))
 ```
+
+Alternatively, you change the names for the factor levels:
+```{r}
+levels(treat) = c("Group A", "Group B")
+```
+
+if you have more than one conditioning factor you can customize the strip labels for each by passing a custom strip function. `which.given` specifies the conditioning
+variable that the strip corresponds to:
+
+```{r strip2, fig.cap="Custom strip labels with two conditioning factors"}
+cnd = factor(rep(c("I", "II"), 10))
+
+customstrip = function(which.given, ..., factor.levels){
+    levs = if (which.given==1){
+        c("Group A", "Group B")
+    } else if  (which.given==2){
+        c("Cnd. I", "Cnd. II")
+    }
+    strip.default(which.given, ..., factor.levels = levs)
+}
+xyplot(y~x | treat + cnd, strip=customstrip, as.table=TRUE)
+```
+
+
+###Log axis with pretty tickmarks
+
+The procedure to get a log axis with pretty tickmarks in lattice is a bit involved. We'll only cover the log base 10 case here. The first step is to define a function that returns the tick locations:
+
+```{r}
+log10Ticks = function(lim, onlyMajor=FALSE){
+    minPow = floor(log10(lim[1]))
+    maxPow = ceiling(log10(lim[2]))
+    powSeq = seq(minPow, maxPow)
+    majTicks = 10^powSeq
+    minTicks = numeric()
+    for (i in 1:length(majTicks)){
+        bb = (1:10)/10;
+        minTicks = c(minTicks, (bb*10^powSeq[i]))
+    }
+    if (onlyMajor==TRUE){
+        axSeq = majTicks
+    } else {
+        axSeq = minTicks
+    }
+    axSeq = axSeq[lim[1] <= axSeq & axSeq <= lim[2]]
+    return(axSeq)
+}
+```
+
+by default the function returns both the major (e.g. 1, 10, 100, etc...) and the minor (e.g. 2,3,4,...20,30,40, etc...) tick locations, but return only the major tick locations if `onlyMajor=TRUE`.
+This function will be used by the `yscale.components.log10` function below. This function will be passed as the `yscale.components` argument in the `xyplot` call that generates the graph. The `yscale.components.log10` function will return a list specifying all parameters of the y axis. To simplify this process the function calls the `yscale.components.default` function to retrieve the default parameters, and then simply modifies some of these parameters to draw the pretty log axis:
+
+```{r}
+yscale.components.log10 = function(lim, ...){ #the function is automatically passed the limits of the panel as an argument
+    ans = yscale.components.default(lim = lim, ...) #retrieve default parameters
+    tick.at = log10Ticks(10^lim, onlyMajor=FALSE) #compute major and minor tick locations
+    tick.at.major = log10Ticks(10^lim, onlyMajor=TRUE) #compute major tick locations only
+    major = tick.at %in% tick.at.major #which are the major ticks?
+    ans$left$ticks$at = log10(tick.at) #where the ticks should be position
+    ans$left$ticks$tck = ifelse(major, 1.5, 0.75) #set tick length, depending on whether minor or major
+    ans$left$labels$at = log10(tick.at) #labels location
+    ans$left$labels$labels = as.character(tick.at) #set tick labels
+    ans$left$labels$labels[!major] = "" #set minor tick labels as empty
+    ans$left$labels$check.overlap = FALSE
+    return(ans)
+}
+```
+
+once the `yscale.components.log10` function is ready, we can use it in the call to `xyplot`, note that we also need to set the y scale to log10 in the `scales` argument:
+
+```{r fig.cap="log axis with pretty tickmarks"}
+x = c("cnd1", "cnd2")
+y = c(0.4, 80)
+dat = data.frame(x=x, y=y)
+xyplot(y~x, data=dat,
+       scales=list(y=list(log=10)),
+       yscale.components = yscale.components.log10)
+```
+
 
 
 
@@ -213,7 +293,7 @@ dotplot(error ~ length | group, groups=color,
         aspect=1, as.table=TRUE)
 ```
 
-however, since the data represent positive or negative displacements from  zero, it would be nice to add a horizontal line passing from zero. In order to have this, we will write a panel function that combines the `panel.dotplot` function with the `panel.abline` function that we'll use to add the horizontal line:
+however, since the data represent positive or negative displacements from  zero, it would be nice to add a horizontal line passing at zero. In order to have this, we will write a panel function that combines the `panel.dotplot` function with the `panel.abline` function that we'll use to add the horizontal line:
 
 ```{r}
 panel.hRefDotplot <- function(x, y, ref=NULL, ...){
@@ -232,4 +312,3 @@ dotplot(error ~ length | group, groups=color,
 ```
 
 notice the last line of the call, first we're telling `dotplot` to use our `hRefDotplot` function to do the plotting by specifying the `panel` argument, second we're specifying another argument, `ref` in the call, this is not a standard argument, but it will be automatically passed to our panel function to decide at which height to draw the horizontal line. The resulting plot can be visualised in Figure \@ref(fig:lmatchdotplotref).
-

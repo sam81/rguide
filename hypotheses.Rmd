@@ -1,5 +1,9 @@
 #Hypothesis Testing
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.width=6, fig.height=6)
+```
+
 ##$\chi^2$ test
 
 ###Testing Hypotheses about the Distribution of a Categorical Variable

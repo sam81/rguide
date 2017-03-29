@@ -1,5 +1,9 @@
 # Installing R {#intro}
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.width=6, fig.height=6)
+```
+
 The information provided in this section is quite generic and limited. For detailed information please refer to the "R Installation and Administration Manual" available at the CRAN website https://cran.r-project.org. CRAN stands for "Comprehensive R Archive Network", and is the main point of reference for the R software, where you can find R sources, binaries, documentation, and add-on packages.
 
 ## Installing the Base Program
