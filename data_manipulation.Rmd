@@ -357,25 +357,72 @@ dats[which(dats$n_beers>4),]  ## records for subjs who drink > 4 beers
 
 ##Factors {#factors}
 
-Data Vectors can be made not only of numerical values or of strings, but also *factors*. Factor vectors are very similar to character vectors, and could be seen as character vectors with some special properties. A factor vector usually consists of two or more levels, and can be created with the `factor` command. For example, suppose we are studying the drinking habits of 6 individuals, if one of the factors we are interested in is their sex, we can create a factor vector to encode it, if the first 3 are males and the other 3 females:
+Data Vectors can be made not only of numerical values or of strings, but also *factors*. Factor vectors are very similar to character vectors, and could be seen as character vectors with some special properties. A factor vector usually consists of two or more levels, and can be created with the `factor` function. For example, suppose we are studying the drinking habits of 6 individuals, and we have measured their alcohol consumption (in alcohol units) during a week:
+
+```{r}
+alcoholUnits = c(7, 2, 15, 10, 1, 4)
+```
+
+the first three individuals are males, and the last three females and we can encode this information using a `factor` vector:
+
 ```{r}
 sex = factor(c("m", "m", "m", "f", "f", "f"))
 sex
 ```
-as you can see a factor has a "levels" attribute that specifies the possible values the factor can assume, and by default it is given by the unique values the factor vector can assume, sorted in alphabetical order.
+as you can see a factor has a `levels` attribute that specifies the possible values the factor can assume, and by default it is given by the unique values the factor vector can assume, sorted in alphabetical order.
 
-In some cases, you might want to assign a label to each factor level. This is useful when you want to keep the level name short and simple, for ease of manipulation, but at the same time you would like to have it print nice labels in plots. When assigning a label it is best to also explicitly assign the factor levels in the same order, otherwise you might accidentally assign the wrong label to a given level:
-```{r{
-sex = factor(c("m", "m", "m", "f", "f", "f"),
-      levels=c("m", "f"), labels=c("male", "female"))
+One important side effect of the `levels` attribute is that the way factor levels are ordered determines the sorting order of statistical summaries and graphics. For example, if we use the `tapply` function to calculate the average alcohol units consumption by sex:
+
+```{r}
+tapply(alcoholUnits, list(sex), mean)
+```
+
+the results for females are shown before the results for males. If we want the results for males to be presented before the results for females we can specify this ordering when creating the factor:
+
+```{r}
+sex = factor(c("m", "m", "m", "f", "f", "f"), levels=c("m", "f"))
+tapply(alcoholUnits, list(sex), mean)
+```
+
+ordering the levels of a factor for display purposes should not be confused with the concept of an `ordered` factor.
+
+###Renaming the levels of a factor
+
+To rename the levels of a factor we can use the `labels` argument to the `factor` function. Suppose that we have a sex factor coded as 'f' for females and 'm' for males:
+
+```{r}
+sex = factor(c("m", "m", "m", "f", "f", "f"))
+```
+
+we can change the coding to 'Male' and 'Female' as follows:
+
+```{r}
+sex = factor(sex, levels=c("f", "m"), labels=c("Female", "Male"))
 sex
 ```
 
-In some cases it is also useful to set the factor as `ordered`, this might allow for example to have the levels of a factor plotted in a given order different from the alphabetical order
+alternatively we can also use the `levels` function:
 ```{r}
-sex = factor(c("m", "m", "m", "f", "f", "f"),
-      levels=c("m", "f"), labels=c("male", "female"),
-      ordered=TRUE)
+sex = factor(c("m", "m", "m", "f", "f", "f"))
+```
+
+currently the levels are `c('f', 'm')`:
+```{r}
+levels(sex) #this gets the current levels
+```
+
+we can change them with:
+
+```{r}
+levels(sex) = c("Female", "Male") #this sets the levels
+```
+
+we can also change just the name of one of the levels if we want to:
+
+```{r}
+sex = factor(c("m", "m", "m", "f", "f", "f")) #original factor
+levels(sex)[which(levels(sex) == "m")] = "Male"
+sex
 ```
 
 ###Creating Factors with `gl` {#gl}
@@ -390,6 +437,29 @@ the first argument to the function specifies the number of levels, and the secon
 sex = gl(2, 1, label=c("male", "female"), length=6)
 sex
 ```
+
+###Natural sort order for character and factor vectors
+
+It's common to assign identifiers to participants in an experiment as:
+```{r}
+ids = c("P1", "P2", "P3", "P4", "P5", "P6","P7", "P8", "P9", "P10", "P11")
+```
+
+when you use these identifiers for summarizing or plotting data as a function of participant id R will
+sort the output in strict alphabetical order, which is equivalent to the output of this function:
+```{r}
+sort(ids)
+```
+
+often what you want instead is a natural sort order, in which `P10` comes after `P9` and not after `P1`.
+To force R to use a natural sort order you can use a factor vector and sort the factor levels using the `mixedsort` function in the package `gtools`:
+```{r}
+library(gtools)
+fids = factor(ids, levels=mixedsort(levels(ids)))
+sort(fids)
+```
+
+
 
 ##Getting Info on R Objects
 
