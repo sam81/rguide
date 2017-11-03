@@ -1,6 +1,6 @@
 --- 
 title: "A R Guide"
-subtitle: "0.3.1"
+subtitle: "0.3.2"
 author: "Samuele Carcagno"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 site: bookdown::bookdown_site

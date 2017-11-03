@@ -62,8 +62,13 @@ Table: (\#tab:parcolours) Parameters for colours.
 
 Parameter   Function
 ---------   ------------------------------------------
-`family`    font family 
-`font`      type of font (plain, bold, italic etc...)
+`family`    font family (e.g. "sans", "serif", "mono")
+`font`      font type for text (1=plain, 2=bold, 3=italic etc...)
+`font.axis` font type for axis annotation (1=plain, 2=bold, 3=italic etc...)
+`font.lab`  font type for x and y labels (1=plain, 2=bold, 3=italic etc...)
+`font.main` font type for main titles (1=plain, 2=bold, 3=italic etc...)
+`font.sub`  font type for sub titles (1=plain, 2=bold, 3=italic etc...)
+`ps`        point size of text
 
 Table: (\#tab:parfonts) Parameters for fonts.
 
@@ -134,11 +139,11 @@ pch=5
 ```
 
 ```{r pch, echo=FALSE, fig.cap="Plotting symbols from 0 to 25"}
-op <- par(mar=c(1,1,4,1)+.1)
+op = par(mar=c(1,1,4,1)+.1)
  plot(0,0, xlim = c(1,5), ylim = c(-1.5,4), axes = F)
  for (i in 0:4) {
    for (j in 1:5) {
-     n <-  25 -(5*i+(5-j))
+     n =  25 -(5*i+(5-j))
      points(j, i, 
             pch = n-1, 
             cex = 3)
@@ -150,14 +155,85 @@ text(1, -1-.30, "25")
 par(op)
 ```
 
+###Fonts {#fonts}
+
+The interface for setting font parameters for plots in R is somehow complex and I have a limited knowledge of how it works. I nonetheless hope that the notes below can be of some use to other people.
+
+One of the reasons why setting font parameters can be confusing is that font parameters can be affected by several graphics parameters. For example the graphics parameter `ps` sets the point size of the font, but this size can be scaled by the `cex` parameter. Also font parameters can be set not only using the `par` interface, but directly when opening a graphics device, and these two ways of setting font parameters can have subtle differences. For example, the font point size can be set by using the `pointsize` argument when opening a `pdf` device:
+
+```{r, echo=FALSE, eval=FALSE}
+x = seq(0, 2*pi, 0.1)
+y = sin(x)
+pdf(file="test_plot.pdf", pointsize=24)
+plot(x, y, xlab="x-axis label", ylab="y-axis label", main="Sin(x)", type="b")
+dev.off()
+```
+
+this changes the size of both the font and the plotting symbols. The graphics parameter `ps`, however, changes only the size of the font:
+
+```{r, echo=FALSE, eval=FALSE}
+x = seq(0, 2*pi, 0.1)
+y = sin(x)
+pdf(file="test_plot.pdf", pointsize=12)
+plot(x, y, xlab="x-axis label", ylab="y-axis label", main="Sin(x)", type="b")
+dev.off()
+```
+
+the documentation for the graphics parameter `ps` also says that "unlike the pointsize argument of most devices, this does not change the relationship between `mar` and `mai` (nor `oma` and `omi`).". I'm not sure what this means, but just be aware setting `ps` with a call to `par` or setting `pointsize` when opening a graphics device are not equivalent. Also, note that if you set the font size when you open a graphics device, the setting may be overridden by subsequent calls to `par`:
+
+```{r, echo=FALSE, eval=FALSE}        
+pdf(file="test_plot.pdf", pointsize=12) #set font and symbol size in `pdf` call
+par(ps=24) #this overrides the `pointsize` setting for font (but not plotting symbols)
+plot(x, y, xlab="x-axis label", ylab="y-axis label", main="Sin(x)", type="b")
+dev.off()
+```
+
+`cex` also overrides the graphics device settings:
+
+```{r, echo=FALSE, eval=FALSE}        
+pdf(file="test_plot.pdf", pointsize=24) #set font and symbol size in `pdf` call to 24
+par(cex=0.5) #scale the `pointsize` by half, so now it is 12
+plot(x, y, xlab="x-axis label", ylab="y-axis label", main="Sin(x)", type="b")
+dev.off()
+```
+
+The `par` setting `family` can be used to choose a serif, sans serif, or mono font:
+
+```{r, echo=FALSE, fig.cap="Changing font family"}
+par(family="mono")
+plot(1:10, main="Mono font")
+    
+```	
+
+however, specifying the exact font used is more complicated. Probably the easiest way to do this is by using the `extrafont` package https://cran.r-project.org/web/packages/extrafont/README.html
+
+Changing the font style is easy using the `font` parameter, a value of 1 corresponds to a normal (or plain) style, 2 to bold, 3 to italics, 4 to bold italics, and 5 will map the font to a symbol:
+
+
+```{r, echo=FALSE, fig.cap="Changing font style"}
+x = seq(0, 2*pi, 0.1)
+y = sin(x)
+par(font=3)
+plot(x, y, xlab="x-axis label", ylab="y-axis label", main="Sin(x)", type="b")
+text(1, -0.5, "Some text in italics")
+```
+
+but note that setting `font` only changes the font style of plotted text. If you want to change the font style of other textual elements such as the axis labels or the plot title you have to set other graphics parameters:
+
+```{r, echo=FALSE, fig.cap="Changing font style for other textual elements"}
+par(font=3, font.axis=3, font.lab=3, font.main=4, font.sub=2)
+plot(x, y, xlab="x-axis label", ylab="y-axis label", main="Sin(x)", sub="subtitle", type="b")
+text(1, -0.5, "Some text in italics")
+```
+	
 ##Adding Elements to a Plot
 
 ###Adding a Legend {#legend}
 
 Some graphics functions by default add a legend to the graph (e.g. `interaction.plot`), or allow to add (or remove) a legend by setting an option inside the function (e.g. `barplot`). However the default settings for the legend, such as positioning, text or symbols, might not be suitable to your graph, in which case you need to turn off the default legend (if there is one), and add a customised legend with the `legend` function. Below there is an example of an interaction plot with the legend added through the `legend` function, the resulting graph is in Figure \@ref(fig:legend1)
 
-```{r legend1, fig.cap='Plot with "manually" added legend'}
-dats<-read.table('datasets/direrr_all.txt', header=T)
+                    ```{r legend1, fig.cap='Plot with "manually" added legend'}
+dats = read.table('datasets/direrr_all.txt', header=T)
 levels(dats$congr)[1]<-'c - congruent'
 levels(dats$congr)[2]<-'a - inc. goal-directed'
 levels(dats$congr)[3]<-'b - inc. no-goal-directed'
@@ -189,7 +265,7 @@ There are of course many other options, to get a full listing, please look up th
 
 You can insert text in a graph with the `text` function, you have just to specify the x and y coordinates of the point on which to center the text:
 ```{r eval=FALSE}
-plot(x,y)
+plot(x, y)
 text(x=3,y=1.5, "mean for control group")
 ```
 if you want to use LaTeX mathematical symbols, you have to use the `expression` function:
@@ -534,7 +610,7 @@ The `adjustcolor` function can be used to set the opacity of a color using the `
 mycol = adjustcolor("skyblue", alpha.f=0.5) 
 x = rnorm(1000)
 y = rnorm(1000)
-plot(x,y, pch=21, bg=mycol, cex=2)
+plot(x, y, pch=21, bg=mycol, cex=2)
 ```
 
 the `adjustcolor` function accepts a vector of colors as an argument, so you can change the transparency of several colours at
