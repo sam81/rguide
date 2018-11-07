@@ -73,7 +73,7 @@ To quit R type `quit()` or `q()`\footnote{On a Unix terminal you can also press 
 The first thing you can try, is doing some math, at the command prompt type `5+4` and press <kbd>Enter</kbd>, the result will be
 
 ```{r}
-5+4
+5 + 4
 ```
 
 

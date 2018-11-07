@@ -1,4 +1,4 @@
-#Full Colours Table 
+#Full Colours Table {#fullcoltable}
 
 ![](Figures/t1.png)
 

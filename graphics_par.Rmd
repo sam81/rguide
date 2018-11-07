@@ -232,11 +232,11 @@ text(1, -0.5, "Some text in italics")
 
 Some graphics functions by default add a legend to the graph (e.g. `interaction.plot`), or allow to add (or remove) a legend by setting an option inside the function (e.g. `barplot`). However the default settings for the legend, such as positioning, text or symbols, might not be suitable to your graph, in which case you need to turn off the default legend (if there is one), and add a customised legend with the `legend` function. Below there is an example of an interaction plot with the legend added through the `legend` function, the resulting graph is in Figure \@ref(fig:legend1)
 
-                    ```{r legend1, fig.cap='Plot with "manually" added legend'}
+```{r legend1, fig.cap='Plot with "manually" added legend'}
 dats = read.table('datasets/direrr_all.txt', header=T)
-levels(dats$congr)[1]<-'c - congruent'
-levels(dats$congr)[2]<-'a - inc. goal-directed'
-levels(dats$congr)[3]<-'b - inc. no-goal-directed'
+levels(dats$congr)[1] = 'c - congruent'
+levels(dats$congr)[2] = 'a - inc. goal-directed'
+levels(dats$congr)[3] = 'b - inc. no-goal-directed'
 interaction.plot(dats$SOA,dats$congr,dats$errors,
    ylab='Mean proportion of directional errors', xlab='SOA',
    type='b',pch=c(0,15,17),legend=FALSE) ## eliminate default legend
@@ -297,7 +297,7 @@ grid() ##add the grid
 The default colour for the grid is lightgray, you can choose another colour setting the `col` option:
 
 ```{r eval=FALSE}
-grid(col='red')
+grid(col="red")
 ```
 
 ###Setting the Axes {#axes}
@@ -325,7 +325,7 @@ the first argument specifies the side on which the axis should be drawn, 1 means
 
 ###mfrow and mfcol {mfrowmfcol}
 
-The parameters `mfrow` and `mfcol` allow you to divide the graphics device you're using (e.g.~`X11` or `pdf`) into multiple boxes, each box will contain a new figure. These parameters are set giving a vector of the form:
+The parameters `mfrow` and `mfcol` allow you to divide the graphics device you're using (e.g. `X11` or `pdf`) into multiple boxes, each box will contain a new figure. These parameters are set giving a vector of the form:
 
 ```{r eval=FALSE}
 par(mfrow=c(n_rows,n_columns))
@@ -587,7 +587,7 @@ knitr::include_graphics("graphics/grays_table.png")
 You can also specify colours in rgb values. By default R accepts values in the range 0-1, but you can change the range with the `max` option to set the range as 0-255. Please note that changing the range doesn't change the colours you can use, it just changes the values you use to specify them, so for example the following graphs will have the same colours:
 
 ```{r, eval=FALSE}
-vec <- c(3,6)
+vec = c(3,6)
 barplot (vec, col= c(rgb(0.176, 0.262, 0.49),
          rgb(0.568, 0.254 0.654)))
 barplot (vec, col= c(rgb(45,67,125, max=255),
