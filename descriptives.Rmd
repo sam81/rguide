@@ -1,12 +1,12 @@
-#Descriptive
+# Descriptive
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(fig.width=6, fig.height=6)
 ```
 
-##Tables
+## Tables
 
-##The `scale` Function
+## The `scale` Function
 
 The `scale` function can be used to easily transform your data into $z$ scores. Here's a silly example
 ```{r}

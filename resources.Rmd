@@ -1,4 +1,4 @@
-#Other Manuals and Sources of Information on R
+# Other Manuals and Sources of Information on R
 
 - R Project Homepage http://www.r-project.org/
 
@@ -24,13 +24,13 @@
 
 
 
-###In Italian
+### In Italian
 
 
-##Other useful statistics resources
+## Other useful statistics resources
 
 
-###In Italian
+### In Italian
 
 - Statistica univariata e bivariata parametrica e non-parametrica per le discipline ambientali e biologiche di Lamberto Soliani http://www.dsa.unipr.it/soliani/soliani.html
 

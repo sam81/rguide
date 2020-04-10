@@ -4,7 +4,7 @@
 knitr::opts_chunk$set(fig.width=6, fig.height=6)
 ```
 
-##Vectors
+## Vectors
 
 One of the simplest and among the most important data types in R is the vector, which can be numerical or containing strings of characters. A simple way to build a vector is through the `c` function, which concatenates a series of data, for example:
 ```{r}
@@ -45,7 +45,7 @@ length(colour)
 ```
 
 
-##Indexing Vectors
+## Indexing Vectors
 
 It is possible to access only subsets of data in a vector and also assign them to another vector. The most basic form of indexing is based on the position of the data in the vector. For example, to access only the datum in the third position of a vector called temperature, you would simply type:
 ```{r}
@@ -135,7 +135,7 @@ a = 1:10
 a
 ```
 
-###The `rep` function
+### The `rep` function
 You can use the `rep` function to create vectors which contain repetitions of the same elements. Let's start from the most simple use:
 ```{r}
 vector1 = rep(3, 13)
@@ -158,7 +158,7 @@ would yield the same effect.
 Even if it can look pretty useless at first, the `rep` function comes in very handy for example, when you want to transform the data in a table from "one row per subject", to "one row per observation", which is necessary for example to run a repeated measures ANOVA with the `aov` function. `rep` makes it all easier as you can create vectors in which the occurrence of the levels of a factor are repeated over and over.
 
 
-##Matrix Facilities
+## Matrix Facilities
 
 There are different ways for creating a matrix in R, you often start from a vector, and then transform it into a matrix with the `matrix` function:
 ```{r}
@@ -275,7 +275,7 @@ myList$vec2 = myList$vec2[-1]
 myList
 ```
 
-##Dataframes
+## Dataframes
 
 Dataframes are one of the most important objects in R. You can think of it as a rectangular data structure, in which each column stores either the values of a numeric variable, or the levels of a factor, and each row represents an observation. Let's look at an example, we'll build a dataframe from 3 vectors, the first vector stores a variable, number of beers drunk during a week for twelve young people, the second is a factor vector, that specifies for each person whether he/she is a university student or not, so it has two levels, the third is also a factor vector, which tells the sex of each person, so it has two levels as well.
 ```{r}
@@ -296,7 +296,7 @@ dats
 as we said, each row holds the data of a single observation, in this case it corresponds to the data of a subject, but as we'll see later, this is not always necessarily true. Each row gives a full specification for each observation, we know that the first subject drunk 6 beers, he's a student, and he's male, and we could tell the same data for the other subjects. Since we have all this information, we could now compare for example the number of beers drunk by male vs females, or by male students vs female students. There are special functions to compute these values quickly like `tapply` and `by` (see \@ref(tapply)), and other functions to get statistical tests, they will be dealt with as we go along.
 
 
-###Accessing Parts of a  Dataframe
+### Accessing Parts of a  Dataframe
 
 You can access, or refer to a column of a dataframe with the `$` operator, in the example above suppose we removed all the original variables after creating the dataframe
 ```{r}
@@ -311,7 +311,7 @@ we have to retrieve them from the dataframe
 mean(dats$n_beers)
 
 ```
-the example might seem artificial (why did I remove them in the first place?), but very often you read in the data directly as a dataframe with the `read.table` function (see sec.~\ref{sec:read.table}, so you'll have to access them from the dataframe. Another option is to use the function `attach`, which attaches the dataframe to the path that R searches when evaluating a variable, in this way you don't have to refer to the dataframe to access the values of a variable
+the example might seem artificial (why did I remove them in the first place?), but very often you read in the data directly as a dataframe with the `read.table` function (see sec.~\ref{read.table}, so you'll have to access them from the dataframe. Another option is to use the function `attach`, which attaches the dataframe to the path that R searches when evaluating a variable, in this way you don't have to refer to the dataframe to access the values of a variable
 ```{r}
 attach(dats)
 mean(n_beers)
@@ -341,7 +341,7 @@ names(dats) = c("brs", "occ", "sx")
 ```
 
 
-###Other Ways to Subset a Dataframe
+### Other Ways to Subset a Dataframe
 
 A dataframe actually is just a special kind of list (a list of class dataframe), so we can use the normal list notation to subset dataframes
 ```{r}
@@ -355,7 +355,7 @@ dats[1,] ## extract first row, all columns
 dats[which(dats$n_beers>4),]  ## records for subjs who drink > 4 beers
 ```
 
-##Factors {#factors}
+## Factors {#factors}
 
 Data Vectors can be made not only of numerical values or of strings, but also *factors*. Factor vectors are very similar to character vectors, and could be seen as character vectors with some special properties. A factor vector usually consists of two or more levels, and can be created with the `factor` function. For example, suppose we are studying the drinking habits of 6 individuals, and we have measured their alcohol consumption (in alcohol units) during a week:
 
@@ -425,7 +425,7 @@ levels(sex)[which(levels(sex) == "m")] = "Male"
 sex
 ```
 
-###Creating Factors with `gl` {#gl}
+### Creating Factors with `gl` {#gl}
 
 A handy function for creating factors for data with a regular pattern of factor levels is \verb+gl+
 ```{r}
@@ -438,7 +438,7 @@ sex = gl(2, 1, label=c("male", "female"), length=6)
 sex
 ```
 
-###Natural sort order for character and factor vectors
+### Natural sort order for character and factor vectors
 
 It's common to assign identifiers to participants in an experiment as:
 ```{r}
@@ -460,8 +460,7 @@ sort(fids)
 ```
 
 
-
-##Getting Info on R Objects
+## Getting Info on R Objects
 
 The most useful function to summarise information about many R object is `str`:
 ```{r}
@@ -478,7 +477,7 @@ mode(a)
 mode(b)
 ```
 
-##Changing the Format of Your Data
+## Changing the Format of Your Data
 
 In general statistical software require your data to be entered in a specific format in order to perform statistical analyses on them, and R is no exception. R provides many powerful functions to change the format of your data if they happen to be in a format that is not suitable for applying a given statistical function on them. The process of changing the format of your data with these functions might seem very complicated at first, however you should keep in mind the following things:
 
@@ -493,7 +492,7 @@ In general statistical software require your data to be entered in a specific fo
 
 This said, I would advice you to learn some of the functions that R provides to rearrange your data for at least two reasons: 1) They're very powerful and can actually save you time once you learn them, and 2) many examples in this tutorial and in other books use them, so you'll often need to know them to understand what's going on :)
 
-###The "One Row per Observation" Format
+### The "One Row per Observation" Format
 
 While statistic textbooks and scientific articles often show data in a format that is suitable and immediate for the "human eye", like the one shown in Table \@ref(tab:formath), statistical software often don't quite like it and would rather have the same data rearranged as shown in Table \@ref(tab:formatss).
 
@@ -606,7 +605,7 @@ Value  Drug Exposure  Word Type  Subject
 Table: (\#tab:repeatedr) Data Format Suitable for R, repeated measures design.
 
 
-###The `stack` and `unstack` functions {#stack}
+### The `stack` and `unstack` functions {#stack}
 
 One of the utilities provided by R to manipulate the format of your
 data is the `stack` function. If you have your data in a **dataframe**
@@ -711,7 +710,7 @@ On Windows you could try:
 fix(myvector, editor="notepad")
 ```
 
-#Visualising Your Data
+# Visualising Your Data
 
 As you probably have already noticed, after you've created a data object, just typing its name on the console and pressing `Enter` will display the values it contains. Sometimes however, you might want to see only part of the data, for example to do some checking, or because the data object is too big and it's not printed nicely on the console. The functions `head` and `tail` let you look only at the first or the last part of your data respectively. For example, suppose `dats` is a dataframe, the command:
 ```{r}

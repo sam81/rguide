@@ -142,7 +142,7 @@ long_vec = 1:100
 ```
 
 
-## Getting Help {#help}
+## Getting Help {#gettinghelp}
 
 
 R comes with an excellent online help facility which documents and gives examples for all available functions. There is also a web interface for the help system which is easier to use, you can start it with

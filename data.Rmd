@@ -1,12 +1,12 @@
-#File Input/Output {#IO}
+# File Input/Output {#IO}
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(fig.width=6, fig.height=6)
 ```
 
-##Reading In Data from a File
+## Reading In Data from a File
 
-###The `read.table` function {#read.table}
+### The `read.table` function {#read.table}
 
 If the data are in a table-like format, with each row corresponding to an observation or a single case, and each column to a variable, the most convenient function to load them in R is `read.table`. This function reads in the data file as a dataframe. For example the data in the data file `ratsData.txt` that contain information (height, weight, and species) of 6 rats can be easily read in with the following command:
 ```{r, eval=FALSE}

@@ -1,10 +1,10 @@
-#Probability Distribution Functions
+# Probability Distribution Functions
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(fig.width=6, fig.height=6)
 ```
 
-##The Bernoulli distribution {#bernoulli}
+## The Bernoulli distribution {#bernoulli}
 
 A random variable $X$ that takes a value of 0 or 1 depending on the result of an experiment 
 that can have only two possible outcomes, follows a Bernoulli distribution. If the probability
@@ -46,25 +46,25 @@ distribution as follows:
 rbinom(n=10, size=1, prob=0.7)
 ```
 
-##The binomial distribution {#binomial}
+## The binomial distribution {#binomial}
 
 
-##The normal distribution {#normal}
+## The normal distribution {#normal}
 
-####pnorm
+#### pnorm
 You can use the `pnorm` command to find out the probability value associated with a given z point in the normal distribution. For example:
 ```{r}
 pnorm(1.96)
 ```
 will give the value of the area under the normal distribution curve from $-\infty$ to $1.96$.
 
-####qnorm
+#### qnorm
 The `qnorm` command is the inverse of the `pnorm` command, in that it gives the z point associated with a given probability area under the normal curve. For example:
 ```{r}
 qnorm(0.975)
 ```
 
-####dnorm
+#### dnorm
 The `dnorm` function provides the density function for the normal distribution. Using the `dnorm` function we can for example make a nice plot of a normal distribution with mean equal to $0$ and a standard deviation of $1$ and colour its extreme right $0.05\%$ tail with the following code. The result is displayed in Figure \@ref(fig:norm)
 
 ```{r norm, fig.cap="The normal distribution"}

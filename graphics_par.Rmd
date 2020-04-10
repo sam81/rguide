@@ -1,5 +1,5 @@
 
-##Setting Graphics Parameters {#par}
+## Setting Graphics Parameters {#par}
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(fig.width=6, fig.height=6)
@@ -29,13 +29,13 @@ plot(d~e, type="p", pch=3)
 
 The following sections will give a more in depth explanation of some graphics parameters, before that however we'll have a closer look at how to use `par`.
 
-####Saving and Restoring Graphics Parameters
+#### Saving and Restoring Graphics Parameters
 
 Often you'll want to change the graphics parameters only for a few plots, and then reset them back to the defaults. The function `par` when used to change the value of some graphics parameters returns a list with the *old* values of the graphics parameters that have changed:
 
 ```{r, fig.show="hide"}
 par("lwd", "col") #these are the default parameters
-oldpar <- par(lwd=2, col="red") #while changing the parameters
+oldpar = par(lwd=2, col="red") #while changing the parameters
                                 #we store the old values in a list
 oldpar
 s <- seq(0, 10, .1) 
@@ -45,7 +45,7 @@ par(oldpar)              # and then we restore the old parameters
 
 notice that calling `par`, opens a graphics device if there is not one already open, the changes you do using `par` apply only to this graphics device, any other new graphic device that you open will have the default graphics parameters. 
 
-####List of Graphics Parameters by Category
+#### List of Graphics Parameters by Category
 
 Parameter   Function
 ---------   --------------------------
@@ -74,7 +74,7 @@ Table: (\#tab:parfonts) Parameters for fonts.
 
 
 
-###Line type with the `lty` parameter {#lty}
+### Line type with the `lty` parameter {#lty}
 
 
 There are six line types that you can call in R just with names or numbers (actually there are seven, the first one is "blank" or 0 which just draws nothing). These are listed in Table \@ref(tab:lty) and shown in Figure \@ref(fig:lty). There is a different, more complicated way for setting many more line types, please, consult the manual for further information on that.
@@ -120,7 +120,7 @@ text(5,1.2,'twodash')
 
 
 
-###Symbols with the `pch` parameter {#secpch}
+### Symbols with the `pch` parameter {#secpch}
 
 `pch` is a graphical parameter for changing the way points are plotted in certain graphical functions. This parameter can be set in two ways, the first one is to give a symbol to be plotted as a character, for example 
 ```{r}
@@ -155,7 +155,7 @@ text(1, -1-.30, "25")
 par(op)
 ```
 
-###Fonts {#fonts}
+### Fonts {#fonts}
 
 The interface for setting font parameters for plots in R is somehow complex and I have a limited knowledge of how it works. I nonetheless hope that the notes below can be of some use to other people.
 
@@ -205,7 +205,21 @@ plot(1:10, main="Mono font")
     
 ```	
 
-however, specifying the exact font used is more complicated. Probably the easiest way to do this is by using the `extrafont` package https://cran.r-project.org/web/packages/extrafont/README.html
+however, specifying the exact font used is more complicated. One way to do this is by using the `extrafont` package https://cran.r-project.org/web/packages/extrafont/README.html
+
+```{r}
+library(ggplot2)
+n=100
+dat=data.frame(x=rnorm(n), y=rnorm(n))
+p = ggplot(dat, aes(x=x, y=y)) + geom_point()
+p = p + xlab("X-Label") + ylab("Y-Label")
+p = p + theme(text=element_text(size=12, family="Ubuntu"))
+## NOT RUN
+##ggsave("cairo_pdf_graphic.pdf", p, width=3.4, height=3.4, device=cairo_pdf)
+```
+
+System fonts in pdf files can be used with the `cairo_pdf` device; this has the additional advantage of directly embedding the fonts in the pdf. For R base graphics you can invoke `cairo_pdf()` instead of `pdf()`. For `ggplot2`, when you invoke the `ggsave` function you can pass the argument `device=cairo_pdf` to use the `cairo_pdf` device.
+
 
 Changing the font style is easy using the `font` parameter, a value of 1 corresponds to a normal (or plain) style, 2 to bold, 3 to italics, 4 to bold italics, and 5 will map the font to a symbol:
 
@@ -226,9 +240,9 @@ plot(x, y, xlab="x-axis label", ylab="y-axis label", main="Sin(x)", sub="subtitl
 text(1, -0.5, "Some text in italics")
 ```
 	
-##Adding Elements to a Plot
+## Adding Elements to a Plot
 
-###Adding a Legend {#legend}
+### Adding a Legend {#legend}
 
 Some graphics functions by default add a legend to the graph (e.g. `interaction.plot`), or allow to add (or remove) a legend by setting an option inside the function (e.g. `barplot`). However the default settings for the legend, such as positioning, text or symbols, might not be suitable to your graph, in which case you need to turn off the default legend (if there is one), and add a customised legend with the `legend` function. Below there is an example of an interaction plot with the legend added through the `legend` function, the resulting graph is in Figure \@ref(fig:legend1)
 
@@ -261,7 +275,7 @@ In the above example we suppressed the drawing of a box around the legend settin
 There are of course many other options, to get a full listing, please look up the manual.
 
 
-###Adding Text
+### Adding Text
 
 You can insert text in a graph with the `text` function, you have just to specify the x and y coordinates of the point on which to center the text:
 ```{r eval=FALSE}
@@ -283,7 +297,7 @@ reLevText = expression(paste('Level ', italic('re.'), ' 1 ', mu, V^{2}, ' (dB)')
            
 
 
-###Adding a Grid {#addgrid}
+### Adding a Grid {#addgrid}
 
 
 A grid can be easily added to an existing plot with the function `grid`
@@ -300,7 +314,7 @@ The default colour for the grid is lightgray, you can choose another colour sett
 grid(col="red")
 ```
 
-###Setting the Axes {#axes}
+### Setting the Axes {#axes}
 
 
 If you don't like the way the axes are set for a given plot, you can draw the plot without them first, and then add customised axes with the `axis+ function. There are several ways to get rid of the default axes on a plot:
@@ -320,10 +334,10 @@ axis(1, at=seq(1, 10, 3), labels=as.character(seq(1, 10, 3)))
 
 the first argument specifies the side on which the axis should be drawn, 1 means the bottom axis, 2 the left axis, 3 the top axis, and 4 the right axis. See `?axis` for other arguments to the function.
 
-##Creating Layouts for Multiple Graphs {glayout}
+## Creating Layouts for Multiple Graphs {glayout}
 
 
-###mfrow and mfcol {mfrowmfcol}
+### mfrow and mfcol {mfrowmfcol}
 
 The parameters `mfrow` and `mfcol` allow you to divide the graphics device you're using (e.g. `X11` or `pdf`) into multiple boxes, each box will contain a new figure. These parameters are set giving a vector of the form:
 
@@ -366,7 +380,7 @@ par(mfg=c(2,1))   ##set next fig at 2dn row, 1st col
 plot(1:100, sin(1:100))
 ```
 
-###layout {#layout}
+### layout {#layout}
 
 A more flexible way to divide a graphics device into multiple plotting regions is given by the `layout` function. With the `layout` function, the graphics device is divided into a matrix of *n_rows x n_cols* sub-regions, and each figure is assigned to one or more of these sub-regions. Let's look at an example:
 
@@ -398,7 +412,7 @@ will make the first column 1/4 of the total width, and the second column the oth
 The command `layout.show(n)`, where `n` is the number of $n^{th}$ figure that is going to be plotted, will show the outline of its layout in the graphics window.
 
 
-##Graphics Device Regions and Coordinates
+## Graphics Device Regions and Coordinates
 
 In traditional R graphics the graphics device (e.g. the `X11` window where your plot and annotations appear) is divided into different regions (see Figure \@ref(fig:figureregion)):
 
@@ -503,7 +517,7 @@ Different units of measure can be used to specify the size of the areas inside a
 
 In the next paragraphs the graphics parameters for controlling the different regions inside the device will be explained. Always keep in mind the layout of a graphics device in R (see Figure \@ref(fig:figureregion) and  Figure \@ref(fig:figureregionsubplot)).
 
-####Figure Region
+#### Figure Region
 
 The figure region can be set either in inches or in normalised device coordinates. 
 
@@ -527,12 +541,12 @@ as shown in the example to change the figure region without starting a new plot 
 par(fin=c(5,5))
 ```
 
-####Plotting Region
+#### Plotting Region
 
 -  `plt`: a vector of the form `c(x1, x2, y1, y2)` giving the coordinates of the plot region as fractions of the current figure region
 - `pin`: the current plot dimensions, `(width,height)`, in inches
 
-####Margins
+#### Margins
 
 - `mar`: the width of the margins for the four sides of the plot, specified in terms of *lines of text*. The margins are specified in the form `c(bottom, left, top, right)`. The default is `c(5,4,4,2) + 0.1`. Example:
 ```{r eval=FALSE}
@@ -541,7 +555,7 @@ par(mar=c(6, 2, 3, 0) + 0.1) #set new margins size
 ```
 - `mai`: the same as `mar`, but the unit of measure is inches rather than lines of text
 
-####Outer Margins
+#### Outer Margins
 
 - `oma`: a vector of the form `c(bottom, left, top, right)` giving the size of the outer margins in lines of text
 - A vector of the form `c(bottom, left, top, right)` giving the size of the outer margins in inches
@@ -571,7 +585,7 @@ axis(side=2)
 `points` will draw points at the coordinates given in the `x` an `y` arguments. To complete this very minimal plot you need at least some axes. The `axis` function adds the axis, the `side` argument specifies where the axis should be drawn, 1 means at the "bottom", 2 at the "left" side, and so on in a clockwise fashion.
 
 
-##Colours for Graphics
+## Colours for Graphics
 
 The command `colours` gives a list of built-in colours available for graphics in R. You can see some of these colours in Figure \@ref(fig:color1). There are 101 built-in shades of gray, from `gray0`, that is almost black, to `gray100` that is almost white, you can see some of them in Figure \@ref(fig:gray). A complete table of built-in R colours is given in Appendix \@ref(fullcoltable).
 
@@ -616,9 +630,9 @@ plot(x, y, pch=21, bg=mycol, cex=2)
 the `adjustcolor` function accepts a vector of colors as an argument, so you can change the transparency of several colours at
 
 
-##Managing Graphic Devices
+## Managing Graphic Devices
 
-###Opening Another Graphics Window
+### Opening Another Graphics Window
 
 When you issue the command for a graph R opens a window to show it, if you afterwards issue another command for a graph, if the previous window is still open, R doesn't open another one, but rather replaces the old graph with the new one. If you wish to show the new graph in a separate window, you have to open the graphic device yourself, this is accomplished with the command `X11` under Unix and with the command `windows` under the Windows OS. The device window can also be closed from the command line with:
 
@@ -633,7 +647,7 @@ graphics.off()
 ```
 For further functions to manage multiple device windows see `?dev.set`.
 
-###Exporting Graphics
+### Exporting Graphics
 
 
 With R it's also possible to export your graphics in different file formats, such as JPEG or postscript files. To do this, you need to open first the graphics device you want to use, then insert the command for the graphic, and finally turn off the graphic device. Here's an example of how to produce a graphic in JPEG format: 

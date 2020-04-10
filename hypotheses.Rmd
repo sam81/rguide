@@ -1,12 +1,12 @@
-#Hypothesis Testing
+# Hypothesis Testing
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(fig.width=6, fig.height=6)
 ```
 
-##$\chi^2$ test
+## $\chi^2$ test
 
-###Testing Hypotheses about the Distribution of a Categorical Variable
+### Testing Hypotheses about the Distribution of a Categorical Variable
 
 You can use the $\chi^2$ test to verify hypotheses about the distribution of a categorical variable, for example you might want to know whether, as far as handedness is concerned, your experimental sample is representative of the general population and follows a distribution of $80\%$ right-handed, $15\%$ left-handed, and $5\%$ using both hands indifferently (fake data). The frequencies for your sample are given in Table \@ref(tab:hand)
 
@@ -23,7 +23,7 @@ chisq.test(x=c(93,18,2), p=c(0.8,0.15,0.05))
 you give the function a vector `x` with the frequencies for each category in your sample, and a vector `p` of the theoretical probability for each category, R returns the value of the $\chi^2$ statistics and its associated *p*-value. In our case the *p*-value indicates that the $\chi^2$ statistics is not significant, assuming $\alpha=0.05$, so we cannot reject the null hypothesis that the distribution for the handedness variable in our sample differs from that of the general population.
 
 
-####Testing Hypotheses about the Association between Two Categorical Variables
+#### Testing Hypotheses about the Association between Two Categorical Variables
 
 The $\chi^2$ test can also be used to verify a possible association between two categorical variables, for example sex and cosmetic products usage (classified as "high", "medium" or "low"). In this case the data are best summarised by a contingency table as Table \@ref(tab:cosmetic) which presents the data on cosmetic usage for a sample of $44$ males and $67$ females.
 
@@ -84,9 +84,9 @@ chisq.test(tabdats)
 the $\chi^2$ statistics is highly significant, so there clearly is an association between hair and eyes colour.
 
 
-##Student's *t* test
+## Student's *t* test
 
-###One sample *t*-test
+### One sample *t*-test
 
 
 To test if a group's mean is different from a given population's mean ($\mu$), you can run a simple t-test in R. The syntax is as follows:
@@ -111,7 +111,7 @@ where `gr1` is the vector containing the data of the group, and mu is an optiona
 - `conf.level` = 0.95 [Default] or another value. This option sets the confidence level for the estimation of the confidence interval.
 
 
-###Two samples t-test
+### Two samples t-test
 
 With R you can easily run a t test to find out whether the difference between the means of two groups is significant. The syntax is as follows: 
 ```{r eval=FALSE}

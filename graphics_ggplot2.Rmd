@@ -1,4 +1,4 @@
-#ggplot2 {#ggplot2}
+# ggplot2 {#ggplot2}
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(fig.width=6, fig.height=6)
@@ -26,7 +26,7 @@ and load it with:
 library(ggplot2)
 ```
 
-###Log axis with pretty tickmarks
+### Log axis with pretty tickmarks
 
 ```{r fig.cap="log axis with pretty tickmarks"}
 x = c("cnd1", "cnd2")

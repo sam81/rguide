@@ -1,4 +1,4 @@
-#Correlation and Regression
+# Correlation and Regression
 
 Let's imagine we want to see if there is a correlation between a manual and an oculomotor reaction time (RT) task. The manual RT task requires to press one of two buttons depending on the colour assumed by the fixation point after a variable delay. The oculomotor RT task requires to make a saccade towards the right or the left depending on the colour taken by the fixation point. The mean RTs in milliseconds, for 37 subjects are in the file `m_o_rt.txt`. We read in the data, and then calculate the correlation for the sample:
 ```{r}
@@ -13,7 +13,7 @@ cor.test(dats$man,dats$ocul)
 the *p*-value tells us that we can extend our finding in the population, so people with a quick hand would also have a quick eye.
 
 
-##Linear Regression
+## Linear Regression
 
 Regression models are expressed in R with a symbolic syntax that is clean and convenient. If you have a dependent variable `rts` and you want to check the influence of an independent variable `age` on it, this would be expressed as:
 ```{r, eval=FALSE}

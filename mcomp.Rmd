@@ -1,4 +1,4 @@
-#How to Adjust the p-values for Multiple Comparisons
+# How to Adjust the p-values for Multiple Comparisons
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(fig.width=6, fig.height=6)
@@ -6,7 +6,7 @@ knitr::opts_chunk$set(fig.width=6, fig.height=6)
 
 The base R program comes with a number of functions to perform multiple comparisons. Here by "multiple comparisons" I mean both post-hoc, and planned comparisons procedures. Not all the possible procedures are available, and some of them might not be applicable to the object resulting from the specific analysis you're doing. Additional packages might cover your specific needs.
 
-####The `p.adjust` function
+#### The `p.adjust` function
 
 The function `p.adjust` comes with  the base R program, in the package package stats, so you don't need to install anything else on your machine apart from R to get it. This function takes a vector of p-values as an argument, and returns a vector of adjusted p-values according to one of the following methods:
 
@@ -22,7 +22,7 @@ The function `p.adjust` comes with  the base R program, in the package package s
 So, if for example you've run 3 *t*-test after a one-way ANOVA with 3 groups, to compare each mean group's mean with the others, and you want to correct the resulting *p*-values with the Bonferroni procedure, you can use `p.adjust` as follows:
 
 ```{r}
-ps <- c(0.001,0.0092,0.037) #p values from the t-tests
+ps <- c(0.001, 0.0092, 0.037) #p values from the t-tests
 p.adjust(ps, method="bonferroni")
 ```
 
@@ -33,7 +33,7 @@ You can use any of the procedures listed above, instead of the Bonferroni proced
 The method `none` returns the p-values without any adjustment.
 
 
-####The `mt.rawp2adjp` function
+#### The `mt.rawp2adjp` function
 
 The package multtest contains a function very similar to `p.adjust`, and offers some other correction methods.
 ```{r message=FALSE}

@@ -1,5 +1,5 @@
 
-#Signal Detection Theory {#sdt}
+# Signal Detection Theory {#sdt}
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(fig.width=6, fig.height=6)
