@@ -1,4 +1,4 @@
-#Plotly {#plotly}
+# Plotly {#plotly}
 
 The ["plotly for R"](https://cpsievert.github.io/plotly_book/) book [@Sievert2017] is the best introduction for
 learning plotly.
@@ -15,7 +15,7 @@ plot_ly(x=x, y=y, type="scatter", mode="markers",
         marker=list(color="black" , size=15 , opacity=0.8))
 ```
 
-##Using plotly with knitr
+## Using plotly with knitr
 
 Plotly figures are rendered directly in the html output with knitr:
 

@@ -12,6 +12,7 @@ rmd_files: [
   "graphics_ggplot2.Rmd",
   "graphics_plotly.Rmd",
   "graphics_lattice.Rmd",
+  "graphics_labels_and_text.Rmd",
   "distributions.Rmd",
   "hypotheses.Rmd",
   "cor_reg.Rmd",
