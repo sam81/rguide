@@ -1,10 +1,3 @@
-# Graphics labels and text
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(fig.width=6, fig.height=6)
-library(ggplot2)
-```
-
 ## Mathematical expressions and variables
 
 It is possible to use mathematical symbols in plot labels and text. The base system for providing math symbols in plot annotations has been described by @MurrellAndIhaka2000, which is a recommended reading. An overview of the system with a comprehensive list of all the symbols can be obtained with `?plotmath`. I don't find the system particularly intuitive, and can't claim to fully understand its inner workings, but I'll nevertheless attempt to explain in rough terms how it works.

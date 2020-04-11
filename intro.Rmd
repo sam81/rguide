@@ -55,7 +55,7 @@ This chapter will give a simple introduction to R, just to get familiar with it 
 
 ## Datasets
 
-This guide uses several datasets. If you want to follow the examples given in the guide you can download the datasets from this URL: http://samcarcagno.altervista.org/soft/rguide_datasets.zip
+This guide uses several datasets. If you want to follow the examples given in the guide you can download the datasets from this URL: https://sam81.github.io/r_guide_bookdown/rguide_datasets.zip
 
 ## Firing up and Quitting R
 

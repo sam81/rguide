@@ -1,7 +1,7 @@
 # ggplot2 {#ggplot2}
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(fig.width=6, fig.height=6)
+knitr::opts_chunk$set(fig.width=3.4, fig.height=3.4)
 ```
 
 The book "ggplot2. Elegant graphics for data analysis" [@Wickham2009] is the best
