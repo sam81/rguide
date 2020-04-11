@@ -5,12 +5,13 @@ author: "Samuele Carcagno"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
-documentclass: book
+documentclass: memoir
+classoption: twoside
+fontsize: 12pt
 bibliography: [r.bib]
-biblio-style: apalike
 link-citations: yes
 github-repo: sam81/rguide
-geometry: margin=4cm
+geometry: false
 always_allow_html: yes
 description: "A guide for the R programming language."
 ---

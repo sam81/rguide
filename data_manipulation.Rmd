@@ -118,7 +118,7 @@ temperature["Tony"]
 
 
 
-###The `seq` Function
+### The `seq` Function
 
 The `seq` function can be used to create evenly spaced sequences of numbers
 ```{r}

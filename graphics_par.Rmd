@@ -76,7 +76,6 @@ Table: (\#tab:parfonts) Parameters for fonts.
 
 ### Line type with the `lty` parameter {#lty}
 
-
 There are six line types that you can call in R just with names or numbers (actually there are seven, the first one is "blank" or 0 which just draws nothing). These are listed in Table \@ref(tab:lty) and shown in Figure \@ref(fig:lty). There is a different, more complicated way for setting many more line types, please, consult the manual for further information on that.
 
 No.  Name
@@ -115,10 +114,6 @@ text(5,3.2,'dotdash')
 text(5,2.2,'longdash')
 text(5,1.2,'twodash')
 ```
-
-
-
-
 
 ### Symbols with the `pch` parameter {#secpch}
 
