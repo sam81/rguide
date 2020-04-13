@@ -1,5 +1,10 @@
 # Plotly {#plotly}
 
+```{r setup, include=FALSE}
+source("global_parameters.R")
+knitr::opts_chunk$set(fig.width=fig.width, fig.height=fig.height)
+```
+
 The ["plotly for R"](https://cpsievert.github.io/plotly_book/) book [@Sievert2017] is the best introduction for
 learning plotly.
 

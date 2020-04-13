@@ -1,7 +1,8 @@
 # Installing R {#intro}
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(fig.width=6, fig.height=6)
+source("global_parameters.R")
+knitr::opts_chunk$set(fig.width=fig.width, fig.height=fig.height)
 ```
 
 The information provided in this section is quite generic and limited. For detailed information please refer to the "R Installation and Administration Manual" available at the CRAN website https://cran.r-project.org. CRAN stands for "Comprehensive R Archive Network", and is the main point of reference for the R software, where you can find R sources, binaries, documentation, and add-on packages.
@@ -67,7 +68,6 @@ Commands can be terminated either by a semi-colon `;` or by pressing <kbd>Enter<
 
 To quit R type `quit()` or `q()`\footnote{On a Unix terminal you can also press `Ctrl-d` to exit}, R will ask you if you want to save the current session, if you answer `y`, R will save all the objects active in the current session and the command history.
 
-
 ## Starting to Work with R
 
 The first thing you can try, is doing some math, at the command prompt type `5+4` and press <kbd>Enter</kbd>, the result will be
@@ -76,10 +76,7 @@ The first thing you can try, is doing some math, at the command prompt type `5+4
 5 + 4
 ```
 
-
 well, obviously 9. Other arithmetic operators are listed in Table \@ref(tab:arithmetic)
-
-
 
 Symbol Function
 ------ --------
@@ -203,8 +200,6 @@ levene.test(car)        Levene's Test
 ...
 ```
 
-
-
 ## Working with a Graphical User Interface {#gui}
 
 The default version of R for Windows and macOS comes with a very limited graphical user interface (GUI), while the GNU/Linux version comes with no GUI at all. There are however several independent projects aimed at developing a GUI for R. The following sections give some information on them.
@@ -249,7 +244,7 @@ system("ls")
 ```
 under GNU/Linux or Unix systems, will list the files present in the current directory.
 
-##Objects
+## Objects
 
 All the variables, functions, arrays etc... you work with in R are stored and manipulated as *objects*. To list all the objects currently active in your *workspace*, you can use the command:
 ```{r eval=FALSE}

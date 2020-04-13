@@ -1,5 +1,10 @@
 # Fonts for graphics {#fonts}
 
+```{r setup, include=FALSE}
+source("global_parameters.R")
+knitr::opts_chunk$set(fig.width=fig.width, fig.height=fig.height)
+```
+
 In Section \@ref(parfonts) we mentioned that it is possible to specify a system font (such as Palatino, or Arial) for the R base graphics via the `par(family=...)` setting, but this may or may not work depending on the specific graphics device (and of course also on whether that font is installed in your system or not). 
 
 I'll focus on the issue of generating pdfs with custom fonts because I mostly use pdf for saving R graphics. The `pdf` device *does not* automaticaly embed the fonts in the file, and works only with a limited number of fonts (see `?pdfFonts` for details). An easy way to get around this issues is to use the `cairo_pdf` device instead of the `pdf` device: the `cairo_pdf` device can access all the true type fonts (TTF) and open type fonts (OTF) in your system and also embeds them in the pdf. The device can be used with both base graphics:

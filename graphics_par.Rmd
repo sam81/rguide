@@ -1,7 +1,8 @@
 ## Setting Graphics Parameters {#par}
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(fig.width=6, fig.height=6)
+source("global_parameters.R")
+knitr::opts_chunk$set(fig.width=fig.width, fig.height=fig.height)
 ```
 
 Graphics parameters allow you to tweak many elements of a plot, such as the font for the labels, the symbols or line types to use and so on, see `?par` to get a full list and description of these parameters. Graphics parameters can be set and accessed with the function `par`, called without arguments, as `par()`, it will give you a full list of the current defaults, if you want to query only one or a few parameters use:
@@ -265,23 +266,15 @@ You can insert text in a graph with the `text` function, you have just to specif
 plot(x, y)
 text(x=3,y=1.5, "mean for control group")
 ```
-if you want to use LaTeX mathematical symbols, you have to use the `expression` function:
+if you want to use mathematical symbols you can use the `expression` function:
 
 ```{r eval=FALSE}
 text(x=3, y=1.5, expression(alpha))
 ```
 
-```{r eval=FALSE}
-dpText = expression(italic("d'"))
-uVtext = expression(paste('Amplitude (', mu, 'V)'))
-deltaEText = expression(paste('Change', Delta, 'E'))
-reLevText = expression(paste('Level ', italic('re.'), ' 1 ', mu, V^{2}, ' (dB)'))
-```
+more details on how to use mathematical symbols are given in Section \@ref(plotmath) .
            
-
-
 ### Adding a Grid {#addgrid}
-
 
 A grid can be easily added to an existing plot with the function `grid`
 ```{r eval=FALSE}
@@ -317,7 +310,7 @@ axis(1, at=seq(1, 10, 3), labels=as.character(seq(1, 10, 3)))
 
 the first argument specifies the side on which the axis should be drawn, 1 means the bottom axis, 2 the left axis, 3 the top axis, and 4 the right axis. See `?axis` for other arguments to the function.
 
-## Creating Layouts for Multiple Graphs {glayout}
+## Creating Layouts for Multiple Graphs {#glayout}
 
 
 ### mfrow and mfcol {mfrowmfcol}

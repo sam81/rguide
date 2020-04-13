@@ -2,7 +2,8 @@
 # Signal Detection Theory {#sdt}
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(fig.width=6, fig.height=6)
+source("global_parameters.R")
+knitr::opts_chunk$set(fig.width=fig.width, fig.height=fig.height)
 ```
 
 \begin{figure}[!htbp]

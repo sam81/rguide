@@ -1,7 +1,8 @@
 # File Input/Output {#IO}
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(fig.width=6, fig.height=6)
+source("global_parameters.R")
+knitr::opts_chunk$set(fig.width=fig.width, fig.height=fig.height)
 ```
 
 ## Reading In Data from a File
@@ -23,7 +24,7 @@ ratsData
 in this case we've set the option `header=TRUE` because the file contains a header on the first line with the variable names.
 
 
-###`scan` {#scan}
+### `scan` {#scan}
 
 Another very handy function for reading in data is `scan`, it can easily read in both tabular data in which all the columns are of the same type, or they are of different type, as long as they follow a regular pattern. We'll read in the `ratsData.txt` file as an example:
 ```{r eval=FALSE}
@@ -73,7 +74,7 @@ xm
 ```
 so we've got a matrix with the 3 columns of data originally found in the file, turning it into a dataframe would be equally easy at this point
 ```{r eval=FALSE}
-  xd = as.data.frame(xm)
+xd = as.data.frame(xm)
 ```
 However also in this case it is possible to simply read in each column of the file as the element of a list:
 ```{r eval=FALSE}
@@ -87,22 +88,22 @@ str(x)
    $ v3: num [1:12] 0.102 0.087 0.109 0.123 0.124 0.102 0.097 ...
 ```
 
-###Low-Level File Input
+### Low-Level File Input
 
 Sometimes the file to be read is not nicely organised into separate columns each representing a variable, in this case the function `readLines` can either read the file one line at the time, or all the lines at once, to be then further processed to extract the data.
 
-##Writing Data to a file
+## Writing Data to a file
 
-###The `write.table` function {#write.table}
+### The `write.table` function {#write.table}
 
 The function `write.table` provides a simple interface for writing data to a file. It can be used to write a dataframe or a matrix to a file. For example, if `mydats` is a dataframe, the command
 ```{r eval=FALSE}
 write.table(mydats, file="my_data.txt",
-    +             col.names=TRUE, row.names=FALSE)
+                    col.names=TRUE, row.names=FALSE)
 ```
 will store it in the text file `my_data.txt` with the labels for the variables or factors it contains in the first row(`col.names=T`), but without the numbers associated with each row (`row.names=F)`. The `sep` option is used to choose the separator for the data, the default is a blank space `sep=" "`, but you can choose a comma `sep=","` a semicolon `sep=";"` or other meaningful separators.
 
-###Low-Level File Output {#cat}
+### Low-Level File Output {#cat}
 
  Perhaps the most user friendly low-level function for writing to a file is `cat`. Suppose you have two vectors, one with the heights of 5 individuals, and one with an identifier for each, and you want to write these data to a file:
 ```{r eval=FALSE}
@@ -123,6 +124,6 @@ notice that this time we've set `append=TRUE` to avoid overwriting both the head
 
 
 
-%%ADD FILE CONNECTIONS, CAT, PASTE
+TODO: ADD FILE CONNECTIONS, CAT, PASTE
 
 

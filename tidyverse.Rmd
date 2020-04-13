@@ -1,7 +1,8 @@
 # Tidyverse {#tidyverse}
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(fig.width=6, fig.height=6)
+source("global_parameters.R")
+knitr::opts_chunk$set(fig.width=fig.width, fig.height=fig.height)
 library(tibble)
 library(dplyr)
 ```

@@ -1,7 +1,8 @@
 # ANOVA
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(fig.width=6, fig.height=6)
+source("global_parameters.R")
+knitr::opts_chunk$set(fig.width=fig.width, fig.height=fig.height)
 ```
 
 ## One-Way ANOVA
@@ -176,7 +177,7 @@ subj <- as.factor(rep(1:15, each = 4))
 next we need to specify in a new vector the levels of the first factor for each observation. If we use a character vector to store the levels of the factor, it is not necessary to use the `as.factor()` command, as later, when we will put the all the vectors in a data frame, R will automatically interpret character vectors as factors.
 
 ```{r}
-alcohol <- rep( c("Al","No-Al"), 30)
+alcohol <- rep(c("Al","No-Al"), 30)
 ```
 
 we do basically the same for the second factor:

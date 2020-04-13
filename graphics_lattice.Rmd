@@ -1,7 +1,8 @@
 # Lattice Graphics {#lattice}
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(fig.width=6, fig.height=6)
+source("global_parameters.R")
+knitr::opts_chunk$set(fig.width=fig.width, fig.height=fig.height)
 ```
 
 The `lattice` package in R provides an alternative to the base graphics system, it is an implementation of the ideas developed and implemented by Rick Becker and Bill Cleveland in the Trellis graphics system for the S language. Trellis displays were developed as a framework to make it easy the display of the relationship between a dependent variable and multiple factors. 

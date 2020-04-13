@@ -1,7 +1,8 @@
 # How to Adjust the p-values for Multiple Comparisons
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(fig.width=6, fig.height=6)
+source("global_parameters.R")
+knitr::opts_chunk$set(fig.width=fig.width, fig.height=fig.height)
 ```
 
 The base R program comes with a number of functions to perform multiple comparisons. Here by "multiple comparisons" I mean both post-hoc, and planned comparisons procedures. Not all the possible procedures are available, and some of them might not be applicable to the object resulting from the specific analysis you're doing. Additional packages might cover your specific needs.

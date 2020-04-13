@@ -1,5 +1,10 @@
 # Correlation and Regression
 
+```{r setup, include=FALSE}
+source("global_parameters.R")
+knitr::opts_chunk$set(fig.width=fig.width, fig.height=fig.height)
+```
+
 Let's imagine we want to see if there is a correlation between a manual and an oculomotor reaction time (RT) task. The manual RT task requires to press one of two buttons depending on the colour taken by the fixation point after a variable delay. The oculomotor RT task requires to make a saccade towards the right or the left depending on the colour taken by the fixation point. The mean RTs in milliseconds, for 37 subjects are in the file `m_o_rt.txt`. We read in the data, and then calculate the correlation for the sample:
 ```{r}
 dat = read.table("datasets/m_o_rt.txt", header=TRUE)

@@ -1,7 +1,5 @@
 # Miscellaneous commands
 
-
-
 #### Data
 
 - `head(dats)` print the first part of the object `dats`
