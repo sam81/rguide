@@ -28,14 +28,14 @@ def main(argv):
     #set git tag
     gittag = str(major_v) + '.' + str(minor_v) + '.' + str(minor_minor_v)
     
-    f = open('index.Rmd', 'r')
+    f = open('00_preface.Rmd', 'r')
     ln = f.readlines()
     f.close()
     for i in range(len(ln)):
         if ln[i].strip().split(':')[0].strip() == "subtitle":
             ln[i] = 'subtitle: "' + gittag +'"\n'
 
-    f = open('index.Rmd', 'w')
+    f = open('00_preface.Rmd', 'w')
     f.writelines(ln)
     f.close()
  

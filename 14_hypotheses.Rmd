@@ -46,8 +46,8 @@ where $f_e$ are the expected frequencies and $f_o$ are the observed frequencies,
 R you can first arrange the data in a matrix:
 
 ```{r}
-cosm <- c(6,11,27,25,30,12)
-cosm <- matrix(cosm, nrow=2, byrow=TRUE)
+cosm = c(6,11,27,25,30,12)
+cosm = matrix(cosm, nrow=2, byrow=TRUE)
 ```
 
 then you can directly give the matrix to the `chisq.test()` function to test the null hypothesis that there is no association between sex and cosmetic usage:
@@ -59,7 +59,7 @@ chisq.test(cosm)
 the *p*-value tells us that the null hypothesis does not hold, there is indeed an association between sex and degree of cosmetic usage. If you store the results of the test in a variable, you'll be able to get the matrices of the expected frequencies and residuals:
 
 ```{r}
-cosmtest <- chisq.test(cosm)
+cosmtest = chisq.test(cosm)
 cosmtest$expect ## expected frequencies under a true null hypothesis
 ```
 
@@ -72,8 +72,8 @@ chisq.test(x=mydata, correct=TRUE)
 Very often you don't have your data already tabulated in a contingency table, however if you have a series of observations classified according to two categorical variables you can easily get a contingency table with the `table()` function. The next example uses the data in the file `hair_eyes.txt`, that lists the hair and eyes colours for 260 females. We will first build our contingency table from that:
 
 ```{r}
-dats <- read.table("datasets/hair_eyes.txt", header=TRUE)
-tabdats <- table(dats$hair, dats$eyes)
+dats = read.table("datasets/hair_eyes.txt", header=TRUE)
+tabdats = table(dats$hair, dats$eyes)
 ```
 
 now we can perform the $\chi^2$ test directly on the table to see if there is an association between hair and eyes colour:
@@ -148,7 +148,7 @@ Tells whether the variances of the two groups should be treated as equal. If TRU
 
 this option sets the confidence level for the estimation of the confidence interval.
 
-##The Levene Test for Homogeneity of Variances
+## The Levene Test for Homogeneity of Variances
 
 The Levene test can be used to test if the variances of two samples are equal or not. This procedure is important because some statistical tests, such as the two independent sample t test, are based on the assumption that the variances of the samples being tested are equal. In R the function to perform the Levene test is contained in the `car` package, so in order to call it the package must be installed and the `car` library has to be loaded with the command:
 
@@ -181,13 +181,13 @@ Table: (\#tab:levene) Data for the Levene test example.
 First we will create the vector with the values of the dependent variables, by reading in the file with the `scan` function:
 
 ```{r}
-values <- scan("datasets/verbal.txt")
+values = scan("datasets/verbal.txt")
 ```
 
 Now we need to create the second vector defining the group to which a given observation on the data vector belongs to. We will use the `rep` function to do this, and for convenience will give the labels `1`, `2` and `3` to the three groups:
 
 ```{r}
-groups <- as.factor (rep(1:3, 10))
+groups = as.factor (rep(1:3, 10))
 ```
 
 Notice that we have defined this vector as a factor, this was necessary because we were using  numerical labels, it wouldn't have been if we had used a character or a string labels. Now the data are in a proper format for using the `leveneTest` function. This format can be called "one row per observation", and we will encounter it often later when we talk about ANOVA, you can find more examples and clarifications on this format there. To perform the text we can use the following commands:

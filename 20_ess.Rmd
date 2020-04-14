@@ -10,7 +10,7 @@ Another nice way of running an R session from inside Emacs is to run first a she
 
 For sake of clarity, the use of ESS for editing R source files, and for running a R session will be addressed in two separate sections, however this separation is quite artificial, first because the most proficient use of ESS involves editing a `.R` while running a R session, and second because some of the tips given in one section apply also to the usage of ESS illustrated in the other section. Therefore you're invited to at least skim through both sections, even if you're interested on one usage of ESS only.
 
-##Using ESS for Editing and Debugging R Source Files
+## Using ESS for Editing and Debugging R Source Files
 
 If you have a basic knowledge of Emacs you will feel at home. A good way to use ESS is to split the Emacs window horizontally (`C-x 2`) and have a R source file in one buffer and a R process running in the other buffer. You basically write the R code in the first buffer, and then send it to the R process for evaluation. Here are the shortcuts for sending input to the R process:
 

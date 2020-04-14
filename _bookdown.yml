@@ -1,7 +1,6 @@
 new_session: yes 
 
 rmd_files: [
-"index.Rmd",
 "00_preface.Rmd",
 "01_installing_R.Rmd",
 "02_a_simple_introduction_to_R.Rmd",
@@ -11,9 +10,9 @@ rmd_files: [
 "06_file_IO.Rmd",
 "07_graphics.Rmd",
 "08_fonts.Rmd",
-"09_graphics_ggplot2.Rmd",
-"10_graphics_plotly.Rmd",
-"11_graphics_lattice.Rmd",
+"09_ggplot2.Rmd",
+"10_plotly.Rmd",
+"11_lattice.Rmd",
 "12_tidyverse.Rmd",
 "13_distributions.Rmd",
 "14_hypotheses.Rmd",

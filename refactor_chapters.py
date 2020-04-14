@@ -19,9 +19,9 @@ curr_chap_names = [
     "file_IO.Rmd",
     "graphics.Rmd",
     "fonts.Rmd",
-    "graphics_ggplot2.Rmd",
-    "graphics_plotly.Rmd",
-    "graphics_lattice.Rmd",
+    "ggplot2.Rmd",
+    "plotly.Rmd",
+    "lattice.Rmd",
     "tidyverse.Rmd",
     "distributions.Rmd",
     "hypotheses.Rmd",
@@ -65,7 +65,7 @@ for i in range(len(curr_chap_names)):
 ymlF =open("_bookdown.yml", "w")
 ymlF.write("new_session: yes \n\n")
 ymlF.write('rmd_files: [\n')
-ymlF.write('"index.Rmd",\n')
+#ymlF.write('"index.Rmd",\n')
 for nm in ord_chap_names:
     ymlF.write('"' + nm + '",\n')
 ymlF.write(']\n\n')

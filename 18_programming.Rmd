@@ -19,7 +19,7 @@ The general form of conditional execution in R is:
      do_something_else
    }
 ```
-here's a silly example:
+here's a trivial example:
 
 ```{r}
 money = 1300
@@ -212,7 +212,7 @@ now each time you call `sourceDir` with a directory as an argument, you will hav
 
 Building a R package requires a bit more work. The detailed documentation for doing this is provided in the **Writing R Extensions** manual available at the CRAN website http://cran.r-project.org/. That documentation looks at best daunting for a beginner, indeed writing a R package is not trivial, however if all you have is pure R code, and you just want to build a simple package for your own use, the task should not be too difficult to achieve. A very useful document is **An introduction to the R package mechanism**, it can be found at the following URL http://biosun1.harvard.edu/courses/individual/bio271/lectures/L6/Rpkg.pdf. In the following sections I'll try to explain how to build a simple R package, much of what I say is drawn from the above cited documents.
 
-###The Bare Minimum to Create a Package
+### The Bare Minimum to Create a Package
 
 The quickest way to get started is to use the function `package.skeleton` to create the first ``draft'' of your package. Start a R session, make sure that there are not R objects in your session, otherwise they will be bundled in your package
 
@@ -341,7 +341,7 @@ documentation again can be produced using the `prompt` function
 prompt(mydata)
 ```
 
-####Checking the Package
+#### Checking the Package
 
 The sanity check for the package can be done by issuing the following command from a shell
 
