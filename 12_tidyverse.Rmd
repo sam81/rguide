@@ -64,5 +64,32 @@ t.test(dat %>% filter(y=="A") %>% pull(x),
        dat %>% filter(y=="B") %>% pull(x))
 ```
 
+## `dplyr`
 
+`dplyr` is the Swiss army knife of dataframe manipulation. It can be used to take subsets of the rows of a dataframe on the basis of the values of one or more variables (`filter` function). It can be used to take subsets of the column of a dataframe (`select` function). It can be used to create new columns that are functions of one or more rows of a dataframe (`mutate` function). It can be used to create dataframes that summarize variables of another dataframe on the basis of factor groupings (`summarize` combined with `group_by` functions). All these operations could be done also without `dplyr` through base R functions. However, `dplyr` really shines in making these operations seamless and straightforward, with a concise sintax.
 
+A key element that allows you to seamlessly manipulate dataframes with `dplyr` with a concise sintax is the pipe operator `%>%`. This operator comes from the `magrittr` package that is automaticaly loaded when you lod `dplyr`. Let's suppose that we want to take the subset of the `iris` dataframe consisting of observations for the species setosa, and we're only interested in the columns for petal length and width. We can do this without using the pipe operator as follows:
+```{r}
+iris_set = filter(iris, Species=="setosa")
+iris_set = select(iris_set, Petal.Length, Petal.Width)
+```
+
+when used without the pipe operator, the first argument that we pass to the `filter` and `select` functions is the dataframe on which they need to operate. With the pipe we don't need to pass this argument to the functions, we simply "pipe" the dataframe through as follows:
+```{r}
+iris_set = iris %>% filter(Species=="setosa") %>% select(Petal.Length, Petal.Width)
+```
+
+this way we've "chained" two operations and accomplised our aim with a single, less verbose, line of code! You can think of the `%>%` operator as taking the output of the function on its left and passing it forward to the function on its right for further processing.
+
+### Getting counts of cases
+
+```{r}
+y = rnorm(100, mean=100, sd=20)
+fct = rep(c("A", "B", "C", "D"), each=25)
+dat = data.frame(fct=fct, y=y)
+dat %>% group_by(fct) %>% filter(y>100) %>% summarize(n())
+## shorthand version
+dat %>% filter(y>100) %>% count(fct)
+## alternative version
+dat %>% group_by(fct) %>% filter(y>100) %>% tally()
+```

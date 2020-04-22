@@ -12,3 +12,4 @@
 - add more regression examples and diagnostics
 - section on reshape2 and dcast
 - add ez for ANOVA
+- add binomial distribution
