@@ -1,6 +1,6 @@
 --- 
 title: "A R Guide"
-subtitle: "0.3.11"
+subtitle: "0.3.12"
 author: "Samuele Carcagno"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 site: bookdown::bookdown_site
@@ -15,17 +15,25 @@ geometry: margin=3.4cm
 always_allow_html: yes
 description: "A guide for the R programming language."
 ---
+
 \pagestyle{bodypagestyle}
 
+```{r fig.align='center', echo=FALSE}
+knitr::include_graphics("images/psych_fun.png")
+```
 
 ```{=latex}
+\newpage
 \setlength{\parindent}{0pt}
 \rule{\textwidth}{0.5mm}
 ```
 
-[A R Guide](http://samcarcagno.altervista.org/soft/r.html) by Samuele Carcagno <sam.carcagno@gmail.com> is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/).
+[A R Guide](http://samcarcagno.altervista.org/soft/r.html) by Samuele Carcagno <sam.carcagno@gmail.com> is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/). 
 
-![Creative Commons License](images/by-sa_88x31.png)
+
+```{r fig.align='center', echo=FALSE}
+knitr::include_graphics("images/by-sa_88x31.png")
+```
 
 Based on a work at https://github.com/sam81/rguide.
 

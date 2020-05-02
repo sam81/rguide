@@ -3,6 +3,11 @@
 ```{r setup, include=FALSE}
 source("global_parameters.R")
 knitr::opts_chunk$set(fig.width=fig.width, fig.height=fig.height)
+library(webshot)
+```
+
+```{block2, type='rmdwarning'}
+Figures in this section may not appear in the pdf version of the book. Please use the html version if that is the case: https://sam81.github.io/r_guide_bookdown/preface.html
 ```
 
 The ["plotly for R"](https://cpsievert.github.io/plotly_book/) book [@Sievert2017] is the best introduction for
@@ -21,6 +26,10 @@ plot_ly(x=x, y=y, type="scatter", mode="markers",
 ```
 
 ## Using plotly with knitr
+
+```{block2, type='rmdwarning'}
+What is described in this section doesn't seem to work anymore. I'll update the section once I've found out a solution.
+```
 
 Plotly figures are rendered directly in the html output with knitr:
 

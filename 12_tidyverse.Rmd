@@ -28,7 +28,7 @@ They can be easily converted to dataframes with the `as.data.frame` function if 
 dat_frame = as.data.frame(dat)
 ```
 
-and dataframes can also easily converted to tibbles with the `as_tibble` function:
+and dataframes can also be easily converted to tibbles with the `as_tibble` function:
 
 ```{r}
 dat2 = as_tibble(dat_frame)
@@ -80,6 +80,28 @@ iris_set = iris %>% filter(Species=="setosa") %>% select(Petal.Length, Petal.Wid
 ```
 
 this way we've "chained" two operations and accomplised our aim with a single, less verbose, line of code! You can think of the `%>%` operator as taking the output of the function on its left and passing it forward to the function on its right for further processing.
+
+### `group_by` and `summarize`
+
+The `group_by` function generates a "grouped" tibble:
+```{r}
+grIris = iris %>% group_by(Species);
+str(grIris)
+```
+
+this is useful because subsequent functions in the pipeline operate on the groups defined with `group_by`. For example, the following lines will compute the mean petal length for each species:
+```{r}
+iris %>% group_by(Species) %>% summarize(meanPetLen=mean(Petal.Length))
+```
+
+note that we can group by more than one variable, and we can compute more than one statistics in the `summarize` call, as shown in the following example which uses the `mpg` dataset provided by `ggplot2`:
+```{r}
+library(ggplot2)
+mpg %>% group_by(manufacturer, trans) %>% summarize(meanHWY=mean(hwy),
+                                                    sdHWY=sd(hwy),
+                                                    meanCTY=mean(cty),
+                                                    sdCTY=sd(cty))
+```
 
 ### Getting counts of cases
 
