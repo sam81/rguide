@@ -14,7 +14,7 @@ First of all you need to install the base R program. There are two ways of doing
 ### GNU/Linux and Other Unices
 
 Precompiled binaries are available for some GNU/Linux distributions, there is a list of these on the R FAQ. For other distributions you can build R from source.
-There are precompiled binaries for Debian GNU/Linux, so you can install the R base system and a number of add-on packages with the usual methods under Debian, that is, `apt-get`, `Synaptic` or whatever else you use.
+There are precompiled binaries for Debian GNU/Linux, so you can install the R base system and a number of add-on packages with the usual methods under Debian, that is, `apt-get`, `Synaptic` or whatever else you normally use.
 
 ### Windows
 

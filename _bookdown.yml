@@ -20,14 +20,15 @@ rmd_files: [
 "16_anova.Rmd",
 "17_mcomp.Rmd",
 "18_programming.Rmd",
-"19_customize.Rmd",
+"19_administration_maintenance.Rmd",
 "20_ess.Rmd",
 "21_sweave.Rmd",
 "22_sound.Rmd",
-"23_packages.Rmd",
-"24_commands.Rmd",
-"25_resources.Rmd",
-"26_colors_table.Rmd",
+"23_bibliographies.Rmd",
+"24_packages.Rmd",
+"25_commands.Rmd",
+"26_resources.Rmd",
+"27_colors_table.Rmd",
 ]
 
 book_filename: rguide
