@@ -28,7 +28,7 @@ rmd_files: [
 "24_packages.Rmd",
 "25_commands.Rmd",
 "26_resources.Rmd",
-"27_colors_table.Rmd",
+"27_colors_table.Rmd"
 ]
 
 book_filename: rguide

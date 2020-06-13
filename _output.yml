@@ -1,0 +1,25 @@
+bookdown::gitbook:
+  css: css/style.css
+  split_by: none
+  config:
+    toc:
+      before: |
+      collapse: section
+      after: |
+        <li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
+    sharing:
+      github: yes
+      facebook: no
+    download: ["rguide.pdf", "rguide.epub"]	
+bookdown::pdf_book:
+  #pandoc_args: --listings
+  includes:
+        in_header: preamble.tex
+  latex_engine: lualatex
+  citation_package: biblatex
+  keep_tex: yes
+  toc_depth: 2
+  toc: False
+bookdown::epub_book: default
+bookdown::html_book:
+  split_by: none

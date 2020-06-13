@@ -16,7 +16,9 @@ always_allow_html: yes
 description: "A guide for the R programming language."
 ---
 
+```{=latex}
 \pagestyle{bodypagestyle}
+```
 
 ```{r fig.align='center', echo=FALSE}
 knitr::include_graphics("images/psych_fun.png")

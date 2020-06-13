@@ -106,8 +106,7 @@ a=a[-which(a>5)]
 
 ## String Processing {#stringprocessing}
 
-One of the strengths of R, in my opinion, lies in the way it deals with character strings. Certain objects, for example dataframes, allow to mix strings with other data types, subsets of certain objects (again dataframes are an example, but also lists), can be easily given meaningful names and retrieved. This adds much flexibility and ease of use of R compared to other languages (e.g. MATLAB). One aspect that is perhaps less known however, are the powerful string processing functions that R gives you. Once you get to know them you'll realise you can do all your data analysis in R, without the need to use other languages, like python or perl for pre-processing.
-
+One of the strengths of R, in my opinion, lies in the way it deals with character strings. Certain objects, for example dataframes, allow to mix strings with other data types, subsets of certain objects (again dataframes are an example, but also lists), can be easily given meaningful names and retrieved. This adds much flexibility and ease of use to R compared to other languages (e.g. MATLAB). One aspect that is perhaps less known however, are the powerful string processing functions that R gives you. Once you get to know them you'll realise you can do all your data analysis in R, without the need to use other languages, like python or perl for pre-processing.
 
 The simplest thing you can do with a string, is counting its characters, which you can do with the `nchar` function:
 
@@ -136,8 +135,6 @@ substr(my_string, start=5, stop=nchar(my_string))
 substr(my_string,start=1,stop=3)='qqq'
 my_string
 ```
-
-
 
 ### Using Regular Expressions {#regexp}
 
