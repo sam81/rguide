@@ -10,7 +10,7 @@ bookdown::gitbook:
     sharing:
       github: yes
       facebook: no
-    download: ["rguide.pdf", "rguide.epub"]	
+    download: ["rguide.pdf"]	
 bookdown::pdf_book:
   #pandoc_args: --listings
   includes:

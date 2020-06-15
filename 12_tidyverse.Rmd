@@ -14,23 +14,20 @@ Tidyverse is a collection of R packages that used in conjuction significantly ch
 
 ## Tibbles
 
-Tibbles are a modern take on dataframes (which we introduced in Section \@ref(datamanip)). Tibbles are in fact very similar to dataframes, but if you're used to dataframes, there are a few things that may surprise you when you start using tibbles. 
+Tibbles are a modern take on dataframes (which we introduced in Section \@ref(dataframes)). Tibbles are in fact very similar to dataframes, but if you're used to dataframes, there are a few things that may surprise you when you start using tibbles. 
 
-Tibbles can be constructed with the `tibble` function, which is similar to the data.frame function for constructing dataframes:
-
+Tibbles can be constructed with the `tibble` function, which is similar to the `data.frame` function for constructing dataframes:
 ```{r}
 library(tibble)
 dat = tibble(x=rnorm(20), y=rep(c("A", "B"), each=10))
 ```
 
 They can be easily converted to dataframes with the `as.data.frame` function if needed:
-
 ```{r}
 dat_frame = as.data.frame(dat)
 ```
 
 and dataframes can also be easily converted to tibbles with the `as_tibble` function:
-
 ```{r}
 dat2 = as_tibble(dat_frame)
 ```

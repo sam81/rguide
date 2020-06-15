@@ -151,7 +151,7 @@ rep(rep(1:4, c(2, 2, 2, 2)), 3)
 ```
 would yield the same effect.
 
-Even if it can look pretty useless at first, the `rep` function comes in very handy for example, when you want to transform the data in a table from "one row per subject", to "one row per observation", which is necessary for example to run a repeated measures ANOVA with the `aov` function. `rep` makes it all easier as you can create vectors in which the occurrence of the levels of a factor are repeated over and over.
+Even if it can look pretty useless at first, the `rep` function comes in very handy for example, when you want to transform the data in a table from "one row per participant", to "one row per observation", which is necessary for example to run a repeated measures ANOVA with the `aov` function. `rep` makes it all easier as you can create vectors in which the occurrence of the levels of a factor are repeated over and over.
 
 
 ## Matrix facilities
@@ -292,7 +292,7 @@ it's as simple as this, you have just put the three vectors together, let's have
 dats
 ```
 
-as we said, each row holds the data of a single observation, in this case it corresponds to the data of a subject, but as we'll see later, this is not always necessarily true. Each row gives a full specification for each observation, we know that the first subject drunk 6 beers, he's a student, and he's male, and we could tell the same data for the other subjects. Since we have all this information, we could now compare for example the number of beers drunk by male vs females, or by male students vs female students. There are special functions to compute these values quickly like `tapply` and `by` (see \@ref(tapply)), and other functions to get statistical tests, they will be dealt with as we go along.
+as we said, each row holds the data of a single observation, in this case it corresponds to the data of a participant, but as we'll see later, this is not always necessarily true. Each row gives a full specification for each observation, we know that the first participant drunk 6 beers, he's a student, and he's male, and we could tell the same data for the other participants. Since we have all this information, we could now compare for example the number of beers drunk by male vs females, or by male students vs female students. There are special functions to compute these values quickly like `tapply` and `by` (see \@ref(tapply)), and other functions to get statistical tests, they will be dealt with as we go along.
 
 ### Accessing parts of a  dataframe
 
@@ -480,9 +480,9 @@ mode(b)
 
 In general statistical software require your data to be entered in a specific format in order to perform statistical analyses on them, and R is no exception. R provides many powerful functions to change the format of your data if they happen to be in a format that is not suitable for applying a given statistical function on them. The process of changing the format of your data with these functions might seem very complicated at first, however you should keep in mind the following things:
 
-- You don't really need to learn all of the functions that R provides to manipulate your data and change their format. Once you learn a procedure that does the job you can stick on it and you'll be fine most of the times.
+- You don't really need to learn all of the functions that R provides to manipulate your data and change their format. Once you learn a procedure that does the job you can stick with it and you'll be fine most of the times.
 
-- Once you understand the "logic" and the structure of the data format that R expects to apply some statistical functions, changing the layout of your data to match this structure will be easy. Moreover the data format R wants is most of the times one and only one: The "one row per observation format", which will be explained below.
+- Once you understand the "logic" and the structure of the data format that R expects to apply some statistical functions, changing the layout of your data to match this structure will be easy. Moreover, the data format that R wants is most of the times one and only one: The "one row per observation format", which will be explained below.
 
 - In this tutorial you will see different examples in which the format of the data, stored in a given file don't match the format R wants. This is just for illustrative purposes. In real life if you're doing a research or an experiment, you  can often gather your data in a format that is already suitable for performing statistical analyses.
 
@@ -491,9 +491,9 @@ In general statistical software require your data to be entered in a specific fo
 
 This said, I would advice you to learn some of the functions that R provides to rearrange your data for at least two reasons: 1) They're very powerful and can actually save you time once you learn them, and 2) many examples in this tutorial and in other books use them, so you'll often need to know them to understand what's going on :)
 
-### The "one row per observation" format {#onerowperobservation}
+### The "one row per observation" (long) format {#onerowperobservation}
 
-While statistic textbooks and scientific articles often show data in a format that is suitable and immediate for the "human eye", like the one shown in Table \@ref(tab:formath), statistical software often don't quite like it and would rather have the same data rearranged as shown in Table \@ref(tab:formatss).
+While statistic textbooks and scientific articles often show data in a "wide" format that is suitable and immediate for the "human eye", like the one shown in Table \@ref(tab:formath), statistical software often don't quite like it and would rather have the same data rearranged in a "long" format, as shown in Table \@ref(tab:formatss).
 
 Group A  Group B  Group C
 -------  -------- -------
@@ -503,7 +503,7 @@ Group A  Group B  Group C
 4         5       8
 6         4       7
 
-Table: (\#tab:formath) Data Format Suitable for the "Human Eye".
+Table: (\#tab:formath) Data format suitable for the "human eye".
 
 Value  Group
 -----  -----
@@ -523,11 +523,11 @@ Value  Group
 8      C
 7      C
 
-Table: (\#tab:formatss) Data Format Suitable for the R.
+Table: (\#tab:formatss) Data format suitable for R.
 
 The main difference is that while in the first format you have more than one observation in the same row, and you can identify the group to which each observation belongs to through the column headers ("Group A", "Group B" and "Group C"), in the second format you have only one observation for each row. This observation is then fully identified with a "label" that appears in the second column. A better way to describe the second column is to say that in the above case "Group" is a **factor**, and "A", "B" and "C" define the **levels** of this factor for each group.
 
-You could also be running an experiment in which you manipulate more than one factor. For example you might have two groups, "Patients" and "Controls", which are tested under two conditions "1" and condition "2". In this case you might display your data as shown in Table \@ref(tab:formath2) to make them easily readable to humans. However for analysing your data with R, in this case you would need to add another column specifying the levels of the other factor for each observation as shown in Table \@ref(tab:formatss2)
+You could also be running an experiment in which you manipulate more than one factor. For example you might have two groups, "Patients" and "Controls", which are tested under two conditions: condition "1" and condition "2". In this case you might display your data as shown in Table \@ref(tab:formath2) to make them easily readable to humans. However for analyzing your data with R you would need to reshape the data as shown in Table \@ref(tab:formatss2), with one column specifying the group, and another column specifying the condition for a given observation.
 
 Patients Condition1  Patients Condition 2  Controls Condition 1  Controls Condition 2
 -------------------  --------------------  --------------------  --------------------
@@ -537,7 +537,7 @@ Patients Condition1  Patients Condition 2  Controls Condition 1  Controls Condit
 8	                 8                     6	                 5 
 6	                 5                     5	                 3
 
-Table: (\#tab:formath2) Data Format Suitable for the "Human Eye" with More than One Factor.
+Table: (\#tab:formath2) Data format suitable for the "human eye" with more than one factor.
 
 
 Value  Group  Condition
@@ -563,9 +563,9 @@ Value  Group  Condition
 5      C      2 
 3      C      2
 
-Table: (\#tab:formatss2) Data Format Suitable for R with More than One Factor.
+Table: (\#tab:formatss2) Data format suitable for R with more than one factor.
 
-Finally, you might be running an experiment with a repeated measures design, in which all subjects are exposed to all the levels of all the within subjects factors. For example you might have your subjects recall word lists either under the effects of a drug or not (factor 1) and with words concrete or abstract words (factor 2). In this case the data for presentation might look like the ones in Table \@ref(tab:repeatedh), in which each row represents a single subject. Again for R you need to rearrange the data so that each row represents a single observation, and in the case of a repeated measures design you need to add another column that identifies the levels of the "subjects" factor as shown in Table \@ref(tab:repeatedr)
+Finally, you might be running an experiment with a repeated measures design, in which all participants are exposed to all the levels of the within subjects factors. For example you might have your participants recall word lists either under the effects of a drug or not (factor 1) and with words concrete or abstract words (factor 2). In this case the data for presentation might look like the ones in Table \@ref(tab:repeatedh), in which each row represents a single participant. Again for R you need to rearrange the data so that each row represents a single observation, and in the case of a repeated measures design you need to add another column that identifies the levels of the "participants" factor as shown in Table \@ref(tab:repeatedr)
 
 Drug Concrete  Drug Abstract  No-Drug Concrete  No-Drug Abstract
 -------------  -------------  ----------------  ----------------
@@ -575,9 +575,9 @@ Drug Concrete  Drug Abstract  No-Drug Concrete  No-Drug Abstract
 8              8              6	                5 
 6              5              5	                3 
 
-Table: (\#tab:repeatedh) Data Format Suitable for the "Human Eye", repeated measures design.
+Table: (\#tab:repeatedh) Data format suitable for the "human eye" in a repeated measures design.
 
-Value  Drug Exposure  Word Type  Subject
+Value  Drug Exposure  Word Type  Participant
 -----  -------------  ---------  -------
 7      D              C          1
 5      D              C          2
@@ -610,13 +610,13 @@ with a layout similar to that shown in Table \@ref{tab:formath}, you
 can use the `stack` function to get a "one row per observation" format. What the `stack` function does is to create a single long vector from the vectors you have in your dataframe, and an additional factor vector which identifies the level for each observation. Here's an example, the data are in the file `stack.txt`:
 
 ```{r eval=FALSE}
-dats=read.table("stack.txt",header=TRUE)
+dats = read.table("stack.txt", header=TRUE)
 ```
 this creates the dataframe
 ```{r eval=FALSE}
 dats = stack(dats)
 ```
-this reshapes the dataframe into a "one row per observation form"
+this reshapes the dataframe into a "one row per observation" form.
 
 Please note that R assigns names to the vectors in the new dataframe, you can see them in the header of the dataframe, you might need to know them for successive operations.
 

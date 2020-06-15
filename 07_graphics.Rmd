@@ -38,8 +38,8 @@ the resulting scatterplot appears in Figure \@ref(fig:scatterplot).
 
 If we were to plot the change of a variable over time it could be a good idea to connect the values at different time points in the plot with lines, this is easily achieved setting the option `type`. Below is an example, the result is shown in Figure \@ref(fig:timewlines).
 ```{r timewlines, fig.cap="Values connected by lines."}
-ti=1:50
-b=rnorm(15,4.3,n=50)
+ti = 1:50
+b = rnorm(15, 4.3, n=50)
 plot(ti, b, type="l")
 ```
 
@@ -50,7 +50,7 @@ Some other possible values for the option `type` are `p` for points (the default
 The `plot` function can be used for drawing mathematical functions, for example:
 ```{r drawfunction, fig.cap="Drawing a mathematical function."}
 vec = seq(from=0, to=4*pi, length=120)
-plot(vec,sin(vec), type="l")
+plot(vec, sin(vec), type="l")
 ```
 
 in this case we use `l` for the plot type in order to obtain a continuous line rather than discrete points. It is also possible to plot markers at the points in which the function is actually evaluated. Using the option `b` for the plot type, both a continuous line and point markers are plotted. There are lots of options to define the appearance of a plot. Many of these options are presented in Section \@ref(par).
@@ -63,8 +63,8 @@ The `matplot` function can be used to plot the columns of a matrix against the c
 a= seq(from=0, to= 2*pi, length=20)
 s = sin(a)
 c = cos(a)
-aa = cbind(a,a) #matrix of hor coord
-cs = cbind(c,s) #matrix of vert coord
+aa = cbind(a, a) #matrix of hor coord
+cs = cbind(c, s) #matrix of vert coord
 matplot(x=aa, y=cs, type="l", lwd=1.8, ylab="sine and cosine functions")
 ```
 
@@ -115,7 +115,7 @@ test_sd = tapply(X=test2$values, IND=test2$ind, FUN=sd)
 
 Now we can draw a simple barplot displaying the means for each group:
 ```{r barplotsimple, fig.cap="Simple barplot."}
-barplot(test_means, col=c("darkred","salmon2","plum4"))
+barplot(test_means, col=c("darkred", "salmon2", "plum4"))
 ```
 
 we've added colors to the graph using the `col` option. You can look at the resulting graph in Figure \@ref(fig:barplotsimple).
@@ -123,7 +123,7 @@ we've added colors to the graph using the `col` option. You can look at the resu
 You can control the width of the bars specifying the `width` option, and setting the range for the x axis with the `xlim` option, specifying only the width does nothing, you must also set the `xlim`. You set `xlim` with a vector of the form `xlim = c(from, to)`, in which `from` is the origin and `to` is the end of the axis. In the example below we will set `xlim` to go from 0 to 3 and the bars to have a width of 0.5:
 
 ```{r eval=FALSE}
-barplot(test_means,col=c("darkred","salmon2","plum4"),
+barplot(test_means,col=c("darkred", "salmon2", "plum4"),
         xlim = C(0,3), width=0.5)
 ```
 
@@ -149,8 +149,8 @@ lower = test_means - (test_sd)
 Now we can draw our barplot, you can see the result in Figure \@ref(fig:barplotbars):
 
 ```{r barplotbars, fig.cap="Barplot with error bars."}
-barplot2(test_means,col=c("darkred", "salmon2", "plum4"),
-         plot.ci=TRUE,ci.u=upper,ci.l=lower)
+barplot2(test_means, col=c("darkred", "salmon2", "plum4"),
+         plot.ci=TRUE, ci.u=upper, ci.l=lower)
 ```
 
 ## Boxplots
@@ -461,7 +461,6 @@ however, this may or may not work depending on 1) whether the font is actually i
 ```{block2, type='rmdwarning'}
 Not all graphics devices have access to all installed system fonts. For workarounds see Chapter \@ref(fonts).
 ```
-
 	
 ### Colors {#parcolors}
 
@@ -477,6 +476,7 @@ Parameter   Function
 
 Table: (\#tab:parcolors) Parameters for colors.
 	
+
 ## Adding elements to a plot
 
 ### Adding a legend {#legend}
@@ -548,7 +548,7 @@ box()
 You can insert text in a graph with the `text` function, you have just to specify the x and y coordinates of the point on which to center the text:
 ```{r eval=FALSE}
 plot(x, y)
-text(x=3,y=1.5, "mean for control group")
+text(x=3, y=1.5, "mean for control group")
 ```
 if you want to use mathematical symbols you can use the `expression` function:
 ```{r eval=FALSE}
@@ -579,11 +579,11 @@ If you don't like the way the axes are set for a given plot, you can draw the pl
 ```{r eval=FALSE}
 plot(1:10, axes=FALSE) #do not draw any axes or box around
                        # the plot
-plot(1:10, xaxt="n")       #don't draw the x axis alone
-plot(1:10, yaxt="n")       #don't draw the y axis alone
+plot(1:10, xaxt="n")   #don't draw the x axis 
+plot(1:10, yaxt="n")   #don't draw the y axis 
 ```
 
-Once you've removed of one or more axis you can draw them calling the `axis` function:
+Once you've removed of one or more axes you can draw them calling the `axis` function:
 ```{r eval=FALSE}
 axis(1, at=seq(1, 10, 3), labels=as.character(seq(1, 10, 3)))
 ```
@@ -610,10 +610,10 @@ for(i in 1:6){
 
 `mfcol` works exactly the same way as `mfrow`, but the figures are drawn in sequence by column rather than by row, for example the following code yields Figure \@ref(fig:mfcol23)
 ```{r mfcol23, fig.cap="A 2x3 Layout with `mfcol`"}
-par(mfcol=c(2,3))
+par(mfcol=c(2, 3))
 symb<-as.character(1:6)
 for(i in 1:6){
-  plot(1,1,pch=symb[i],xlab='',ylab='')
+  plot(1, 1, pch=symb[i], xlab='', ylab='')
 } 
 ```
 

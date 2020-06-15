@@ -1,3 +1,0 @@
-# rmarkdown
-
-https://bookdown.org/yihui/rmarkdown/

@@ -3,30 +3,74 @@
 - adding files: _bookdown.yml
 - settings/appearance: _output.yml and index.Rmd
 
+# Bugs
+
+- equation labesl are not supported for ebook version. Consider dropping ebook version.
+
 # TODO
 
 - GLOBAL
-  * Switch to lower case chapter/section names
+  * Switch to lower case figure/table captions
+  * add rmarkdown chapter?
+  * add Bayesian stats (JAGS, STAN) chapter?
+  * add chapter on psychophysics (dprime, psychometric functions)?
 - 01_installing_R:
   * add section on installing packages on Mac and say that you can use the `Linux` method of package installation also on Windows and Mac
+- 02_a_simple_introduction_to_R:
+  * check that both `<-` and `=` are mentioned
+  * add section with overview/map of the guide and links to jump around?
+- 03_organizing_a_working_session:
+ * add Rscript?
 - 04_data_manipulation:
-  * section on reshape2 and dcast
+  * section on reshape2 and dcast / tidyr pivot_wider
+- 05_printing_data:
+  * add link to printing tibbles?
 - 06_file_IO:
   * add HDF5
 - 07_graphics
   * add example of two-column barplot
   * color section add viridis, RColorBrewer, and colorblind palette
+- 08_fonts:
+
 - 09_ggplot2:
   * publication quality tweaks and cowplot
+- 10_plotly:
+  * add more examples, check if pdf issue can be fixed
+- 11_lattice:
+
+- 12_tidyverse:
+
 - 13_distributions:
-  * add binomial distribution
+  * add uniform, t, gamma distributions
+- 14_hypotheses:
+
 - 15_cor_reg:
   * add more regression examples and diagnostics
   * dummy coding
 - 16_anova:
   * add ez for ANOVA
+  * emmeans?
+- 17_mcomp:
+
 - 18_programming:
   * add `for` and `while` loops
+- 19_administration_maintenance:
+
+- 20_ess:
+  * mention poly-R?
+- 21_sweave:
+
+- 22_sound:
+
+- 23_bibliographies:
+
+- 24_packages:
+
+- 25_commands:
+
+- 26_resources:
+
+- 27_colors_table
 
 - Bibliography:
   * move to refs_long and set to copy refs_long on release

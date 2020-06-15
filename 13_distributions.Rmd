@@ -54,7 +54,7 @@ rbinom(n=10, size=1, prob=0.7)
 
 ## The binomial distribution {#binomial}
 
-The binomial distribution with parameters $n$ and $p$ represents the number of "successes" in a sequence of $n$ independent Bernoulli trials, each with a $p$ probability of success. The probability mass function is given in Eq. \@ref(eq:binommass):
+The binomial distribution with parameters $n$ and $p$ represents the number of "successes" in a sequence of $n$ independent Bernoulli trials, each with a $p$ probability of success. The probability mass function is given by Eq. \@ref(eq:binommass):
 \begin{equation} 
 	P(X=k) = \dbinom{n}{k} p^k (1-p)^{n-k}
 	(\#eq:binommass)
