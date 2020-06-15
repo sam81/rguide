@@ -40,7 +40,7 @@ knitr::include_graphics("images/by-sa_88x31.png")
 
 Based on a work at https://github.com/sam81/rguide.
 
-The latest html version of this guide is available at https://sam81.github.io/r_guide_bookdown/preface.html
+The latest html version of this guide is available at https://sam81.github.io/r_guide_bookdown/rguide.html
 
 A pdf version of this guide can be downloaded at https://sam81.github.io/r_guide_bookdown/rguide.pdf
 
