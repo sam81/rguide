@@ -5,6 +5,7 @@ source("global_parameters.R")
 knitr::opts_chunk$set(fig.width=fig.width, fig.height=fig.height)
 library(tibble)
 library(dplyr)
+options(dplyr.summarise.inform=F) 
 ```
 
 Tidyverse is a collection of R packages that used in conjuction significantly change the way of working with R.

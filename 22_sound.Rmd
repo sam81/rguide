@@ -1,11 +1,11 @@
-# Sound Processing {#soundprocessing}
+# Sound processing {#soundprocessing}
 
 ```{r setup, include=FALSE}
 source("global_parameters.R")
 knitr::opts_chunk$set(fig.width=fig.width, fig.height=fig.height)
 ```
 
-## Libraries for Sound Analysis and Signal Processing
+## Libraries for sound analysis and signal processing
 
 
 #### seewave

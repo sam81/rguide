@@ -1,4 +1,4 @@
-# Data Types and Data Manipulation {#datamanip}
+# Data types and data manipulation {#datamanip}
 
 ```{r setup, include=FALSE}
 source("global_parameters.R")
@@ -491,7 +491,7 @@ In general statistical software require your data to be entered in a specific fo
 
 This said, I would advice you to learn some of the functions that R provides to rearrange your data for at least two reasons: 1) They're very powerful and can actually save you time once you learn them, and 2) many examples in this tutorial and in other books use them, so you'll often need to know them to understand what's going on :)
 
-### The "one row per observation" format
+### The "one row per observation" format {#onerowperobservation}
 
 While statistic textbooks and scientific articles often show data in a format that is suitable and immediate for the "human eye", like the one shown in Table \@ref(tab:formath), statistical software often don't quite like it and would rather have the same data rearranged as shown in Table \@ref(tab:formatss).
 

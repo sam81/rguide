@@ -1,11 +1,11 @@
-# File Input/Output {#IO}
+# File input/output {#IO}
 
 ```{r setup, include=FALSE}
 source("global_parameters.R")
 knitr::opts_chunk$set(fig.width=fig.width, fig.height=fig.height)
 ```
 
-## Reading In Data from a File
+## Reading in data from a file
 
 ### The `read.table` function {#read.table}
 
@@ -60,7 +60,7 @@ x = scan("datasets/rts.txt", what=list(v1=numeric(),
 str(x)
 ```
 
-### Low-Level File Input
+### Low-level file input
 
 Sometimes the file to be read is not nicely organised into separate columns each representing a variable, in this case the function `readLines` can either read-in the file as a character vector, in which each element is a line from the file. The lines can then be further processed to extract the data (see Section \@ref(stringprocessing) for information on string processing facilities).
 
@@ -102,7 +102,7 @@ the `readRDS` function can be used to read back the object into R:
 iris_dset = readRDS("iris.rds")
 ```
 
-### Low-Level File Output {#cat}
+### Low-level file output {#cat}
 
 #### `cat`
 

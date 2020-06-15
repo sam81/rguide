@@ -15,7 +15,7 @@ curr_chap_names = [
     "a_simple_introduction_to_R.Rmd",
     "organizing_a_working_session.Rmd",
     "data_manipulation.Rmd",
-    "visualizing_your_data.Rmd",
+    "printing_data.Rmd",
     "file_IO.Rmd",
     "graphics.Rmd",
     "fonts.Rmd",

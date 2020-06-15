@@ -1,4 +1,4 @@
-# Lattice Graphics {#lattice}
+# Lattice graphics {#lattice}
 
 ```{r setup, include=FALSE}
 source("global_parameters.R")
@@ -7,19 +7,13 @@ knitr::opts_chunk$set(fig.width=fig.width_lattice, fig.height=fig.height_lattice
 
 The `lattice` package provides an alternative to the base R graphics system; it is an implementation of the ideas developed and implemented by Rick Becker and Bill Cleveland in the Trellis graphics system for the S language. Trellis displays were developed as a framework to easily display of the relationship between a dependent variable and multiple factors. 
 
-The best introduction to `lattice` graphics is the book by Sarkar [@Sarkar2008], the author of `lattice`:
+The best introduction to `lattice` graphics is the book by @Sarkar2008, the author of `lattice`: Lattice: Multivariate Data Visualization with R. The `lattice` package documentation, available [here](https://cran.r-project.org/web/packages/lattice/lattice.pdf), is a good reference.
 
-- Lattice: Multivariate Data Visualization with R [@Sarkar2008]
+The following articles also contain useful info:
 
-the `lattice` package documentation is available here:
-
-- Lattice Reference Manual https://cran.r-project.org/web/packages/lattice/lattice.pdf
-
-the following articles also contain useful info:
-
-- Some notes on lattice [@Sarkar03] http://www.ci.tuwien.ac.at/Conferences/DSC-2003/Proceedings/Sarkar.pdf
-- R Lattice Graphics [@Murrell2001] http://www.ci.tuwien.ac.at/Conferences/DSC-2001/Proceedings/Murrell.pdf
-- Lattice, an implementation of Trellis graphics in R [@Sarkar02] http://cran.r-project.org/doc/Rnews/Rnews_2002-2.pdf
+- [Some notes on lattice](http://www.ci.tuwien.ac.at/Conferences/DSC-2003/Proceedings/Sarkar.pdf) [@Sarkar2003] 
+- [R Lattice Graphics](http://www.ci.tuwien.ac.at/Conferences/DSC-2001/Proceedings/Murrell.pdf) [@Murrell2001] 
+- [Lattice, an implementation of Trellis graphics in R](https://cran.r-project.org/doc/Rnews/Rnews_2002-2.pdf) [@Sarkar2002]
 
 Because `lattice` is mostly compatible with the Trellis graphics system in S-Plus, the following documents written for Trellis also provide a good introduction to `lattice` and to the concept of trellis displays:
 
@@ -28,9 +22,7 @@ Because `lattice` is mostly compatible with the Trellis graphics system in S-Plu
 - The Visual Design and Control of Trellis Display [@BeckerEtAl1996b]
 - Trellis Display: Modelling Data from Designed Experiments [@ClevelandAndFuentes1997]
 
-
-
-## Overview of Lattice Graphics
+## Overview of lattice graphics
 
   Function
   ---------
@@ -160,30 +152,39 @@ myGraph = barchart(error ~ length | group * session, groups=color,
 print(myGraph)
 ```
 
-## histogram
+## Histograms
 
-```{r eval=FALSE}
-histogram(dats$adj)
-histogram(~dats$adj|dats$congr)
+```{r latticehist1, fig.caption="Histogram."}
+data(iris)
+p = histogram(~Sepal.Length, data=iris)
+print(p)
 ```
 
-## Interaction Plots
+```{r latticehist2, fig.caption="Histogram with panel conditioning.", fig.width=fig.width_lattice*2, fig.height=fig.height_lattice*2}
+p = histogram(~Sepal.Length|Species, data=iris)
+print(p)
+```
+
+## Interaction plots
 
 Example of interaction plot with 3 factors:
 
-```{r eval=FALSE, fig.width=fig.width_lattice*2, fig.height=fig.height_lattice*2}
-print(bwplot(dats$lat~dats$congr|dats$acc,groups=dats$isi,
-     panel='panel.superpose',panel.groups='panel.linejoin',
-     auto.key=list(points=FALSE,lines=TRUE,space='top'),
-     scales=list(cex=.8),ylim=c(280,400),
-     ylab='Medie delle latenze in ms',xlab='SOA'))
+```{r latticeintplot, fig.cap="Interaction plot with three factors", fig.width=fig.width_lattice*2, fig.height=fig.height_lattice*2}
+dat = read.table("datasets/lattice_int_plot_data.csv", sep=",", header=T)
+dat$time = factor(dat$time); dat$cond=factor(dat$cond); dat$id = factor(dat$id)
+p = bwplot(prop~time | id, groups=cond, data=dat,
+           panel='panel.superpose', panel.groups='panel.linejoin',
+           auto.key=list(points=FALSE, lines=TRUE, space='top'),
+           scales=list(cex=.8),
+           ylab='Proportion', xlab='Time (ms)', as.table=TRUE)
+print(p)
 ```
 
-## Customising Lattice Graphics {#customizingtrellis}
+## Customizing lattice graphics {#customizingtrellis}
 
-### Textual Elements
+### Textual elements
 
-#### Strip Labels
+#### Strip labels
 
 The labels of the panels strips are the names of the levels of the conditioning factor variable. To change their labels you can pass the `factor.levels` argument to the `strip.custom` function:
 
@@ -285,9 +286,9 @@ xyplot(y~x, data=dat,
 
 
 
-## Writing Panel Functions {#trellispanel}
+## Writing panel functions {#trellispanel}
 
-### Combining Panel Functions
+### Combining panel functions
 
 Rather than writing a new panel function from scratch, often you just want to add some elements to a plot, for example a regression line, or error bars. The easiest and probably best way to do this is writing a panel function that combines two standard panel functions. There is a number of predefined panel functions (see `?panel.functions`) that can be used to add lines, grids etc..., to a scatterplot, barchart or other higher level plotting lattice function.
 

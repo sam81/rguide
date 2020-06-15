@@ -1,6 +1,6 @@
-# Visualising Your Data
+# Printing out data on the console
 
-As you probably have already noticed, after you've created a data object, just typing its name on the console and pressing `Enter` will display the values it contains. Sometimes however, you might want to see only part of the data, for example to do some checking, or because the data object is too big and it's not printed nicely on the console. The functions `head` and `tail` let you look only at the first or the last part of your data respectively. For example, let's load the `iris` dataset in the `datasets` package, the command:
+As you probably have already noted, after you've created a data object, just typing its name on the console and pressing `Enter` will display the values it contains. Sometimes however, you might want to see only part of the data, for example to do some checking, or because the data object is too big and it's not printed nicely on the console. The functions `head` and `tail` let you look only at the first or the last part of your data respectively. For example, let's load the `iris` dataset in the `datasets` package, the command:
 ```{r}
 library(datasets)
 head(iris)
@@ -10,7 +10,7 @@ will print only the first 6 observations. You can visualise more (or less) than 
 head(iris, n=10)
 ```
 
-## Reading Numbers in Exponential Notation
+## Reading numbers in exponential notation
 
 Often R prints out numbers in exponential notation. In order to understand exponential notation it's first necessary to introduce *scientific notation*.
 

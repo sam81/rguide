@@ -7,6 +7,8 @@
 
 - GLOBAL
   * Switch to lower case chapter/section names
+- 01_installing_R:
+  * add section on installing packages on Mac and say that you can use the `Linux` method of package installation also on Windows and Mac
 - 04_data_manipulation:
   * section on reshape2 and dcast
 - 06_file_IO:
@@ -23,6 +25,8 @@
   * dummy coding
 - 16_anova:
   * add ez for ANOVA
+- 18_programming:
+  * add `for` and `while` loops
 
 - Bibliography:
   * move to refs_long and set to copy refs_long on release

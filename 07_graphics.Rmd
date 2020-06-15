@@ -40,7 +40,7 @@ If we were to plot the change of a variable over time it could be a good idea to
 ```{r timewlines, fig.cap="Values connected by lines."}
 ti=1:50
 b=rnorm(15,4.3,n=50)
-plot(ti, b, type='l')
+plot(ti, b, type="l")
 ```
 
 Some other possible values for the option `type` are `p` for points (the default), `b` for *both* points and lines, and `o` for overplotted points and lines (very similar to `b`).
@@ -95,13 +95,11 @@ test = read.table("datasets/test.txt", header=TRUE)
 ```
 
 We want to use the `tapply` function to get quickly summary tables with the means and standard deviations for the three groups. However the format of the data frame at this point is not suitable for the `tapply` function, because it has 3 observations for each row, and the `tapply` function can be used only with the format "one row per observation", in which we have the values of the observations in one column and a set of "labels" identifying the group to which a given observation belongs to in another column. Fortunately, we can easily change the format of our dataframe with the `stack` command. What it does is just to create a single "values" vector from the three columns we had previously, and to add automatically another "index"  vector with the labels we need:
-
 ```{r}
 test2 = stack(test)
 ```
 
 we can have a look at the first elements of the new dataframe typing:
-
 ```{r}
 head(test2, n=10)
 ```
@@ -116,7 +114,6 @@ test_sd = tapply(X=test2$values, IND=test2$ind, FUN=sd)
 ```
 
 Now we can draw a simple barplot displaying the means for each group:
-
 ```{r barplotsimple, fig.cap="Simple barplot."}
 barplot(test_means, col=c("darkred","salmon2","plum4"))
 ```
@@ -152,7 +149,7 @@ lower = test_means - (test_sd)
 Now we can draw our barplot, you can see the result in Figure \@ref(fig:barplotbars):
 
 ```{r barplotbars, fig.cap="Barplot with error bars."}
-barplot2(test_means,col=c("darkred","salmon2","plum4"),
+barplot2(test_means,col=c("darkred", "salmon2", "plum4"),
          plot.ci=TRUE,ci.u=upper,ci.l=lower)
 ```
 
@@ -167,12 +164,9 @@ boxplot(dat$score~dat$group, names=c("group a", "group b"))
 
 The results are in Figure \@ref(fig:boxplot1), the thick black lines in the middle of the boxes represent the median, if this is about the middle of the box, it is consisten with the data having a normal distribution. The two lines that delimit the box are called "hinges", and they are approximately the first and the third quartiles. The horizontal lines that form the `Ts' above and below the box are called ``whiskers'', and inside them are contained all the observations that fall within a distance of 1.5 times the size of the box, upwards or downwards. Points that fall outside this distance are outliers and they are represented as a circle. In our case there are two outliers in group a. Apart from checking if the distribution is normal, you can also check if the variances are approximately equal, by comparing the size of the boxes (the distance between the hinges). If one boxplot is clearly bigger than the other one (for example two times bigger), then the variances for the two groups are likely not to be equal.
 
-
-
 ## Histograms
 
 Histograms can be used to visualise the distribution of a sample, the function `hist`, can be used to plots a histogram of frequencies (counts) of the sample, or of its density function (setting the option `freq=F`). Let's first create a sample with a normal distribution, and then plot its histogram, the result is in Figure \@ref(fig:hist).
-
 ```{r hist, fig.cap="Frequency distribution of a random sample."}
 my_distr = rnorm(100, 5, 1.7)
 hist(my_distr)
@@ -181,7 +175,6 @@ hist(my_distr)
 ## Stripcharts
 
 If the groups  contain a small number of observations, it might be better to use  a stripchart to visualise their distributions. In a stripchart each point represents a single observation. By default they are drawn on a line, so if two observations have the same score, they overlap. To avoid this problem you can give a certain amount of jitter to the plot, so that observations with the same score are scattered a little and can be easily distinguished. Here's the code for producing a stripchart, the data are in the file `stripchart1.txt` and they are arranged in the same way as the data in `boxplot1.txt`, just the sample sizes are smaller, with 6 observations per group.
-
 ```{r stripchart1, fig.cap="Stripchart example."}
 stripchart(dat$score~dat$group, method="jitter",
            jitter=0.1, pch=1, vertical=TRUE)
@@ -195,9 +188,8 @@ Interaction plots can be used to visualise the means for the levels of a factor,
 data(ToothGrowth) #load dataset
 head(ToothGrowth)
 ```
+
 that contains measurements of the length of odontoblasts (cells responsible for tooth growth) in 60 guinea pigs. Each guinea pig had received one of three doses of vitamin C (0.5, 1, and 2 mg/day) by one of two delivery methods, orange juice (OJ) or ascorbic acid (VC).
-
-
 ```{r int, fig.cap="Interaction plot with different line types.", fig.width=fig.width*1, fig.height=fig.height*1}
 interaction.plot(x.factor=ToothGrowth$supp,
                  trace.factor=ToothGrowth$dose,
@@ -237,6 +229,30 @@ interaction.plot(x.factor=ToothGrowth$supp,
 legend(2.2, 27, legend=c("2", "1", "0.5"), lty=c(1,2,3), pch=c(17,15,16),
        col=c("gray10", "gray40", "gray60"),
        title="Dose", xpd=NA, bty="n")
+```
+
+## Stem (lollipop) plots {#stemplot}
+
+There is no function in base R to generate a stem plot, also known as a "lollipop" plot. However, Matti Pastel [published in his blog](http://mpastell.com/2009/09/11/matlab-style-stem-plot-with-r/) the following function to generate one:
+```{r}
+stem = function(x, y, pch=16, linecol=1, clinecol=1, ...){
+    if (missing(y)){
+        y = x
+        x = 1:length(x)
+    }
+    plot(x, y, pch=pch, ...)
+    for (i in 1:length(x)){
+        lines(c(x[i], x[i]), c(0,y[i]), col=linecol)
+    }
+    lines(c(x[1]-2,x[length(x)]+2), c(0,0), col=clinecol)
+}
+```
+
+Figure \@ref(fig:stemplot1) shows a stem plot generated with this function using the code below:
+```{r stemplot1, fig.cap="Stem plot."}
+x = seq(0, 2*pi, 0.25)
+y = sin(x)
+stem(x, y, xlab="x", ylab="sin(x)")
 ```
 
 ## Setting graphics parameters {#par}
@@ -535,7 +551,6 @@ plot(x, y)
 text(x=3,y=1.5, "mean for control group")
 ```
 if you want to use mathematical symbols you can use the `expression` function:
-
 ```{r eval=FALSE}
 text(x=3, y=1.5, expression(alpha))
 ```
@@ -546,20 +561,18 @@ more details on how to use mathematical symbols are given in Section \@ref(plotm
 
 A grid can be easily added to an existing plot with the function `grid`
 ```{r eval=FALSE}
-s <- seq(from=0, to=2*pi, length=100)
+s = seq(from=0, to=2*pi, length=100)
 plot(s, sin(s))
-plot(s, sin(s), type='l')
+plot(s, sin(s), type="l")
 grid() ##add the grid
 ```
 
 The default color for the grid is lightgray, you can choose another color setting the `col` option:
-
 ```{r eval=FALSE}
 grid(col="red")
 ```
 
 ### Setting the axes {#axes}
-
 
 If you don't like the way the axes are set for a given plot, you can draw the plot without them first, and then add customised axes with the `axis+ function. There are several ways to get rid of the default axes on a plot:
 
@@ -571,7 +584,6 @@ plot(1:10, yaxt="n")       #don't draw the y axis alone
 ```
 
 Once you've removed of one or more axis you can draw them calling the `axis` function:
-
 ```{r eval=FALSE}
 axis(1, at=seq(1, 10, 3), labels=as.character(seq(1, 10, 3)))
 ```
@@ -580,25 +592,21 @@ the first argument specifies the side on which the axis should be drawn, 1 means
 
 ## Creating layouts for multiple graphs {#glayout}
 
-
 ### `mfrow` and `mfcol` {#mfrowmfcol}
 
 The parameters `mfrow` and `mfcol` allow you to divide the graphics device you're using (e.g. `X11` or `pdf`) into multiple boxes, each box will contain a new figure. These parameters are set giving a vector of the form:
-
 ```{r eval=FALSE}
 par(mfrow=c(n_rows,n_columns))
 ```
 
 where `n_rows` is the number of rows and `n_columns` is the number of columns you want for your layout. For example, the following will create a layout with 2 rows and 3 columns as you can see in Figure \@ref(fig:mfrow23):
-
 ```{r mfrow23, fig.cap="A 2x3 Layout with `mfrow`"}
 par(mfrow=c(2,3))
-symb <- as.character(1:6)
+symb = as.character(1:6)
 for(i in 1:6){
-    plot(1, 1, pch=symb[i], xlab='', ylab='')
+    plot(1, 1, pch=symb[i], xlab="", ylab="")
 } 
 ```
-
 
 `mfcol` works exactly the same way as `mfrow`, but the figures are drawn in sequence by column rather than by row, for example the following code yields Figure \@ref(fig:mfcol23)
 ```{r mfcol23, fig.cap="A 2x3 Layout with `mfcol`"}
@@ -610,14 +618,12 @@ for(i in 1:6){
 ```
 
 of course you can get other layouts, try:
-
 ```{r eval=FALSE}
 par(mfrow=c(2,2)) ## 4 boxes
 par(mfrow=c(1,3)) ## one row, 3 cols
 ```
 
 Rather than having the figures drawn sequentially, following the order determined by `mfrow` or `mfcol`, it is possible to specify directly the position for the next figure using the `mfg` parameter. The next example will draw the plot in the slot defined by the crossing between the second row and the first column of a 2x2 layout:
-
 ```{r fig.show="hide"}
 par(mfrow=c(2,2)) ##create 2x2 layout
 par(mfg=c(2,1))   ##set next fig at 2dn row, 1st col
@@ -627,17 +633,15 @@ plot(1:100, sin(1:100))
 ### `layout` {#layout}
 
 A more flexible way to divide a graphics device into multiple plotting regions is given by the `layout` function. With the `layout` function, the graphics device is divided into a matrix of *n_rows x n_cols* sub-regions, and each figure is assigned to one or more of these sub-regions. Let's look at an example:
-
 ```{r, fig.show="hide"}
-m <- matrix(c(1,2,3,4), nrow=2, byrow=TRUE)
+m = matrix(c(1,2,3,4), nrow=2, byrow=TRUE)
 m
 layout(m)
 ```
 
 the matrix `m` we've created, completely defines our layout for the graphics window. The window is divided into 2 x 2=4 sub-regions. Moreover, the first figure is assigned the sub-region on the top-left of the  window, the second figure the sub-region at the top-right, the third the region at the bottom-left, and the fourth the region at the bottom-right. This example is in itself not very different from what we would get with `mfrow`, however two key differences make `layout` more powerful than `mfrow`. First, it is possible to assign more than a single sub-region to a figure, for example:
-
 ```{r, fig.show="hide"}
-m <- matrix(c(1,1,2,3), nrow=2, byrow=TRUE)
+m = matrix(c(1,1,2,3), nrow=2, byrow=TRUE)
 m
 layout(m)
 ```
@@ -645,9 +649,8 @@ layout(m)
 divides the graphics window into 4 sub-regions as above, but the first figure is assigned the two sub-regions on top, while the bottom-left sub-region is assigned to the second figure, and the bottom-right to the third.
 
 The second key difference with `mfrow` is that with `layout` it is possible to define the width of the columns, and the height of the rows composing the array of sub-regions in the graphics window. Width and height are given as vectors of *relative* widths and heights. For example:
-
 ```{r, fig.show="hide"}
-m <- matrix(c(1,1,2,3), nrow=2, byrow=TRUE)
+m = matrix(c(1,1,2,3), nrow=2, byrow=TRUE)
 m
 layout(m, width=c(1/4,3/4), height=c(2/3,1/3))
 ```
@@ -806,7 +809,7 @@ par(mar=c(6, 2, 3, 0) + 0.1) #set new margins size
 - A vector of the form `c(x1, x2, y1, y2)` giving the outer margin region in normalised device coordinates (NDC)
 
   
-## Plotting from Scratch {#plotfromscratch}
+## Plotting from scratch {#plotfromscratch}
 
 The high level plotting functions such as `plot`, `histogram`, `barplot` and so on, provide a good and quick way to produce graphs. Plotting from scratch, using the low-level plotting commands is generally not necessary, unless you want to create some new, customised plotting functions. Learning to plot "from scratch", however is a very good way to learn how graphics parameters work, which is often necessary to customise plots created with the high-level plotting functions.
 

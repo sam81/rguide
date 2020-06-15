@@ -6,7 +6,7 @@ rmd_files: [
 "02_a_simple_introduction_to_R.Rmd",
 "03_organizing_a_working_session.Rmd",
 "04_data_manipulation.Rmd",
-"05_visualizing_your_data.Rmd",
+"05_printing_data.Rmd",
 "06_file_IO.Rmd",
 "07_graphics.Rmd",
 "08_fonts.Rmd",
@@ -28,7 +28,7 @@ rmd_files: [
 "24_packages.Rmd",
 "25_commands.Rmd",
 "26_resources.Rmd",
-"27_colors_table.Rmd"
+"27_colors_table.Rmd",
 ]
 
 book_filename: rguide
