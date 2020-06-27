@@ -1,6 +1,6 @@
 --- 
 title: "A R Guide"
-subtitle: "0.3.13"
+subtitle: "0.3.14"
 author: "Samuele Carcagno"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 site: bookdown::bookdown_site
@@ -12,7 +12,7 @@ bibliography: [refslong.bib]
 link-citations: yes
 github-repo: sam81/rguide
 geometry: margin=3.4cm
-always_allow_html: yes
+always_allow_html: true
 description: "A guide for the R programming language."
 ---
 

@@ -1,17 +1,24 @@
-# Using Sweave to write documents with R and LaTeX
+# Writing reports with `rmarkdown` or Sweave
+
+## `rmarkdown`
+
+https://bookdown.org/yihui/rmarkdown/
+
+
+## Using Sweave to write documents with R and LaTeX
 
 ```{r setup, include=FALSE}
 source("global_parameters.R")
 knitr::opts_chunk$set(fig.width=fig.width, fig.height=fig.height)
 ```
 
-## What is Sweave?
+### What is Sweave?
 
 Sweave provides a great way of writing documents or reports that contain both text and R objects, namely figures, syntax and raw or nicely formatted output produced by R. Sweave is also a way to automate the production of documents. Usually when you write a  document with some statistical content, you first write the text, and then add the graphics produced by some statistical software or spreadsheet application. Of course this process is time consuming, not to mention the fact that often you have to manually fill in tables with the statistics produced by the application you're using. Even worse, if you've already prepared your report, but then you have to change something in the statistical analyses, for example you have to add or drop a subject, the entire process must be repeated again from scratch. Sweave is aimed at easing this process, it works like this: you write a single source file which contains  your text, written with the LaTeX markup language, and embed in it the R syntax needed for producing the figures, and tables to appear in your document. You process this file with Sweave through R, and you get a plain LaTeX source file which you can run with, well LaTeX of course, to get your nicely formatted output. If your data happen to change for any reasons, you don't have to start again from scratch, you can just run your old Sweave source file on your new dataset, and everything will be updated automatically.
 
 If you already know LaTeX and R, learning to use Sweave will be easy, the additional syntax required by Sweave to integrate R and LaTeX source code is minimal. As a caveat, I have to say that Sweave is still in its infancy, so, for the moment probably you won't automatically get all the tables, with complicated layouts that you'd like to add to your document. In my opinion, however, Sweave already does a great job, and it's well worth using.
 
-## Usage
+### Usage
 
 Recent versions of R come with Sweave already in the base system (in the package `utils`), so you don't need to install it separately. Of course you need LaTeX installed to produce the document later, Sweave only outputs a LaTeX source file and all the graphics needed for your document.
 

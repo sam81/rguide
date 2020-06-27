@@ -171,3 +171,8 @@ text(x=c(7.4), y=c(-0.025), expression(7.4))
 text(x=c(7.8), y=c(0.32), "comp. science \ngroup score")
 ```
 
+## Further resources
+
+### Related packages
+
+The [distributions3](https://cran.r-project.org/web/packages/distributions3/) package provides an alternative interface to computations of functions related to probability distributions.

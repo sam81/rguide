@@ -17,5 +17,5 @@ All named colors are listed below:
 ![](Figures/t7.png)
 
 
-
+`r if (knitr::is_html_output()) '# References {-}'`
 

@@ -95,10 +95,11 @@ iris %>% group_by(Species) %>% summarize(meanPetLen=mean(Petal.Length))
 note that we can group by more than one variable, and we can compute more than one statistics in the `summarize` call, as shown in the following example which uses the `mpg` dataset provided by `ggplot2`:
 ```{r}
 library(ggplot2)
-mpg %>% group_by(manufacturer, trans) %>% summarize(meanHWY=mean(hwy),
-                                                    sdHWY=sd(hwy),
-                                                    meanCTY=mean(cty),
-                                                    sdCTY=sd(cty))
+mpg_grpd = mpg %>% group_by(manufacturer, trans) %>% summarize(meanHWY=mean(hwy),
+                                                               sdHWY=sd(hwy),
+                                                               meanCTY=mean(cty),
+                                                               sdCTY=sd(cty))
+head(mpg_grpd)
 ```
 
 ### Getting counts of cases

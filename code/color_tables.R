@@ -1,6 +1,6 @@
 ##colors() lists all available named colors
 ## 3 columns x 33 rows
-seq(1,657,by=99)
+seq(1, 657, by=99)
 
 t1 = colors()[1:99]
 t2 = colors()[100:(99*2)]

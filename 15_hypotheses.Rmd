@@ -5,8 +5,9 @@ source("global_parameters.R")
 knitr::opts_chunk$set(fig.width=fig.width, fig.height=fig.height)
 ```
 
-```{block2, type='rmdwarning'}
+```{block, type='rmdwarning'}
 This is not a statistics textbook. The examples are simply meant to show the syntax to perform certain tests in R, the correct execution of tests and the interpretation of their results depend on good theoretical knowledge of the statistical tests and their assumptions.
+
 ```
 
 ## $\chi^2$ test
@@ -28,7 +29,7 @@ chisq.test(x=c(93,18,2), p=c(0.8,0.15,0.05))
 we give the function a vector `x` with the handedness counts for each category in our sample of guitar players, and a vector `p` of the expected frequencies for each category in the general population. R returns the value of the $\chi^2$ statistics and its associated *p*-value. In our case, assuming $\alpha=0.05$, the *p*-value indicates that the $\chi^2$ statistics is not significant, , therefore we do not reject the null hypothesis that the distribution of handedness in the population of guitar players differs from that of the general population.
 
 
-#### Testing hypotheses about the association between two categorical variables
+### Testing hypotheses about the association between two categorical variables
 
 The $\chi^2$ test can also be used to verify a possible association between two categorical variables, for example sex and cosmetic products usage (classified as "high", "medium" or "low"). A contingency table showing hypothetical data on cosmetic usage for a sample of $44$ males and $67$ females is shown in Table \@ref(tab:cosmetic).
 
@@ -140,7 +141,7 @@ t.test(cnd1-cnd2, mu=0)
 ## The Levene test for homogeneity of variances {#levenetest}
 
 The Levene test can be used to test if the variances of two samples are significantly different from each other. This procedure is important because some statistical tests, such as the two independent sample *t*-test, are based on the assumption that the variances of the samples being tested are equal. In R the function to perform the Levene test is contained in the `car` package, so in order to call it the package must be installed and the `car` library has to be loaded with the command:
-```{r}
+```{r, message=FALSE}
 library(car)
 ```
 

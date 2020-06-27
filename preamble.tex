@@ -1,6 +1,3 @@
-%\usepackage[bitstream-charter]{mathdesign}
-%\usepackage{mathpazo,bm}
-%\usepackage[skip=20pt]{parskip}
 \usepackage{xcolor}
 \definecolor{linkcol}{RGB}{0, 51, 153}
 %\definecolor{linkcol}{RGB}{33, 107, 217}
@@ -23,10 +20,12 @@
 %\addbibresource{refs_long.bib}
 \usepackage{microtype}
 \usepackage{fancyhdr}
+\usepackage{multicol}
 
 %% remove paragraph indent
 \setlength{\parindent}{0em}
-\setlength{\parskip}{4pt}
+\abnormalparskip{0.3\baselineskip}
+%%\setlength{\parskip}{4pt}
 
 \fancypagestyle{plain}{%
   \fancyhf{}
@@ -37,7 +36,7 @@
 
 \fancypagestyle{bodypagestyle}{%
     \fancyhf{}
-    \fancyhead[LE,RO]{R Guide}
+    \fancyhead[LE,RO]{}
     \fancyhead[LO,RE]{\leftmark}
     \fancyfoot[LE,RO]{\thepage}
 \renewcommand{\footrulewidth}{0.4pt}
@@ -56,6 +55,7 @@
 
 \usepackage{framed,color}
 \definecolor{shadecolor}{RGB}{248,248,248}
+
 
 \makeatletter
 \newenvironment{kframe}{%
@@ -112,4 +112,5 @@
   {\end{rmdblock}}
 \newenvironment{rmdwarning}
   {\begin{rmdblock}{warning}}
-  {\end{rmdblock}}
+    {\end{rmdblock}}
+  

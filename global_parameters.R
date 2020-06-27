@@ -6,3 +6,6 @@ fig.width_ggplot2=3.4
 
 fig.height_lattice=3.3
 fig.width_lattice=3.4
+
+fig.height_plotly=4
+fig.width_plotly=4.5

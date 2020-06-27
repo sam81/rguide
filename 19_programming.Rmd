@@ -7,6 +7,9 @@ knitr::opts_chunk$set(fig.width=fig.width, fig.height=fig.height)
 
 ## Control structures {#contrstruct}
 
+
+### Conditionals
+
 #### If..else conditional execution {#conditionalexecution}
 
 It is possible to insert and execute control structures directly from the R interpreter, but for the following examples, I'll assume you're writing the commands to a batch file, and then executing them through the `source()` command.
@@ -103,6 +106,53 @@ a
 a=a[-which(a>5)]
 ```
 
+### Loops
+
+#### `for` loops
+
+`for` loops can be used to iterate over elements of a vector:
+```{r}
+for (i in 1:4){
+    print(i)
+}
+```
+
+in the above case the vector is given by the sequence of numbers `1:4`. The following example uses a vector consisting of a sequence of letters:
+```{r}
+letts = c("a", "b", "c", "d")
+for (ltt in letts){
+    print(ltt)
+}
+```
+
+`for` loops can iterate also over elements of a list:
+```{r}
+lst = list(a=c(1, 8), b=c(2, 7), c=c(3, -4))
+for (itm in lst){
+    print(itm[2])
+}
+```
+
+`for` loops can be nested at will:
+```{r}
+for (ltt in letts){
+    for (i in 1:4){
+        print(paste0(ltt, " - ", i))
+    }
+}
+```
+
+#### `while` loops
+
+`while` loops continue until a certain condition is met:
+```{r}
+i = 1
+while (i<4){
+    print(i)
+    i = i+1
+}
+    
+```
 
 ## String processing {#stringprocessing}
 
@@ -346,4 +396,6 @@ The sanity check for the package can be done by issuing the following command fr
 $ R CMD check /path/to/your/package/sources/
 ```
 
+#### Other resources
 
+@Wickham2015 is a book dedicated to the development of R packages. The draft of the 2\textsuperscript{nd} edition of the book is available [here](https://r-pkgs.org/).

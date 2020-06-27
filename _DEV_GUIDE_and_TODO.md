@@ -11,6 +11,7 @@
 
 - GLOBAL
   * Switch to lower case figure/table captions
+  * use built-in datasets of datasets from packages instead of made up datasets or simulations
   * add rmarkdown chapter?
   * add Bayesian stats (JAGS, STAN) chapter?
   * add chapter on psychophysics (dprime, psychometric functions)?
@@ -34,10 +35,11 @@
 
 - 09_ggplot2:
   * publication quality tweaks and cowplot
+  * common charts: add histograms, density plots, boxplots, lollipop plots, stripcharts
 - 10_plotly:
   * add more examples, check if pdf issue can be fixed
 - 11_lattice:
-
+  * mention things that can't be done in ggplot2: shingles and 3d plots
 - 12_tidyverse:
 
 - 13_distributions:
@@ -77,7 +79,7 @@
   
 # Packages need to build the book
 
-install.packages("bookdown", "car", "dplyr", "ggplot2", "gplots", "gtools", "lattice", "plotly", "tibble", "webshot")
+install.packages(c("bookdown", "car", "cowplot", "dplyr", "ggplot2", "gplots", "gtools", "lattice", "latticeExtra", "plotly", "tibble", "tidyr", "webshot"))
 
 
 # Bookdown 
@@ -104,7 +106,7 @@ render_book("desired_chapter.Rmd", output_format="bookdown::gitbook",
 	preview=T, new_session=F)
 ```
 
-- to prevent messages from appearing in rmarkdown chunks when loading a package use message=FALSE
+- to prevent messages from appearing in rmarkdown chunks when loading a package use `message=FALSE`
 
 ## Citations
 
@@ -120,9 +122,18 @@ render_book("desired_chapter.Rmd", output_format="bookdown::gitbook",
 
 ## Custom blocks
 
+```{block, type='rmdwarning'}
+A warning
+```
+
+with block2 I get a dash 
 ```{block2, type='rmdwarning'}
 A warning
 ```
+
+not sure what's the issue, need to see 
+https://bookdown.org/yihui/rmarkdown-cookbook/custom-blocks.html 
+https://bookdown.org/yihui/bookdown/custom-blocks.html
 
 ## Output overflow
 https://bookdown.org/yihui/rmarkdown-cookbook/text-width.html

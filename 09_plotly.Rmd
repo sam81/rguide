@@ -1,0 +1,70 @@
+# Plotly {#plotly}
+
+```{r setup, include=FALSE}
+source("global_parameters.R")
+knitr::opts_chunk$set(fig.width=fig.width_plotly, fig.height=fig.height_plotly)
+library(webshot)
+```
+
+```{block, type='rmdwarning'}
+Figures in this section may not appear in the pdf version of the book. Please use the html version if that is the case: https://sam81.github.io/r_guide_bookdown/rguide.html
+```
+
+The ["plotly for R"](https://cpsievert.github.io/plotly_book/) book [@Sievert2020] is the best introduction for learning plotly.
+
+We'll start by loading `plotly` and generating some random data for a scatterplot:
+```{r, message=FALSE, warning=FALSE}
+library(plotly)
+x = rnorm(10); y=rnorm(10)
+```
+
+we can now generate a scatterplot, which is shown in Figure \@ref(fig:plotly1):
+```{r, plotly1, fig.cap="Plotly example."}
+plot_ly(x=x, y=y, type="scatter", mode="markers")
+```
+
+we can change the color, size and opacity of the plotting points, obtaining the plot shown in Figure \@ref(fig:plotly2):
+```{r plotly2, fig.cap="Plotly example."}
+plot_ly(x=x, y=y, type="scatter", mode="markers",
+        marker=list(color="black" , size=15 , opacity=0.8))
+```
+
+## `ggplotly`
+
+The `ggplotly` function can be used to convert a `ggplot2` graphic into an interactive `plotly` graphic. For example, the following code generates Figure \@ref(fig:ggplotly1):
+```{r ggplotly1, fig.cap="`ggplotly` example."}
+p = ggplot(iris, aes(Sepal.Width, Sepal.Length, color=Species)) + geom_point()
+p = p + xlab("Sepal width") + ylab("Sepal length")
+ggplotly(p)
+```
+
+While the conversion is smooth for simple plots, your mileage may vary with more complex plots. Work is ongoing to improve the conversion process, and hopefully in the future `ggplotly` will be able to seamlessly convert any `ggplot2` graphic seamlessly to interactive `plotly` graphics. In the meantime, you just have to try it to check whether the conversion works for a specific plot you might need.
+
+## Using plotly with knitr
+
+Plotly figures are rendered directly in the html output with knitr:
+
+````markdown
+`r ''````{r chunk-label, fig.cap = 'A figure caption.'}
+plot_ly(economics, x = ~date, y = ~unemploy / pop)
+```
+````
+
+please note that if the plot is assigned to a variable you need to call that variable in the code chunk for the plot to be rendered:
+
+
+````markdown
+`r ''````{r chunk-label, fig.cap = 'A figure caption.'}
+p = plot_ly(economics, x = ~date, y = ~unemploy / pop)
+p #call the variable storing the plot to render it
+```
+````
+
+Plotly figures can also appear in pdf files generate by knitr if the `webshot` package is installed. Besides this package, you will also need to have PhantomJS (http://phantomjs.org/) installed on your system. You can install both `webshot` and PhantomJS from within R with the following commands:
+
+```{r eval=FALSE}
+install.packages("webshot")
+webshot::install_phantomjs()
+```
+
+

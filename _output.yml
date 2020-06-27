@@ -4,7 +4,8 @@ bookdown::gitbook:
   config:
     toc:
       before: |
-      collapse: section
+      collapse: subsection
+      scroll_highlight: yes
       after: |
         <li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
     sharing:
