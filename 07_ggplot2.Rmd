@@ -99,7 +99,7 @@ Geometry
 
 Table: (\#tab:geoms) Common `ggplot2` geometries.
 
-## Common charts
+## Common charts {#ggcommon}
 
 ### Scatterplots
 
@@ -123,7 +123,7 @@ p = p + xlab("Petal Width (cm)") + ylab("Petal Length (cm)")
 p
 ```
 
-### Time series
+### Time series {#ggtimeseries}
 
 We'll plot a time series using the `Orange` built-in R datasets, which contains data on the growth of five orange trees. The result can be seen in Figure \@ref(fig:ggorange1).
 
@@ -134,7 +134,7 @@ p = p + xlab("Age (days)") + ylab("Circumference (mm)")
 p
 ```
 
-### Barplots
+### Barplots {#ggbarplots}
 
 For the following examples we'll use the `npk` dataset, which contains data from a factorial experiment on the effects of N, P, K (nitrogen, phosphate, potassium) on the growth of peas.
 ```{r}
@@ -202,7 +202,7 @@ npk_summ_NPK = npk %>% group_by(N,P,K) %>% summarize(mean_yield=mean(yield),
 ```
 
 and then generate the plot (shown in Figure \@ref(fig:npkp3)):
-```{r npkp3, fig.cap="Barplot showing yield as a function of nitrogen and phosphate application. Panels plot mean yield as a function of the application of potassium (0=no, 1=yes)."}
+```{r npkp3, fig.cap="Barplot showing yield as a function of nitrogen and phosphate application. Panels plot mean yield as a function of the application of potassium (0=no, 1=yes).", fig.width=fig.width_ggplot2*1.5}
 p3 = ggplot(npk_summ_NPK, aes(N, mean_yield, fill=P))
 p3 = p3 + geom_col(position=position_dodge(dodge_size))
 p3 = p3 + facet_wrap(~K)
@@ -215,7 +215,7 @@ p3 = p3 + ylab("Mean yield")
 p3
 ```
 
-Besides `geom_col` there is a `geom_bar` that can generate barplots; `geom_bar(stat="identity)"` will produce the same plot as `geom_col`, however, the default `stat` for `geom_bar` is `count`, so it will plot the count of cases of a certain factor. For example Figure \@ref(fig:ggmpg1) plots the number of cars for each manufacturer in the `mpg` dataset, and was obtained with the code below:
+Besides `geom_col` there is a `geom_bar` that can generate barplots. This geometry, combined with the "identity" stat (`geom_bar(stat="identity")`) will produce the same plot as `geom_col`. However, the default `stat` for `geom_bar` is `count`, so it will plot the count of cases of a certain factor. For example Figure \@ref(fig:ggmpg1) plots the number of cars for each manufacturer in the `mpg` dataset, and was obtained with the code below:
 ```{r ggmpg1, fig.cap="Number of cars by manufacturer in the `mpg` dataset."}
 data(mpg)
 p = ggplot(mpg, aes(manufacturer)) + geom_bar()
@@ -223,7 +223,7 @@ p = p + theme(axis.text.x = element_text(angle = 45, hjust = 1))
 p
 ```
 
-Figure \@ref(fig:ggmpg2) instead plots the number of cars by manufacturer and type of transmission, and was obtained with the following code:
+Figure \@ref(fig:ggmpg2) instead, plots the number of cars by manufacturer and type of transmission, and was obtained with the following code:
 ```{r ggmpg2, fig.cap="Number of cars by manufacturer and type of transmission in the `mpg` dataset.", fig.width=4.5, fig.height=4}
 p = ggplot(mpg, aes(manufacturer, fill=trans))
 p = p + geom_bar(position=position_dodge(0.9))
@@ -231,7 +231,7 @@ p = p + theme(axis.text.x = element_text(angle = 45, hjust = 1))
 p
 ```
 
-### Interaction plots
+### Interaction plots {#ggintplots}
 
 For the next example we'll use the `ToothGrowth` built-in R dataset, which contains measurements of the length of odontoblasts (cells responsible for tooth growth) in 60 guinea pigs. Each guinea pig had received one of three doses of vitamin C (0.5, 1, and 2 mg/day) by one of two delivery methods, orange juice (OJ) or ascorbic acid (VC). 
 
@@ -263,9 +263,10 @@ p
 
 ## Scales
 
-### Log axis with pretty tickmarks
+### Log axis with pretty tickmarks {#gglogticks}
 
-```{r fig.cap="Log axis with pretty tickmarks"}
+The `annotation_logticks` function can be used to generate "pretty" tickmarks for axes on a log10 scale. An example is given in the code below (plot shown in Figure \@ref(fig:gglogticks)):
+```{r gglogticks, fig.cap="Log axis with pretty tickmarks"}
 x = c("cnd1", "cnd2")
 y = c(0.4, 80)
 
@@ -278,12 +279,12 @@ p = p + theme_bw(base_size=12)
 p
 ```
 
-## Themes
+## Themes {#ggtheming}
 
 `ggplot2` ships with a number of themes included. The [`ggthemes`](https://cran.r-project.org/web/packages/ggthemes/index.html) package provides a number of additional themes.
 
 
-## Tips and tricks
+## Tips and tricks {#ggtipstricks}
 
 ### Fixing labels that won't fit
 
@@ -323,28 +324,28 @@ p = ggdraw(p) + draw_label("A really long label that won't easily fit!",
 p
 ```
 
-### Setting the aspect ratio
+### Setting the aspect ratio {#ggasp}
 
-In the following plot the `x` and `y` variables are on the same scale, but we've purposefully added an outlier:
-```{r}
-x = rnorm(100)
+In the following plot (Figure \@ref(fig:ggasp1)) the `x` and `y` variables are roughly on the same scale, but we've purposefully added an outlier so that the two axes have different ranges:
+```{r ggasp1, fig.cap="A scatterplot. The aspect ratio is not fixed."}
+x = rnorm(100) #simulate data
 y = rnorm(100)
-y[1] = y[1]+10
+y[1] = y[1] + 10 #add outlier
 dat = data.frame(x=x, y=y)
 p = ggplot(dat, aes(x, y)) + geom_point()
 p = p + geom_abline(slope=1, intercept=0)
+p = p + theme_bw()
 p
 ```
 
-we can set the aspect ratio to 1 with `p = p + coord_fixed(ratio=1)`
-
-```{r}
+we can set the aspect ratio to 1 with `p = p + coord_fixed(ratio=1)`:
+```{r ggasp2, fig.cap="A scatterplot with aspect ratio fixed to 1."}
 p = p + coord_fixed(ratio=1)
 p
 ```
 
-this fixes the aspect ratio to 1, but the plot looks somewhat odd because it is not square. To fix this we need to calculate the ranges of both axes and set them at their max/min:
-```{r}
+this fixes the aspect ratio to 1, but the plot, shown in Figure \@ref(fig:ggasp2), looks somewhat odd because it is not square. To fix this we need to calculate the ranges of both axes and set them at their max/min:
+```{r ggasp3, fig.cap="A scatterplot with aspect ratio fixed to 1, and a square plotting area."}
 p = ggplot(dat, aes(x, y)) + geom_point()
 p = p + geom_abline(slope=1, intercept=0)
 xmax = max(layer_scales(p)$x$range$range)
@@ -354,10 +355,13 @@ xmin = min(layer_scales(p)$x$range$range)
 ymin = min(layer_scales(p)$y$range$range)
 xymin = min(xmin,ymin)
 p = p + coord_equal(xlim=c(xymin,xymax), ylim=c(xymin,xymax))
+p = p + theme_bw()
 p
 ```
 
-## Further resources
+in this way we obtain the plot shown in Figure \@ref(fig:ggasp3), which looks better.
+
+## Further resources {#ggres}
 
 ### Books, articles, and tutorials
 

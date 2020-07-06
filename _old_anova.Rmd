@@ -1,15 +1,19 @@
-# ANOVA
+# Analysis of variance {#anova}
 
 ```{r setup, include=FALSE}
 source("global_parameters.R")
 knitr::opts_chunk$set(fig.width=fig.width, fig.height=fig.height)
 ```
 
-## One-Way ANOVA
+```{r}
+library(ez)
+```
 
-We'll start directly with an example to show how to perform a one-way ANOVA. Let's imagine an experimenter is studying the effects of sleep deprivation on verbal memory. He selects a random sample of healthy subjects, and assigns them to three treatments: 4 hours, 6 hours and 8 hours of total sleep. The subjects are then given a memory test, consisting of a long list of words to remember after a minute of delay from their presentation. The dependent variable is the number of words correctly recalled in a minute time. The data are shown in table \@ref(tab:sleep): 
+## One-way ANOVA (between subjects)
 
-4 hours   6 hours    8 hours 
+We'll start with an example showing how we can perform a one-way analysis of variance (ANOVA) in R. The example uses a dataset from a fictitious experiment on the effect of three types of memory-boosting drugs. Thirty participants were randomly assigned to one of three groups, each given a different memory-boosting drug (drug "A", "B", or "C"), and afterwards their memory was assessed by counting the number of words they could recall from a list. The data is shown in Table \@ref(tab:drugmem).
+
+Drug A    Drug B     Drug C
 --------  ---------  ---------
 12        13         15
 9         12         17
@@ -22,50 +26,47 @@ We'll start directly with an example to show how to perform a one-way ANOVA. Let
 10        12         14 
 7         9          15
 
-Table: (\#tab:sleep) Data for the one-way ANOVA example.
+Table: (\#tab:drugmem) Number of words recalled from a list for participants treated with drug A, B, or C.
 
-The data are stored in a text file `sleepdep.txt` in the above format, but without any header. First we read in the data with the `scan` function and assign them to a  vector that we'll call `recalled`: 
-
+We read in the dataset:
 ```{r}
-recalled <- scan("datasets/sleepdep.txt")
+drug_mem = read.table("datasets/drug_memory.csv", header=T, sep=",")
+head(drug_mem)
 ```
 
-then we need to create another vector which holds the *level* of the factor "hours of sleep" for each observation. Since our data, stored in the vector "recalled" are organised in an ordered sequence, with observations belonging to treatment 4 h, 6 h, 8 h, etc... repeated 10 times, we need to mimic this structure to create our new vector. We'll use the `rep` function to do this, we'll call our levels 1, 2, and 3 for sake of simplicity.
-
-```{r}
-treatment <- as.factor(rep(1:3, 10))
+the dependent variable is the number of words correctly recalled from the list (`n_words`), while the other column (`drug`) denotes the experimental group. We can have a look at the data through a dotplot:
+```{r drugmem, fig.cap="Number of words recalled for participants administered different types of memory-boosting drugs.", fig.width=fig.width_ggplot2, fig.height=fig.height_ggplot2}
+library(ggplot2)
+p = ggplot(drug_mem, aes(drug, n_words)) + geom_point()
+p = p + xlab("Drug") + ylab("# words recalled")
+p = p + theme_bw()
+print(p)
 ```
 
-now we'll put the two vectors together into a data frame:
-
+the dotplot, shown in Figure \@ref(fig:drugmem), suggests that the drugs have different effects on the number of recalled words. We can run the ANOVA with the `aov` function:
 ```{r}
-sleepdata <- data.frame(recalled, treatment)
+drug_mem_aov = aov(n_words ~ drug, data=drug_mem)
 ```
 
-well, the data are now in a proper format to perform our analysis of variance, we can call this format "one row per observation", since in each row of our data frame we hold the  value of the dependent variable in one column and the level of the factor that we are manipulating in the other column for a single observation. As for the analysis, we go like this:
-
+the first argument passed to the function is the model formula, which you can read as "explain `n_words` as a function of `drug`"; the other argument, `data`, is the dataframe containing the data. Calling `summary` on the `aov` output gives a pretty printout with various info we need to report the results (degrees of freedom, *F* value, *p*-value, etc...)
 ```{r}
-aov1 = oneway.test(recalled~treatment, data=sleepdata, var.equal=TRUE)
+summary(drug_mem_aov)
+```
+assuming a significance level of 0.05 the results of the test reject the null hypothesis that the three drugs have the same effectiveness on the number of recalled words from a list.
+
+Another function that can run a one-way ANOVA in R is `oneway.test`. Its syntax is very similar to that of `aov`, but it has an additional argument, `var.equal`, to indicate whether homogeneity of variance should be assumed or not. If not, a Welch-type test is run (see `?oneway.test`). For example, if we had reason to suspect non-homogeneous variances across the groups we could have run the test with:
+```{r}
+oneway.test(n_words ~ drug, data=drug_mem, var.equal=F)
 ```
 
-the `summary` function tells R to print out a nicely formatted summary with the results of our analysis. The actual function that performs the analysis is `aov`, and what follows this command is the specification of our model for the analysis. In this case we want to see if the number of words recalled depends on the treatment, the `(recalled ~ treatment)` statement does just this, because the tilde `~` means "explain recalled on the basis of treatment". Finally, the `data` statement specifies the object in which are stored the data for this analysis.
-
-Below there is the summary produced by R for this analysis.
-
-```{r}
-aov1
-```
-
-We have the sums of squares for the treatment effect and for the error term and the F value for the treatment effect with its significance value. Since the p value in this case is very, very small, it is written in scientific notation. However we can use the significance codes given at the bottom of the print out to interpret the p value as very close to zero, at least smaller than 0.001, so it is highly significant. 
-
-
-## Repeated measures ANOVA
+The `aov` function can han
+## Repeated-measures ANOVA
 
 ### One within-subject factor
 
-The syntax for performing a repeated measures ANOVA is a little more complex than the syntax for fully randomised designs. In a repeated measures design we take into account the effects of the subjects on our measures, that is the fact that different subjects will have different different baseline means on a given measure (e.g. on a reaction time test). In this way we are able to tell apart the variability given by inter individual differences between our subjects, from the variability due to the manipulation of one or more independent variables, with a view to identify the latter with more precision. A consequence of this procedure is that while with other designs we used a common error term, in a repeated measures design we have to use different error terms to test the effects we are interested in and we have to specify this in the formula we use with R for `aov`. A good explanation of repeated measures designs in R is given by @BaronAndLi2003, and what follows in this discussion is mainly inspired by their work.
+The syntax for performing a repeated measures ANOVA is a little more complex than the syntax for fully randomised designs. In a repeated measures design we take into account the effects of the subjects on our measures, that is the fact that different subjects will have different different baseline means on a given measure (e.g. on a reaction time test). In this way we are able to tell apart the variability given by inter individual differences between subjects, from the variability due to the manipulation of one or more independent variables, with a view to identify the latter with more precision. A consequence of this procedure is that while with other designs we used a common error term, in a repeated measures design we have to use different error terms to test the effects we are interested in, and we have to specify this in the formula we use with R for `aov`. A good explanation of repeated measures designs in R is given by @BaronAndLi2003, and what follows in this discussion is mainly inspired by their work.
 
-We will start with a simple example of a repeated measures design with one within subject factor at three levels. Let's imagine we want to test the effects of three different colours on a simple detection task. The data are presented in Table \@ref(tab:rts), and represent subjects' reaction times (measured with a button press) for the detection of squares of three different colours (blue, black and red). Each subject was tested under all the three conditions. The data are store in the file `rts.txt`, with the same format as that shown in the table, but without any header and without the column specifying the subject's number.
+We will start with a simple example of a repeated measures design with one within-subject factor with three levels. Let's imagine that we want to test the effects of three different colors on a simple detection task. The data are presented in Table \@ref(tab:rts), and represent participants' reaction times (measured with a button press) for the detection of squares of three different colors (blue, black, or red). Each participant was tested under all the three conditions. The data are stored in the file `rts.txt`, with the same format as that shown in the table, but without any header and without the column specifying the subject's number.
 
 Subj  Blue   Black  Red
 ----  -----  -----  -----
@@ -87,71 +88,67 @@ Table: (\#tab:rts) Example for repeated measures ANOVA with one within subjects 
 We will first read in the data and apply the usual transformations to get the one row per observation format:
 ```{r}
 dat <- scan("datasets/rts.txt") #read in the data
-colour <- as.factor(rep(c("blue","black","red"),12)) #create a factor for colours with 3 lev.
+color <- as.factor(rep(c("blue","black","red"),12)) #create a factor for colors with 3 lev.
 subj <- as.factor(rep(1:12,each=3)) #create factor for subjects
-dfr <- data.frame(dat,colour,subj) #put everything in a dataframe
+dfr <- data.frame(dat, color, subj) #put everything in a dataframe
 ```
 
-Now the data are ready for further analyses. We can first have a look at variability for the three colours by drawing a boxplot.
+Now the data are ready for further analyses. We can first have a look at variability for the three colors by drawing a boxplot.
 
-```{r rts, fig.cap="Boxplot showing the distribution of RTs for the three colours"}
-boxplot(dfr$dat ~ dfr$colour)
+```{r rts, fig.cap="Boxplot showing the distribution of RTs for the three colors."}
+boxplot(dfr$dat ~ dfr$color)
 ```
 
-As you can see from Figure \@ref(fig:rts), the variability for the three conditions is pretty much the same and the three distributions seems to be approximately normal. The medians for the three distributions seems to differ, our analysis will tell us if these differences are significant.
-
-
-Below is shown the syntax for the analysis and with its output:
+As you can see from Figure \@ref(fig:rts), the variability for the three conditions is roughly the same and the three distributions seem to be approximately normal. The medians for the three distributions seem to differ, our analysis will indicate if these differences are statistically significant. The syntax for the analysis and its output are shown below:
 ```{r}
-summary(aov(dat ~ colour + Error(subj/colour), data=dfr))
+summary(aov(dat ~ color + Error(subj/color), data=dfr))
 ```
 
 The statement
-
 ```{r eval=FALSE}
-Error(subj/colour)
+Error(subj/color)
 
 ```
 is a shorthand for
 
 ```{r eval=FALSE}
-Error(subj + subj:colour)
+Error(subj + subj:color)
 ```
 
-It tells R to partition the residuals into two error terms, one represents the effects of the differences between subjects (`subj`) and the other is the subjects by colour interaction (`subj:colour`) which is the appropriate error term for testing the effects of `colour` on the RTs.
+It tells R to partition the residuals into two error terms, one represents the effects of the differences between subjects (`subj`) and the other is the subjects by color interaction (`subj:color`) which is the appropriate error term for testing the effects of `color` on the RTs.
 
 To understand this procedure we have to remember that while in a fully randomised design we use a common error term to test the effects of all the different factors and their interactions, in a repeated measures design we have to split up this error term into different partitions, some of which we will use to test the effects of our factors and their interactions.
 
-In the case at hand the subjects' error term will not be used to test any effects, it will just be subtracted from the common residuals entry, so that the variability due to differences between subjects doesn't inflate the error term we will use to test for the effects of colours. The subjects' error terms is in this case just the Sum of Squares Between. 
+In the case at hand the subjects' error term will not be used to test any effects, it will just be subtracted from the common residuals entry, so that the variability due to differences between subjects doesn't inflate the error term we will use to test for the effects of colors. The subjects' error terms is in this case just the Sum of Squares Between. 
 
-The second error term, the subject by colour interaction is the one we want to use to test for the effects of `colour`. This term is what's left from the Sum of Squares Total once you have subtracted the effects do to the subjects and the effects due to the colour, so in the specific design of this experiment it represents just random variability, errors, (A subject is faster with blue stimuli and gets depressed with black ones, while another subject does just the opposite?! We're not interested in these differences in this experiment, though we might want to test similar effects in other case. So for this time this interaction is just errors.)
+The second error term, the subject by color interaction is the one we want to use to test for the effects of `color`. This term is what's left from the Sum of Squares Total once you have subtracted the effects due to the subjects and the effects due to the color, so in the specific design of this experiment it represents just random variability.
 
 All this is quite tricky at first. Don't worry, remember as a rule of thumb that in a repeated measures design with R you have to add the `Error()` term to the formula, and this error term is defined as `subjects/your within subj factors`. More examples with Between and Within Subjects factors will be presented in the next sections.
 
-As for the results of this analysis, the *F* statistics for the colour effect is significant. The RTs for detecting stimuli of these three different colours are different.
+As for the results of this analysis, the *F* statistics for the color effect is significant. The RTs for detecting stimuli of these three different colors are different.
 
 
 ### Two within-subject factors
 
 The basic principles for running a repeated measures ANOVA with more than one within subject factors are the same as in the case of a within subjects factor only, with just some further complications due to the fact that now we also want to test for interactions between our factors. We'll start straight with an example. Let's say your data look something like the ones in Table \@ref(tab:rats),
 
-Drug Alchohol  Drug No-Alcohol  No-Drug Alcohol  No-Drug No-Alcohol
--------------  ---------------  ---------------  ------------------
-7              6                6                4 
-5              4                5                2 
-8              7                7	             4 
-8              8                6	             5 
-6              5                5	             3 
-8              7                7	             6 
-5          	   5                5	             4 
-7          	   6                6	             5 
-8          	   7                6	             5 
-7          	   6                5	             4 
-9          	   8                5	             4 
-4          	   4                3	             2 
-7          	   7                5	             3 
-7          	   5                5	             0 
-8          	   7                6	             3
+Drug Alchohol  Drug No-Alcohol  No-Drug Alcohol   No-Drug No-Alcohol
+-------------  ---------------  ---------------  --------------------
+7              6                6                 4 
+5              4                5                 2 
+8              7                7	              4 
+8              8                6	              5 
+6              5                5	              3 
+8              7                7	              6 
+5          	   5                5	              4 
+7          	   6                6	              5 
+8          	   7                6	              5 
+7          	   6                5	              4 
+9          	   8                5	              4 
+4          	   4                3	              2 
+7          	   7                5	              3 
+7          	   5                5	              0 
+8          	   7                6	              3
 
 Table: (\#tab:rats) Data for the repeated measures ANOVA example.
 

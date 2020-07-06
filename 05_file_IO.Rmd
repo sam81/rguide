@@ -83,12 +83,23 @@ Other functions that may be useful are `readChar` and `readBin`, but note that t
 
 ### The `write.table` function {#write.table}
 
-The function `write.table` provides a simple interface for writing data to a file. It can be used to write a dataframe or a matrix to a file. For example, if `mydats` is a dataframe, the command
-```{r eval=FALSE}
-write.table(mydats, file="my_data.txt",
+The function `write.table` provides a simple interface for writing data to a file. It can be used to write a dataframe or a matrix to a file. For example, let's load the `iris` dataframe:
+```{r}
+data(iris)
+```
+and then write it to a text file:
+```{r}
+write.table(iris, file="iris.txt",
                     col.names=TRUE, row.names=FALSE)
 ```
-will store it in the text file `my_data.txt` with the labels for the variables or factors it contains in the first row(`col.names=T`), but without the numbers associated with each row (`row.names=F)`. The `sep` option is used to choose the separator for the data, the default is a blank space `sep=" "`, but you can choose a comma `sep=","` a semicolon `sep=";"` or other meaningful separators.
+
+the above command will store it in the text file `iris.txt` with the labels for the variables it contains in the first row (`col.names=T`), but without the numbers associated with each row (`row.names=F`). The `sep` option is used to choose the separator for the data, the default is a blank space `sep=" "`, but you can choose a comma `sep=","` a semicolon `sep=";"` or other meaningful separators.
+
+The `write.table` function can be used to write `csv` files. ^[Although there are dedicated functions for writing `CSV` files (`write.csv`, and `write.csv2`), they are just wrappers around the `write.table` function.] For example, the following command will write the `iris` dataset to a `CSV` file:
+```{r}
+write.table(iris, file="iris.csv", sep=",",
+                    col.names=TRUE, row.names=FALSE)
+```
 
 ### Saving objecs in binary format 
 

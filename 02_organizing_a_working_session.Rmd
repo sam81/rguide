@@ -19,9 +19,9 @@ system("ls")
 ```
 under GNU/Linux or Unix systems, will list the files present in the current directory.
 
-## Objects
+## Objects {#varobj}
 
-All the variables, functions, arrays etc... you work with in R are stored and manipulated as *objects*. To list all the objects currently active in your *workspace*, you can use the command:
+All the variables, functions, arrays etc..., that you work with in R are stored and manipulated as *objects*. To list all the objects currently active in your *workspace*, you can use the command:
 ```{r eval=FALSE}
 objects()
 ```

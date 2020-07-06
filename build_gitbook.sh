@@ -5,3 +5,6 @@ Rscript -e "bookdown::render_book(input='00_preface.Rmd', output_format='bookdow
 #Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::pdf_book')"
 rm ../gitbook/rguide_datasets.zip
 zip ../gitbook/rguide_datasets.zip datasets/*
+
+rm ../gitbook/rguide_code.zip
+zip ../gitbook/rguide_code.zip code/*

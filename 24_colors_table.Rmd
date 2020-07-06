@@ -1,0 +1,35 @@
+# Full colors table {#fullcoltable}
+
+All named colors are listed below:
+
+```{r fullcoltab1, echo=FALSE, fig.cap="Complete color table, part I."}
+knitr::include_graphics("Figures/t1.png")
+```
+
+```{r fullcoltab2, echo=FALSE, fig.cap="Complete color table, part II."}
+knitr::include_graphics("Figures/t2.png")
+```
+
+```{r fullcoltab3, echo=FALSE, fig.cap="Complete color table, part III."}
+knitr::include_graphics("Figures/t3.png")
+```
+
+```{r fullcoltab4, echo=FALSE, fig.cap="Complete color table, part IV."}
+knitr::include_graphics("Figures/t4.png")
+```
+
+```{r fullcoltab5, echo=FALSE, fig.cap="Complete color table, part V."}
+knitr::include_graphics("Figures/t5.png")
+```
+
+```{r fullcoltab6, echo=FALSE, fig.cap="Complete color table, part VI."}
+knitr::include_graphics("Figures/t6.png")
+```
+
+```{r fullcoltab7, echo=FALSE, fig.cap="Complete color table, part VII."}
+knitr::include_graphics("Figures/t7.png")
+```
+
+
+`r if (knitr::is_html_output()) '# References {-}'`
+

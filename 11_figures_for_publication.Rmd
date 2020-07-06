@@ -38,7 +38,7 @@ Table: (\#tab:figsize) Typical figure width in academic journals for different f
 
 The default print size of the figures used by the `cairo_pdf` and `ggsave` functions (i.e. if you don't specify `width` and `height`) is much larger than the typical 1-column figure size required by academic journals. It becomes more difficult to fit certain elements (e.g. axis labels) in a smaller space, so it's best to start saving figures in the smaller size typically required by journals early in the paper write-up process and make sure they look right in that size.
 
-### Baser R and `lattice` plots
+### Baser R and `lattice` plots {#baserlattfigsizefonts}
 
 To obtain `pdf` figures of a given print width and height we can pass the `width` and `height` arguments to the `cairo_pdf` function, specifying the desired values in inches:
 ```{r, eval=FALSE}
@@ -51,7 +51,7 @@ cairo_pdf("Fig1.pdf", width=3.307, height=3.307,
           family="Helvetica", pointsize=12)
 ```
 
-### `ggplot2`
+### `ggplot2` {#ggplot2figsizefonts}
 
 The pointsize and font depend on the theme you're using. Many themes use a sans-serif font, so you probably don't need to change that. However, you may need to change the point size (e.g. the default `ggplot2` theme uses an 11 point size). You can change that with `theme(text=element_text(size=12))`. The following code shows an example of changing both the font family and the point size:
 ```{r, eval=FALSE}
@@ -75,18 +75,18 @@ ggsave("Fig1.pdf", plot1, width=3.307, height=3.307, device=cairo_pdf)
 
 by default `width` and `height` units are in inches, though this can be changed by passing a `units` argument if desired (see `?ggsave`).
 
-## Themes
+## Themes {#pubthemes}
 
 Many journals require a rather plain style for figures, with a white background, no grid lines, and no "borders" or "boxes" around the figure beside the x and y axes.
 
-### Base R
+### Base R {#baserpubthemes}
 
 By default plots have a white background and no grid. The "borders" around the figures can be removed through the `bty` argument. Setting `bty` to `n` removes the borders from all sides, while setting it to `L` leaves the borders around the bottom and left axes:
 ```{r, eval=FALSE}
 plot(rnorm(100), bty="L")
 ```
 
-### `ggplot2`
+### `ggplot2` {#ggplot2pubthemes}
 
 The `theme_classic` theme generally follows the style commonly requested by academic journals, so in many cases all you'll need to do is set this theme, increasing the font point size from 11 to 12:
 ```{r, eval=FALSE}
@@ -98,11 +98,11 @@ p = p + theme_classic(base_size=12)
 
 Alternatively, you can use the `theme_cowplot` from the [`cowplot`](https://cran.r-project.org/web/packages/cowplot/index.html) package, which is very similar to `theme_classic`.
 
-### `lattice`
+### `lattice` {#lattpubthemes}
 
 ## Multi-panel figures
 
-### `ggplot2`
+### `ggplot2` {#ggplot2pubmultipanel}
 
 The `plot_grid` function from the `cowplot` package can be used to arrange separate `ggplot2` plots in a grid layout and label them, as shown in Figure \@ref(fig:plotgrid1), which was obtained with the following code:
 ```{r plotgrid1, fig.cap="Multi-panel figure arranged and labeled with the `plot_grid` function.", message=FALSE, fig.width=fig.width*1.5, fig.height=fig.height*0.8}
@@ -113,7 +113,7 @@ p2 = ggplot(iris, aes(Petal.Width, Petal.Length)) + geom_point()
 plot_grid(p1, p2, labels = c('A', 'B'), label_size = 12)
 ```
 
-### `lattice`
+### `lattice` {#lattpubmultipanel}
 
 The `plot_grid` function from the `cowplot` package can be used to arrange separate `lattice` plots in a grid layout and label them, as shown in Figure \@ref(fig:lattplotgrid1), which was obtained with the following code:
 

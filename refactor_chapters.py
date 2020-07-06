@@ -11,11 +11,10 @@ import os
 
 curr_chap_names = [
     "preface.Rmd",
-    "installing_R.Rmd",
-    "a_simple_introduction_to_R.Rmd",
+    "getting_started_with_R.Rmd",
     "organizing_a_working_session.Rmd",
     "data_manipulation.Rmd",
-    "printing_data.Rmd",
+    "programming.Rmd",
     "file_IO.Rmd",
     "graphics.Rmd",
     "ggplot2.Rmd",
@@ -27,9 +26,7 @@ curr_chap_names = [
     "distributions.Rmd",
     "hypotheses.Rmd",
     "cor_reg.Rmd",
-    "anova.Rmd",
     "mcomp.Rmd",
-    "programming.Rmd",
     "administration_maintenance.Rmd",
     "ess.Rmd",
     "writing_reports.Rmd",

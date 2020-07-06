@@ -9,14 +9,9 @@ Although as we have seen R has a number of different plotting libraries, certain
 
 ## Colors for graphics {#colorscommon}
 
-The command `colors` gives a list of built-in colors available for graphics in R. You can see some of these colors in Figure \@ref(fig:color1). There are 101 built-in shades of gray, from `gray0`, that is almost black, to `gray100` that is almost white, you can see some of them in Figure \@ref(fig:gray). A complete table of built-in R colors is given in Appendix \@ref(fullcoltable).
-
+The command `colors` gives a list of built-in colors available for graphics in R. You can see some of these colors in Figure \@ref(fig:color1). There are 101 built-in shades of gray, from `gray0`, that is almost black, to `gray100` that is almost white, you can see some of them in Figure \@ref(fig:color1). A complete table of built-in R colors is given in Appendix \@ref(fullcoltable).
 ```{r color1, echo=FALSE, fig.cap="Some built-in colors in R."}
-knitr::include_graphics("graphics/colours_table.png")
-```
-
-```{r gray, echo=FALSE, fig.cap="Different shades of gray."}
-knitr::include_graphics("graphics/grays_table.png")
+knitr::include_graphics("Figures/sample_colors.png")
 ```
 
 You can also specify colors in rgb values. By default R accepts values in the range 0-1, but you can change the range with the `max` option to set the range as 0-255. Please note that changing the range doesn't change the colors you can use, it just changes the values you use to specify them, so for example the following graphs will have the same colors:
@@ -45,10 +40,42 @@ The `adjustcolor` function can be used to set the opacity of a color using the `
 mycol = adjustcolor("skyblue", alpha.f=0.5) 
 x = rnorm(1000)
 y = rnorm(1000)
-plot(x, y, pch=21, bg=mycol, cex=2)
+plot(x, y, pch=21, bg=mycol, cex=1.5)
 ```
 
 the `adjustcolor` function accepts a vector of colors as an argument, so you can change the transparency of several colors at the same time.
+
+### Color palettes
+
+The [`RColorBrewer`](https://cran.r-project.org/web/packages/RColorBrewer/index.html) package provides a number of discrete color palettes. The complete set is shown in Figure \@ref(fig:displaybrewerall) can be seen with the following function:
+```{r displaybrewerall, fig.cap="`RColorBrewer` palettes.", fig.width=fig.width*2, fig.height=fig.height*2}
+library(RColorBrewer) #load package
+display.brewer.all()
+```
+
+to show only colorblind friendly palettes:
+```{r, eval=FALSE}
+display.brewer.all(colorblindFriendly=T)
+```
+
+the palettes can be instantiated by calling the `brewer.pal` function as follows:
+```{r}
+pal1 = brewer.pal(3, "Pastel2")
+```
+
+the first argument is the number of colors and the second argument is the name of the desired palette. Note that `ggplot2` has convenience functions to use `RColorBrewer` palettes (see [here](https://ggplot2.tidyverse.org/reference/scale_brewer.html)).
+
+The [`colorspace`](https://cran.r-project.org/web/packages/colorspace/index.html) package provides an array of utilities for working with colors, including color palettes in [HCL](https://en.wikipedia.org/wiki/HCL_color_space) color space.
+
+The [`viridis`](https://cran.r-project.org/web/packages/viridis/) package provides a number of continuous color palettes that have been designed to be perceptually uniform and robust to color blindness (see the [`viridis` vignette](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html)). Note that `ggplot2` has convenience functions to work with `viridis` palettes (see [here](https://ggplot2.tidyverse.org/reference/scale_viridis.html)).
+
+It is important to make sure that important graphical features distinguished by colors can be seen by everyone, including colorblind people. The [`dichromat`](https://cran.r-project.org/web/packages/dichromat/) package can simulate the effects of different types of color blindness through the `dichromat` function. The [`colorspace`](https://cran.r-project.org/web/packages/colorspace/index.html) package can also simulate color vision deficiencies through the `simulate_cvd` function.
+
+Another useful colorblind friendly palette is that provided by Okabe and Ito [here](https://jfly.uni-koeln.de/color/); you can instantiate this palette with the following code:
+```{r}
+cbPalette = c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442",
+              "#0072B2", "#D55E00", "#CC79A7", "#999999")
+```
 
 ## Mathematical expressions and variables {#plotmath}
 

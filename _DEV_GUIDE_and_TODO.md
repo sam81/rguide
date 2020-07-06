@@ -10,76 +10,66 @@
 # TODO
 
 - GLOBAL
-  * Switch to lower case figure/table captions
-  * use built-in datasets of datasets from packages instead of made up datasets or simulations
+  * use built-in datasets or datasets from packages instead of made up datasets or simulations
   * add rmarkdown chapter?
   * add Bayesian stats (JAGS, STAN) chapter?
   * add chapter on psychophysics (dprime, psychometric functions)?
-- 01_installing_R:
+- 01_getting_started_with_R:
   * add section on installing packages on Mac and say that you can use the `Linux` method of package installation also on Windows and Mac
-- 02_a_simple_introduction_to_R:
-  * check that both `<-` and `=` are mentioned
-  * add section with overview/map of the guide and links to jump around?
-- 03_organizing_a_working_session:
+  * add section with overview/map of the guide and links to jump around
+- 02_organizing_a_working_session:
  * add Rscript?
-- 04_data_manipulation:
+- 03_data_manipulation:
   * section on reshape2 and dcast / tidyr pivot_wider
-- 05_printing_data:
-  * add link to printing tibbles?
-- 06_file_IO:
+- 04_programming:
+  * add more about functions, e.g. `...` argument
+- 05_file_IO:
   * add HDF5
-- 07_graphics
-  * add example of two-column barplot
-  * color section add viridis, RColorBrewer, and colorblind palette
-- 08_fonts:
+- 06_graphics
 
-- 09_ggplot2:
-  * publication quality tweaks and cowplot
+- 07_ggplot2:
   * common charts: add histograms, density plots, boxplots, lollipop plots, stripcharts
-- 10_plotly:
-  * add more examples, check if pdf issue can be fixed
-- 11_lattice:
+- 08_plotly:
+  * add more examples
+- 09_lattice:
   * mention things that can't be done in ggplot2: shingles and 3d plots
+- 10_graphics_common:
+
+- 11_figures_for_publication:
+
 - 12_tidyverse:
 
 - 13_distributions:
   * add uniform, t, gamma distributions
 - 14_hypotheses:
-
+  * emmeans
+  * use example of spotting errors while reading a document. Within or between-subject variables can be background color, font color, font style, medium (paper, PC screen, tablet).
 - 15_cor_reg:
   * add more regression examples and diagnostics
   * dummy coding
-- 16_anova:
-  * add ez for ANOVA
-  * emmeans?
-- 17_mcomp:
+- 16_mcomp:
 
-- 18_programming:
-  * add `for` and `while` loops
-- 19_administration_maintenance:
+- 17_administration_maintenance:
 
-- 20_ess:
+- 18_ess:
   * mention poly-R?
-- 21_sweave:
+- 19_writing_reports:
+  * add brief rmarkdown introduction
 
-- 22_sound:
+- 20_sound:
 
-- 23_bibliographies:
+- 21_packages:
 
-- 24_packages:
+- 22_commands:
 
-- 25_commands:
+- 23_resources:
 
-- 26_resources:
+- 24_colors_table
 
-- 27_colors_table
-
-- Bibliography:
-  * move to refs_long and set to copy refs_long on release
   
 # Packages need to build the book
 
-install.packages(c("bookdown", "car", "cowplot", "dplyr", "ggplot2", "gplots", "gtools", "lattice", "latticeExtra", "plotly", "tibble", "tidyr", "webshot"))
+install.packages(c("bookdown", "car", "cowplot", "dplyr", "ez", "ggplot2", "gplots", "gtools", "lattice", "latticeExtra", "plotly", "tibble", "tidyr", "webshot"))
 
 
 # Bookdown 

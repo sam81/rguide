@@ -1,4 +1,4 @@
-# Hypothesis testing
+# Frequentist hypothesis tests
 
 ```{r setup, include=FALSE}
 source("global_parameters.R")
@@ -193,7 +193,104 @@ leveneTest(values, groups)
 As you can see we have an *F* value with its associated *p* value, if the *p* value is significant, then we reject the null hypothesis of equal variances between the groups. In our case below the *p* value is greater than 0.05 so we cannot reject the null hypothesis that the variances in the three groups are equal.
 
 
+## Analysis of variance
 
+We'll start with an example showing how we can perform a one-way between-subjects analysis of variance (ANOVA) in R. The example uses a dataset from a fictitious experiment on the effect of three types of memory-boosting drugs. Thirty participants were randomly assigned to one of three groups, each given a different memory-boosting drug (drug "A", "B", or "C"), and afterwards their memory was assessed by counting the number of words they could recall from a list. The data is shown in Table \@ref(tab:drugmem).
 
+Drug A    Drug B     Drug C
+--------  ---------  ---------
+12        13         15
+9         12         17
+9         11         15 
+8         7          13 
+7         14         16 
+12        10         17 
+8         10         12 
+7         10         16 
+10        12         14 
+7         9          15
 
- 
+Table: (\#tab:drugmem) Number of words recalled from a list for participants treated with drug A, B, or C.
+
+We read in the dataset:
+```{r}
+drug_mem = read.table("datasets/drug_memory.csv", header=T, sep=",")
+head(drug_mem)
+```
+
+the dependent variable is the number of words correctly recalled from the list (`n_words`), while the other column (`drug`) denotes the experimental group. We can have a look at the data through a dotplot:
+```{r drugmem, fig.cap="Number of words recalled for participants administered different types of memory-boosting drugs.", fig.width=fig.width_ggplot2, fig.height=fig.height_ggplot2}
+library(ggplot2)
+p = ggplot(drug_mem, aes(drug, n_words)) + geom_point()
+p = p + xlab("Drug") + ylab("# words recalled")
+p = p + theme_bw()
+print(p)
+```
+
+the dotplot, shown in Figure \@ref(fig:drugmem), suggests that the drugs have different effects on the number of recalled words. We can run the ANOVA with the `aov` function:
+```{r}
+drug_mem_aov = aov(n_words ~ drug, data=drug_mem)
+```
+
+the first argument passed to the function is the model formula, which you can read as "explain `n_words` as a function of `drug`"; the other argument, `data`, is the dataframe containing the data. Calling `summary` on the `aov` output gives a pretty printout with various info we need to report the results (degrees of freedom, *F* value, *p*-value, etc...)
+```{r}
+summary(drug_mem_aov)
+```
+assuming a significance level of 0.05 the results of the test reject the null hypothesis that the three drugs have the same effectiveness on the number of recalled words from a list.
+
+Another function that can run a one-way ANOVA in R is `oneway.test`. Its syntax is very similar to that of `aov`, but it has an additional argument, `var.equal`, to indicate whether homogeneity of variance should be assumed or not. If not, a Welch-type test is run (see `?oneway.test`). For example, if we had reason to suspect non-homogeneous variances across the groups we could have run the test with:
+```{r}
+oneway.test(n_words ~ drug, data=drug_mem, var.equal=F)
+```
+
+The `aov` function is quite flexible, and can handle multiple factors. For example, the syntax to run an ANOVA on a dependent variable `y` with two factors `fct1` and `fct2` stored in a dataframe called `dat` would be:
+```{r, eval=FALSE}
+aov(y ~ fct1*fct2, data=dat)
+```
+
+the above would estimate the effects of `fct1`, `fct2`, and their interaction. It would also be possible to estimate only the main effects, without the interaction term, if desired, with the following syntax:
+```{r, eval=FALSE}
+aov(y ~ fct1+fct2, data=dat)
+```
+
+The syntax for performing repeated measures ANOVA with `aov` becomes relatively complex because it is necessary to specify appropriate error strata. This is explained in detail in @BaronAndLi2003, and @LiAndBaron2012. The [`ez`](https://cran.r-project.org/web/packages/ez/index.html) package provides an easier interface for running ANOVAs, and for this reason we'll focus on it. 
+
+The function to run ANOVAs through the `ez` package is called `ezANOVA` and we'll first show how to use it by running the one-way between-subjects ANOVA that we ran earlier with `aov`. The `ezANOVA` function requires a subject identifier even for between-subjects designs, so we'll add one to the `drug_mem` data. Each observation came from a different participant, so we'll simply label the participants as P1, P2, P3, etc...:
+```{r}
+drug_mem$id = factor(paste0("P", 1:dim(drug_mem)[1]))
+```
+
+next we load the `ez` package and run the ANOVA:
+```{r, message=FALSE}
+library(ez)
+ezANOVA(drug_mem, dv=n_words, between=drug, wid=id)
+```
+
+the first argument passed to the `ezANOVA` function is the dataframe holding the data, the second argument `dv`, is the name of the dependent variable, the `between` argument is used to pass the names of the between-subject factor(s), and the `wid` argument is used to pass the name of the variable holding the subject identifiers. The syntax for specifying multiple factors is a bit unusual (but not difficult). For example, if in the above example we had a second between-subject factor called `dose`, to use both factors in the analysis we would have written `between=.(drug, dose)`. We'll see a concrete example with the `ToothGrowth` dataset. In the dataset `dose` is a numeric variable; for this example we'll treat it as a factor, and therefore, after loading the dataset, the code below converts it to a factor:
+```{r}
+data(ToothGrowth)
+ToothGrowth$dose = factor(ToothGrowth$dose)
+ToothGrowth$id = factor(paste0("P", 1:dim(ToothGrowth)[1]))
+```
+
+again, we added a subject identifier to the dataset, and we're now ready to run the analysis with the code below:
+```{r}
+ezANOVA(ToothGrowth, dv=len, between=.(supp, dose), wid=id)
+```
+
+In order to run repeated measures ANOVAs, in which there are one or more within-subject factors we need to list these factors in the `within` argument. For example, the following dataset contains data from a fictitious experiment on the effects of a drug and of alcohol on social interaction in rats. Two species of rats were tested (the between-subject factor `group`). Each rat was tested with or without the drug, and with or without alcohol. The dependent measure was the number of social interactions recorded by the experimenter. The fictitious data are in the `socialint_drug_alcohol_species.csv` dataset:
+```{r}
+dat = read.table("datasets/socialint_drug_alcohol_species.csv",
+                 header=T, sep=",", stringsAsFactor=T)
+```
+
+next we run the ANOVA with the code below:
+```{r, message=FALSE}
+ezANOVA(dat, dv=socialint,
+        between=.(group),
+        within=.(drug, alcohol),
+        wid=id,
+        type="3")
+```
+
+note that we added a `type` argument, this specifies the sum of squares type to be used for the analysis. In balanced designs, in which you have equal numbers of observations per cell this won't make a difference, but for unbalanced designs it does. There is some controversy over the most appropriate sum of squares type to use, and the most appropriate choice may depend on the goals and the context of the sudy/analysis. You can read more about the different sum of square types [here](http://md.psych.bio.uni-goettingen.de/mv/unit/lm_cat/lm_cat_unbal_ss_explained.html).

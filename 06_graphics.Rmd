@@ -7,9 +7,9 @@ knitr::opts_chunk$set(fig.width=fig.width, fig.height=fig.height)
 
 There are four main plotting libraries that can be used in R. The first is the base graphics system that comes builtin with every R installation and will be described in this chapter. The other three main plotting libraries (`ggplot2`, `lattice`, and `plotly`), can be installed as additional packages. Each of these libraries provides a complete, independent system to generate plots in R. 
 
-Choosing one plotting library over the other is mostly a matter of personal preference because pretty much any graphic that can be built with one library can also be built with the others. Some graphics are easier to build with one library than another and vice-versa. In recent years `ggplot2` has gained lots of popularity and `lattice` is less popular than it was some years ago. Despite the increasing popularity of `ggplot2` the base R graphics that are described in this chapter are still widely used. `plotly` is a recent entry and is somehow a special case because it is primarily designed to generate interactive graphics that can be displayed on html pages, while the other plotting libraries have very limited interactive functionality and are primarily designed to generate static high-quality graphics. `plotly` is also special because through the `ggplotly` function it can convert a `ggplot2` graph into an interactive `plotly` graphic.
+Choosing one plotting library over the other is mostly a matter of personal preference because nearly any graphic that can be built with one library can also be built with the others. Some graphics are easier to build with one library than another and vice-versa. In recent years `ggplot2` has gained lots of popularity and `lattice` is less popular than it used to be. Despite the increasing popularity of `ggplot2` the base R graphics that are described in this chapter are still widely used. `plotly` is a recent entry and is somehow a special case because it is primarily designed to generate interactive graphics that can be displayed on html pages, while the other plotting libraries have very limited interactive functionality and are primarily designed to generate static high-quality graphics. `plotly` is also special because through the `ggplotly` function it can convert a `ggplot2` graph into an interactive `plotly` graphic. Other graphics libraries that are worth mentioning, but will not be described in this guide are [`rgl`](https://cran.r-project.org/web/packages/rgl/index.html), which allows the creation of interactive 3D graphics, and [`vegalite`](https://cran.r-project.org/web/packages/vegalite/), another library designed for the creation of interactive html graphics.
 
-Because the base R graphics library is still widely used and (in my opinion) is somewhat simpler to use for beginners, I would recommend learning it first. The `ggplot2` library is described in Chapter \@ref(ggplot2), the `lattice` graphics library is described in Chapter \@ref(lattice), and the `plotly` library is described in Chapter \@ref(plotly). Chapter \@ref(graphicscommon) covers some plotting aspects (choosing colors, fonts, and using mathematical expressions in labels) that are common/similar across the different the different R plotting libraries. Chapter \@ref(graphicspublications) gives tips and indications for preparing graphics for academic journal publications, using any of the R graphics libraries.
+Because the base R graphics library is still widely used and (in my opinion) is somewhat simpler to use for beginners, I would recommend learning it first. The `ggplot2` library is described in Chapter \@ref(ggplot2), the `plotly` library is described in Chapter \@ref(plotly), and the `lattice` library is described in Chapter \@ref(lattice). Chapter \@ref(graphicscommon) covers some plotting aspects (choosing colors, fonts, and using mathematical expressions in labels) that are common/similar across the different the different R plotting libraries. Chapter \@ref(graphicspublications) gives tips and advice for preparing figures for academic journal publications, using any of the R graphics libraries. General advice (i.e. not tied to the use of any specific graphics system) on the construction of effective and professional graphics is given in @Wilke2019.
 
 ## Overview of R base graphics functions
 
@@ -29,12 +29,12 @@ R base graphics has a number of "high-level" plotting functions. Some of these a
   
 ## The `plot` function {#plot}
 
-The `plot` function is most commonly used to draw a scatterplot of two variables, however if given a R object with a plot method as an argument  it will produce different types of graphics depending on the object it is plotting.
-Let's see an example of a scatterplot with some simulated data:
+The `plot` function is most commonly used to draw a scatterplot of two variables, however if given a R object with a plot method as an argument, it will produce different types of graphics depending on the object it is plotting. Let's look at an example of a scatterplot with some simulated data:
 ```{r}
-  a = rnorm(5, 1.6, n=50)
-  b = rnorm(15, 4.3, n=50)
+a = rnorm(5, 1.6, n=50)
+b = rnorm(15, 4.3, n=50)
 ```
+
 this creates two vectors of length 50 with values normally distributed, now we can plot the values of vector `b`, against the values of vector `b` with:
 ```{r scatterplot, fig.cap="A scatterplot."}
 plot(x=a, y=b) ## or for short plot(a, b)
@@ -74,7 +74,9 @@ cs = cbind(c, s) #matrix of vert coord
 matplot(x=aa, y=cs, type="l", lwd=1.8, ylab="sine and cosine functions")
 ```
 
-## Barplots
+## Common charts
+
+### Barplots
 
 Barplots sometimes come in handy when you want to summarise your data. Suppose we have administered a test to three different groups of people, which we will designate as `a`, `b` and `c`. We want to summarise and compare the performance of each group with a nice graph, a barplot will make it. The data are stored in the file `test.txt`, in the format shown in Table \@ref(tab:test).
 
@@ -119,12 +121,12 @@ test_means = tapply(X=test2$values, IND=test2$ind, FUN=mean)
 test_sd = tapply(X=test2$values, IND=test2$ind, FUN=sd)
 ```
 
-Now we can draw a simple barplot displaying the means for each group:
-```{r barplotsimple, fig.cap="Simple barplot."}
+Now we can draw a barplot displaying the means for each group:
+```{r barplot1, fig.cap="A barplot."}
 barplot(test_means, col=c("darkred", "salmon2", "plum4"))
 ```
 
-we've added colors to the graph using the `col` option. You can look at the resulting graph in Figure \@ref(fig:barplotsimple).
+we've added colors to the graph using the `col` option. You can look at the resulting graph in Figure \@ref(fig:barplot1).
 
 You can control the width of the bars specifying the `width` option, and setting the range for the x axis with the `xlim` option, specifying only the width does nothing, you must also set the `xlim`. You set `xlim` with a vector of the form `xlim = c(from, to)`, in which `from` is the origin and `to` is the end of the axis. In the example below we will set `xlim` to go from 0 to 3 and the bars to have a width of 0.5:
 
@@ -137,9 +139,9 @@ this sets the width of all bars at 0.5, we could specify the width for each sing
 
 You can also control the spacing between the bars with the `space` option. The default is set to 0.2.
 
-### Barplots with error bars
+#### Barplots with error bars
 
-Now let's say we want to get the same barplot but with error bars showing the standard deviation for each group. We could achieve this result adding lines to the current graph, but there is a better option, we can use the `barplot2` command, which comes with the `gplots` library and provides an easy way of adding error bars to a barplot. So once we have the `gplots} package installed we first load it:
+Now let's say we want to get the same barplot but with error bars showing the standard deviation for each group. We could achieve this by adding lines to the current graph, but there is a better option: we can use the `barplot2` function, which comes with the `gplots` library and provides an easy way of adding error bars to a barplot. So once we have the `gplots` package installed we first load it:
 
 ```{r message=FALSE}
 library(gplots)
@@ -159,7 +161,44 @@ barplot2(test_means, col=c("darkred", "salmon2", "plum4"),
          plot.ci=TRUE, ci.u=upper, ci.l=lower)
 ```
 
-## Boxplots
+#### Barplots with stacked bars or with side-to-side bars
+
+A barplot can be used to map the values of a variable across two factors. To illustrate this we'll use the `npk` dataset, which contains data from a factorial experiment on the effects of N, P, K (nitrogen, phosphate, potassium) on the growth of peas.
+```{r}
+data(npk)
+npk$P = factor(npk$P, levels=c("0", "1"), labels=c("P=0", "P=1"))
+npk$K = factor(npk$K, levels=c("0", "1"), labels=c("K=0", "K=1"))
+head(npk)
+```
+
+in the dataset `N`, `P`, and `K` are indicator variables for the application of the respective element (0=no, 1=yes). We renamed the levels of the P and K factors to make legends and strip labels easier to read. We first obtain means and standard deviations as a function of N and P with the `tapply` function:
+```{r}
+mean_NP = tapply(npk$yield, list(npk$P, npk$N), mean)
+sd_NP = tapply(npk$yield, list(npk$P, npk$N), sd)
+```
+
+in this case the resulting means and standard deviations are stored in a matrix instead of a vector. If we pass these values to the `barplot2` function we obtain a stacked barplot (Figure \@ref(fig:stackedbarplot)):
+```{r stackedbarplot, fig.cap="Stacked barplot."}
+barplot2(mean_NP, col=c("gray70", "indianred"),
+         xlab="N", ylab="Mean yield")
+legend(x=2, y=155, legend=c("P=0", "P=1"),
+       fill=c("gray70", "indianred"), xpd=NA)
+```
+
+we've added a legend manually; we could have passed the `legend=T` argument inside the `barplot2` function to automatically add a legend instead, but the positioning of the automatic legend leaves often to be desired (see Section \@ref(legend) more info on legends). The lower (gray) parts of the bars represent the mean yield without phosphate administration, while the upper (red) parts represent the mean yield with phosphate administration. 
+
+The same data can be displayed with a barplot with bars "side to side" (Figure \@ref(fig:barplotsidetoside)). To obtain such a plot we need to set the `beside` argument to `TRUE`:
+```{r barplotsidetoside, fig.cap="Barplot with bars side to side."}
+barplot2(mean_NP, plot.ci=T, ci.l=mean_NP-sd_NP, ci.u=mean_NP+sd_NP,
+         col=c("gray70", "indianred"), legend=F, beside=T,
+         xlab="N", ylab="Mean yield")
+legend(x=5, y=85, legend=c("P=0", "P=1"),
+       fill=c("gray70", "indianred"), xpd=NA)
+```
+
+It would be somewhat difficult to add error bars to a stacked barplot, and the `barplot2` function does not allow it (when `beside` is set to `FALSE`, settings `plot.ci=TRUE` is ignored). It is sensible, instead, to add error bars to the barplot with side to side bars, as we did in the last example.
+
+### Boxplots
 
 Boxplots can be used to visualise the central tendency and the dispersion of the data for a given sample, and to directly compare these same characteristics for different samples. Let's look at one of them, the data are organised in a dataframe in the file `boxplot1.txt`. They are the scores for two different groups (group a and group b) in a test. With the boxplot we want to see how the scores are distributed in the two groups. The dataframe contains a column `score`, with the score for each subject and another column `group` that defines the group a given observation comes from. So we first read in the dataframe, and then ask for the boxplots with the distribution of scores, as a function of the group they belong to.
 
@@ -170,7 +209,7 @@ boxplot(dat$score~dat$group, names=c("group a", "group b"))
 
 The results are in Figure \@ref(fig:boxplot1), the thick black lines in the middle of the boxes represent the median, if this is about the middle of the box, it is consisten with the data having a normal distribution. The two lines that delimit the box are called "hinges", and they are approximately the first and the third quartiles. The horizontal lines that form the `Ts' above and below the box are called ``whiskers'', and inside them are contained all the observations that fall within a distance of 1.5 times the size of the box, upwards or downwards. Points that fall outside this distance are outliers and they are represented as a circle. In our case there are two outliers in group a. Apart from checking if the distribution is normal, you can also check if the variances are approximately equal, by comparing the size of the boxes (the distance between the hinges). If one boxplot is clearly bigger than the other one (for example two times bigger), then the variances for the two groups are likely not to be equal.
 
-## Histograms
+### Histograms
 
 Histograms can be used to visualise the distribution of a sample, the function `hist`, can be used to plots a histogram of frequencies (counts) of the sample, or of its density function (setting the option `freq=F`). Let's first create a sample with a normal distribution, and then plot its histogram, the result is in Figure \@ref(fig:hist).
 ```{r hist, fig.cap="Frequency distribution of a random sample."}
@@ -178,7 +217,7 @@ my_distr = rnorm(100, 5, 1.7)
 hist(my_distr)
 ```
 
-## Stripcharts
+### Stripcharts
 
 If the groups  contain a small number of observations, it might be better to use  a stripchart to visualise their distributions. In a stripchart each point represents a single observation. By default they are drawn on a line, so if two observations have the same score, they overlap. To avoid this problem you can give a certain amount of jitter to the plot, so that observations with the same score are scattered a little and can be easily distinguished. Here's the code for producing a stripchart, the data are in the file `stripchart1.txt` and they are arranged in the same way as the data in `boxplot1.txt`, just the sample sizes are smaller, with 6 observations per group.
 ```{r stripchart1, fig.cap="Stripchart example."}
@@ -186,7 +225,7 @@ stripchart(dat$score~dat$group, method="jitter",
            jitter=0.1, pch=1, vertical=TRUE)
 ```
 
-## Interaction Plots {#interactionplots}
+### Interaction Plots {#interactionplots}
 
 Interaction plots can be used to visualise the means for the levels of a factor, at the levels of another factor. In a two-way ANOVA design this type of plot would allow you to spot possible interactions between the two factors involved. To illustrate interaction plots we'll use the built in R dataset `ToothGrowth`:
 
@@ -237,7 +276,7 @@ legend(2.2, 27, legend=c("2", "1", "0.5"), lty=c(1,2,3), pch=c(17,15,16),
        title="Dose", xpd=NA, bty="n")
 ```
 
-## Stem (lollipop) plots {#stemplot}
+### Stem (lollipop) plots {#stemplot}
 
 There is no function in base R to generate a stem plot, also known as a "lollipop" plot. However, Matti Pastel [published in his blog](http://mpastell.com/2009/09/11/matlab-style-stem-plot-with-r/) the following function to generate one:
 ```{r}
@@ -434,7 +473,8 @@ The documentation for the graphics parameter `ps` also says that "unlike the poi
 
 ```{r, eval=FALSE}        
 pdf(file="test_plot.pdf", pointsize=12) #set font and symbol size in `pdf` call
-par(ps=24) #overrides the `pointsize` setting for font (but not plotting symbols)
+par(ps=24) #override the `pointsize` setting for font
+           #(but not plotting symbols)
 plot(x, y, xlab="x-axis label", ylab="y-axis label", main="Sin(x)", type="b")
 dev.off()
 ```
@@ -442,7 +482,8 @@ dev.off()
 `cex` also overrides the graphics device settings:
 
 ```{r, eval=FALSE}        
-pdf(file="test_plot.pdf", pointsize=24) #set font and symbol size in `pdf` call to 24
+pdf(file="test_plot.pdf", pointsize=24) #set font and symbol size
+                                        #in `pdf` call to 24
 par(cex=0.5) #scale the `pointsize` by half, so now it is 12
 plot(x, y, xlab="x-axis label", ylab="y-axis label", main="Sin(x)", type="b")
 dev.off()
@@ -608,7 +649,7 @@ the first argument specifies the side on which the axis should be drawn, 1 means
 
 The parameters `mfrow` and `mfcol` allow you to divide the graphics device you're using (e.g. `X11` or `pdf`) into multiple boxes, each box will contain a new figure. These parameters are set giving a vector of the form:
 ```{r eval=FALSE}
-par(mfrow=c(n_rows,n_columns))
+par(mfrow=c(n_rows, n_columns))
 ```
 
 where `n_rows` is the number of rows and `n_columns` is the number of columns you want for your layout. For example, the following will create a layout with 2 rows and 3 columns as you can see in Figure \@ref(fig:mfrow23):

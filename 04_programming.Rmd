@@ -154,6 +154,57 @@ while (i<4){
     
 ```
 
+## Functions
+
+Functions are one of the fundamental building blocks of programming. While using R we call functions all the time, but why write new ones? A major reason is to make your analysis code more modular, readable, compact, and reusable. Whenever you're repeatedly performing a series of operations on well-defined inputs and outputs in your analyses scripts you should consider "packaging" those operations into functions. The syntax for declaring a function is:
+```{r, eval=FALSE}
+my_func = function(arg1, arg2){
+    ## function code here
+}
+```
+
+where `my_func` is the name of the function, and `arg1`, `arg2` are the arguments we want to pass to the function. For example let's define a function that computes the [root mean square (RMS)](https://en.wikipedia.org/wiki/Root_mean_square) of a vector:
+```{r}
+RMS = function(vls){
+    RMS_val = sqrt(mean(vls^2))
+
+    return(RMS_val)
+}
+```
+
+the last line indicates the value returned by the function, if no explicit `return` statement is provided, the function will return the value of the last evaluated expression. We can now run the function:
+```{r}
+RMS(c(-2, 5, -8, 9, -4))
+```
+
+Let's suppose now that we want our `RMS` function to handle the possibility of missing values in the input vector. If there are one or more `NA` the `RMS` function, as is defined right now, will return `NA`:
+```{r}
+RMS(c(-2, 5, -8, 9, NA))
+```
+
+we want this to be the default behavior, but we want to give users the option to ignore the missing values and compute the RMS of the subset of remaining values. We can do this by defining the `RMS` function as follows:
+```{r}
+RMS = function(vls, na.rm=FALSE){
+    if (na.rm == TRUE){
+        vls = vls[is.na(vls) == FALSE]
+    }
+    RMS_val = sqrt(mean(vls^2))
+
+    return(RMS_val)
+}
+```
+
+running the function with the default value for `na.rm` still gives the same result as before:
+```{r}
+RMS(c(-2, 5, -8, 9, NA))
+```
+
+specifying `na.rm = TRUE`, instead, computes the RMS of the non-missing values
+```{r}
+RMS(c(-2, 5, -8, 9, NA), na.rm=TRUE)
+```
+
+
 ## String processing {#stringprocessing}
 
 One of the strengths of R, in my opinion, lies in the way it deals with character strings. Certain objects, for example dataframes, allow to mix strings with other data types, subsets of certain objects (again dataframes are an example, but also lists), can be easily given meaningful names and retrieved. This adds much flexibility and ease of use to R compared to other languages (e.g. MATLAB). One aspect that is perhaps less known however, are the powerful string processing functions that R gives you. Once you get to know them you'll realise you can do all your data analysis in R, without the need to use other languages, like python or perl for pre-processing.
@@ -236,7 +287,7 @@ The first solution is rather simple, give the `.R` extension to your R function 
   }
 ```
 
-the function sources all the files with the `.R` extension found in the directory indicated by the `path` argument. You can copy this function to a file, let's say `sourceDir.R`, put it in your HOME directory and source it in your `.First` function in `.Rprofile` (see Chapter \@ref{custom} for details the `.First` function and the  `.Rprofile` file)
+the function sources all the files with the `.R` extension found in the directory indicated by the `path` argument. You can copy this function to a file, let's say `sourceDir.R`, put it in your HOME directory and source it in your `.First` function in `.Rprofile` (see Section \@ref(custom) for details the `.First` function and the  `.Rprofile` file)
 
 ```{r eval=FALSE}
   ## This goes in .Rprofile in ~/

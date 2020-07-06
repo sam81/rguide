@@ -12,7 +12,7 @@ Tidyverse is a collection of R packages that used in conjuction significantly ch
 
 `ggplot2` and `dplyr` are probably the most popular packages in `tidyverse`. When you start using `ggplot2` it becomes almost essential to use `dplyr` too because `ggplot2` is heavily based on dataframes or tibbles as input data. Before covering `dplyr` we will explain what tibbles are in the next section because `dplyr` returns tibbles as objects.
 
-## Tibbles
+## Tibbles {#tibbles}
 
 Tibbles are a modern take on dataframes (which we introduced in Section \@ref(dataframes)). Tibbles are in fact very similar to dataframes, but if you're used to dataframes, there are a few things that may surprise you when you start using tibbles. 
 

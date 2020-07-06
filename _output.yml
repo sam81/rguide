@@ -8,10 +8,10 @@ bookdown::gitbook:
       scroll_highlight: yes
       after: |
         <li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
+    download: ["pdf"]	
     sharing:
       github: yes
       facebook: no
-    download: ["rguide.pdf"]	
 bookdown::pdf_book:
   #pandoc_args: --listings
   includes:
