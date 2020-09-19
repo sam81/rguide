@@ -14,15 +14,17 @@
   * add rmarkdown chapter?
   * add Bayesian stats (JAGS, STAN) chapter?
   * add chapter on psychophysics (dprime, psychometric functions)?
+
 - 01_getting_started_with_R:
   * add section on installing packages on Mac and say that you can use the `Linux` method of package installation also on Windows and Mac
   * add section with overview/map of the guide and links to jump around
 - 02_organizing_a_working_session:
  * add Rscript?
 - 03_data_manipulation:
+  * %in% operator
   * section on reshape2 and dcast / tidyr pivot_wider
 - 04_programming:
-  * add more about functions, e.g. `...` argument
+  * add more about functions, e.g. `...` argument, returning multiple arguments through lists
 - 05_file_IO:
   * add HDF5
 - 06_graphics

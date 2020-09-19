@@ -114,3 +114,40 @@ dat %>% filter(y>100) %>% count(fct)
 ## alternative version
 dat %>% group_by(fct) %>% filter(y>100) %>% tally()
 ```
+
+## Tests statistics with `dplyr` and `broom`
+
+The [`broom`](https://cran.r-project.org/web/packages/broom/) package converts the output of some R models to tibbles. As we will see below, used in conjunction with `dplyr` this provides a very efficient way of fitting models or performing statistical tests on grouped data. Let's first see an example of what `broom` does. We'll fit a simple linear regression model using the `iris` dataset. We'll first fit the model on the data of the setosa species only:
+```{r}
+data(iris)
+fit_single = lm(Petal.Length~Sepal.Length,
+                data=iris %>% filter(Species=="setosa"))
+```
+
+if we run `str(fit_single)` we can see that the output of `lm` is a list. We can get a nice printout of the results with `summary(fit_single)`, but while easy to read, such output is again stored in a list (you can check with `str(summary(fit_single))`) which is not easy to store or process further (e.g. combining the output with that of other model fits and storing in a CSV file). `broom` aims to solve this issue. The `tidy` function turns the coefficients and test statistics for each term of the model into a tibble:
+```{r}
+library(broom)
+tidy(fit_single)
+```
+
+the `glance` function turns parameters and statistics *global* to the model (as opposed to being specific to a given term) into a tibble:
+```{r}
+glance(fit_single)
+```
+
+finally the `augment` function computes statistics such as the fitted values and residuals that can be added back to the input dataframe, thus *augmenting* it.
+```{r}
+setosa_ag = augment(fit_single)
+head(setosa_ag)
+```
+
+Combined with `dplyr` the `broom` function makes fitting statistical models on grouped data efficient. Below we'll use again the `iris` dataset, but we'll use the whole dataset, fitting a separate model for each iris species in one go:
+```{r}
+fit_frame_tidy = iris %>% group_by(Species) %>%
+    summarize(lmfit=tidy(lm(Petal.Length~Sepal.Length)))
+fit_frame_tidy
+
+fit_frame_glance = iris %>% group_by(Species) %>%
+    summarize(lmfit=glance(lm(Petal.Length~Sepal.Length)))
+fit_frame_glance
+```

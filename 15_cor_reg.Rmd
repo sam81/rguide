@@ -5,18 +5,38 @@ source("global_parameters.R")
 knitr::opts_chunk$set(fig.width=fig.width, fig.height=fig.height)
 ```
 
-Let's imagine we want to see if there is a correlation between a manual and an oculomotor reaction time (RT) task. The manual RT task requires to press one of two buttons depending on the colour taken by the fixation point after a variable delay. The oculomotor RT task requires to make a saccade towards the right or the left depending on the colour taken by the fixation point. The mean RTs in milliseconds, for 37 subjects are in the file `m_o_rt.txt`. We read in the data, and then calculate the correlation for the sample:
+The function `cor` can be used to compute Pearson's $r$ correlation coefficient. For example, using the `iris` dataset we can compute the correlation between petal length and petal width for the setosa iris species as follows:
 ```{r}
-dat = read.table("datasets/m_o_rt.txt", header=TRUE)
-cor(dat$man, dat$ocul)
-cor(dat$man, dat$ocul)^2 ## R squared
+data(iris)
+iris_setosa = iris[iris$Species == "setosa",]
+cor(iris_setosa$Petal.Length, iris_setosa$Petal.Width)
 ```
-the correlation between the two measures in the sample is high, and it would account for ~60% of the variance. We need also to test if this correlation could be extended to the population:
-```{r}
-cor.test(dat$man, dat$ocul)
-```
-the *p*-value tells us that we can extend our finding in the population, so people with a quick hand would also have a quick eye.
 
+Kendall's $\tau$, or Spearman's $\rho$ rank correlation coefficients can be obtained with the same function by changing the `method` argument from its default value (`pearson`) to `kendall`, or `spearman`, e.g.:
+```{r}
+cor(iris_setosa$Petal.Length, iris_setosa$Petal.Width, method="kendall")
+```
+
+A significance test on the correlation coefficient can be obtain with the `cor.test` function:
+```{r}
+cor.test(iris_setosa$Petal.Length, iris_setosa$Petal.Width)
+```
+
+If we pass a matrix or dataframe to the `cor` function, it will compute the correlations between each pair of columns of the matrix/dataframe:
+```{r}
+cor(iris_setosa[, 1:4])
+```
+
+in the code above we selected columns 1-4 to remove the non-numerical column specifying the iris species. The `cor.test` function, however, cannot be passed a matrix or dataframe as input. The `rcorr` function in the [`Hmisc`](https://cran.r-project.org/web/packages/Hmisc/index.html) package can be used to compute correlations and significance tests between all the columns of a matrix:
+```{r}
+corr_mat = Hmisc::rcorr(as.matrix(iris_setosa[,1:4]))
+corr_mat$r # correlation coefficients
+corr_mat$P # corresponding p-values
+```
+
+note that `rcorr` can compute only Pearson's $r$ or Spearman's $\rho$ correlation coefficients, by passing an argument named `type` (rather than `method`, as for the `cor` function).
+
+Functions to compute partial, and semi-partial correlations are available in the [`ppcor`](https://cran.r-project.org/web/packages/ppcor/) package.
 
 ## Linear regression
 
